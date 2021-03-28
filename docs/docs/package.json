@@ -1,0 +1,19 @@
+{
+  "name": "pgCOVAPI",
+  "version": "0.0.1",
+  "description": "Realizzare un servizio API per fornire dati in formato JSON riguardanti l&#39;epidemia COVID in Italia, organizzati in diverse strutture per permetterne un facile utilizzo.",
+  "main": "index.js",
+  "authors": {
+    "name": "Silvio Caprara, Pietro Chiartano, Yun Qing Zhou",
+    "email": ""
+  },
+  "repository": "https://github.com/IJN-Shalma/pgCOVAPI/pgCOVAPI",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
