@@ -27,7 +27,7 @@
         "parameters": [
           {
             "name": "regione",
-            "in": "query",
+            "in": "path",
             "description": "Regione italiana da ricercare",
             "required": true,
             "style": "form",
@@ -46,43 +46,6 @@
                   "items": {
                     "$ref": "#/components/schemas/Pet"
                   }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new pet in the store. Duplicates are allowed",
-        "operationId": "addPet",
-        "requestBody": {
-          "description": "Pet to add to the store",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPet"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "pet response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pet"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -128,72 +91,109 @@
             }
           }
         }
-      },
-      "delete": {
-        "description": "deletes a single pet based on the ID supplied",
-        "operationId": "deletePet",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of pet to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "pet deleted"
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
       }
     }
   },
   "components": {
     "schemas": {
-      "Pet": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/NewPet"
-          },
-          {
-            "type": "object",
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
       "NewPet": {
         "type": "object",
         "required": [
           "name"
         ],
         "properties": {
-          "name": {
-            "type": "string"
+          "data": {
+            "type": "String"
           },
-          "tag": {
-            "type": "string"
+          "stato": {
+            "type": "String"
+          },
+          "codice_regione": {
+            "type": "Number"
+          },
+          "denominazione_regione": {
+            "type": "String"
+          },
+          "lat": {
+            "type": "Number"
+          },
+          "long": {
+            "type": "Number"
+          },
+          "ricoverati_con_sintomi": {
+            "type": "Number"
+          },
+          "terapia_intensiva": {
+            "type": "Number"
+          },
+          "totale_ospedalizzati": {
+            "type": "Number"
+          },
+          "isolamento_domiciliare": {
+            "type": "Number"
+          },
+          "totale_positivi": {
+            "type": "Number"
+          },
+          "variazione_totale_positivi": {
+            "type": "Number"
+          },
+          "nuovi_positivi": {
+            "type": "Number"
+          },
+          "dimessi_guariti": {
+            "type": "Number"
+          },
+          "deceduti": {
+            "type": "Number"
+          },
+          "casi_da_sospetto_diagnostico": {
+            "type": "Number"
+          },
+          "casi_da_screening": {
+            "type": "Number"
+          },
+          "totale_casi": {
+            "type": "Number"
+          },
+          "tamponi": {
+            "type": "Number"
+          },
+          "casi_testati": {
+            "type": "Number"
+          },
+          "note": {
+            "type": "String"
+          },
+          "ingressi_terapia_intensiva": {
+            "type": "Number"
+          },
+          "note_test": {
+            "type": "String"
+          },
+          "note_casi": {
+            "type": "String"
+          },
+          "totale_positivi_test_molecolare": {
+            "type": "Number"
+          }
+          ,
+          "totale_positivi_test_antigenico_rapido": {
+            "type": "Number"
+          }
+          ,
+          "tamponi_test_molecolare": {
+            "type": "Number"
+          }
+          ,
+          "tamponi_test_antigenico_rapido": {
+            "type": "Number"
+          },
+          "codice_nuts_1": {
+            "type": "String"
+          },
+          "codice_nuts_2": {
+            "type": "String"
           }
         }
       },

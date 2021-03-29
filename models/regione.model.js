@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 const regioneSchema = new Schema({
     data: { type: String },
     stato: { type: String },
-    codice_regione: {type: Number},
-    denominazione_regione: {type: String},
-    long: {type: Number},
-    codice_regione: {type: Number},
+    codice_regione: { type: Number },
+    denominazione_regione: { type: String },
+    lat: { type: Number },
+    long: { type: Number },
     ricoverati_con_sintomi: { type: Number },
     terapia_intensiva: { type: Number },
     totale_ospedalizzati: { type: Number },
@@ -17,8 +17,8 @@ const regioneSchema = new Schema({
     nuovi_positivi: { type: Number },
     dimessi_guariti: { type: Number },
     deceduti: { type: Number },
-    casi_da_sospetto_diagnostico: {},
-    casi_da_screening: {},
+    casi_da_sospetto_diagnostico: { type: Number },
+    casi_da_screening: { type: Number },
     totale_casi: { type: Number },
     tamponi: { type: Number },
     casi_testati: { type: Number },
@@ -29,7 +29,9 @@ const regioneSchema = new Schema({
     totale_positivi_test_molecolare: { type: Number },
     totale_positivi_test_antigenico_rapido: { type: Number },
     tamponi_test_molecolare: { type: Number },
-    tamponi_test_antigenico_rapido: { type: Number }
+    tamponi_test_antigenico_rapido: { type: Number },
+    codice_nuts_1: { type: String },
+    codice_nuts_2: { type: String }
 })
 
 const Regione = mongoose.model("Regione", regioneSchema, "report_regione");
