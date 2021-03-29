@@ -20,7 +20,7 @@
     }
   ],
   "paths": {
-    "/regione/:regione": {
+    "/regione/{regione}": {
       "get": {
         "description": "Ritorna tutti i dati riguardanti l'epidemia in una regione, organizzati per giorno dal primo giorno dell'epidemia all'ultimo giorno presente nel database\n",
         "operationId": "findRegione",
