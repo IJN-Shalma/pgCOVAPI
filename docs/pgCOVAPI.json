@@ -38,54 +38,14 @@
         ],
         "responses": {
           "200": {
-            "description": "pet response",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
+                  "type": "Object",
                   "items": {
-                    "$ref": "#/components/schemas/Pet"
+                    "$ref": "#/components/schemas/Regione"
                   }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/pets/{id}": {
-      "get": {
-        "description": "Returns a user based on a single ID, if the user does not have access to the pet",
-        "operationId": "find pet by id",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of pet to fetch",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "pet response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pet"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -96,11 +56,8 @@
   },
   "components": {
     "schemas": {
-      "NewPet": {
-        "type": "object",
-        "required": [
-          "name"
-        ],
+      "Regione": {
+        "type": "Object",
         "properties": {
           "data": {
             "type": "String"
@@ -176,16 +133,13 @@
           },
           "totale_positivi_test_molecolare": {
             "type": "Number"
-          }
-          ,
+          },
           "totale_positivi_test_antigenico_rapido": {
             "type": "Number"
-          }
-          ,
+          },
           "tamponi_test_molecolare": {
             "type": "Number"
-          }
-          ,
+          },
           "tamponi_test_antigenico_rapido": {
             "type": "Number"
           },
