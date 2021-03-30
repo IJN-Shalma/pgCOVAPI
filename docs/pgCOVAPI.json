@@ -30,22 +30,50 @@
             "in": "path",
             "description": "Regione italiana da ricercare",
             "required": true,
-            "style": "form",
             "schema": {
-              "type": "String"
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Risposta con un array di oggetti, ognuno rappresentante un giorno nella regione selezionata",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "Object",
-                  "items": {
-                    "$ref": "#/components/schemas/Regione"
-                  }
+                  "$ref": "#/components/schemas/Regione"
+                },
+                "example": {
+                  "data": "2021-03-27T17:00:00",
+                  "stato": "ITA",
+                  "codice_regione": 1,
+                  "denominazione_regione": "Piemonte",
+                  "lat": 45.0732745,
+                  "lon": 7.680687483,
+                  "ricoverati_con_sintomi": 3767,
+                  "terapia_intensiva": 360,
+                  "totale_ospedalizzati": 4127,
+                  "isolamento_domiciliare": 31458,
+                  "totale_positivi": 35585,
+                  "variazione_totale_positivi": 450,
+                  "nuovi_positivi": 2636,
+                  "dimessi_guariti": 256309,
+                  "deceduti": 10180,
+                  "casi_da_sospetto_diagnostico": null,
+                  "casi_da_screening": null,
+                  "totale_casi": 302074,
+                  "tamponi": 3231331,
+                  "casi_testati": 1484100,
+                  "note": null,
+                  "ingressi_terapia_intensiva": 27,
+                  "note_test": null,
+                  "note_casi": null,
+                  "totale_positivi_test_molecolare": 288766,
+                  "totale_positivi_test_antigenico_rapido": 13308,
+                  "tamponi_test_molecolare": 2350377,
+                  "tamponi_test_antigenico_rapido": 880954,
+                  "codice_nuts_1": "ITC",
+                  "codice_nuts_2": "ITC1"
                 }
               }
             }
@@ -57,97 +85,99 @@
   "components": {
     "schemas": {
       "Regione": {
-        "type": "Object",
+        "type": "object",
         "properties": {
           "data": {
-            "type": "String"
+            "type": "string"
           },
           "stato": {
-            "type": "String"
+            "type": "string"
           },
           "codice_regione": {
-            "type": "Number"
+            "type": "integer"
           },
           "denominazione_regione": {
-            "type": "String"
+            "type": "string"
           },
           "lat": {
-            "type": "Number"
+            "type": "number",
+            "format": "double"
           },
           "long": {
-            "type": "Number"
+            "type": "number",
+            "format": "double"
           },
           "ricoverati_con_sintomi": {
-            "type": "Number"
+            "type": "integer"
           },
           "terapia_intensiva": {
-            "type": "Number"
+            "type": "integer"
           },
           "totale_ospedalizzati": {
-            "type": "Number"
+            "type": "integer"
           },
           "isolamento_domiciliare": {
-            "type": "Number"
+            "type": "integer"
           },
           "totale_positivi": {
-            "type": "Number"
+            "type": "integer"
           },
           "variazione_totale_positivi": {
-            "type": "Number"
+            "type": "integer"
           },
           "nuovi_positivi": {
-            "type": "Number"
+            "type": "integer"
           },
           "dimessi_guariti": {
-            "type": "Number"
+            "type": "integer"
           },
           "deceduti": {
-            "type": "Number"
+            "type": "integer"
           },
           "casi_da_sospetto_diagnostico": {
-            "type": "Number"
+            "type": "integer"
           },
           "casi_da_screening": {
-            "type": "Number"
+            "type": "integer"
           },
           "totale_casi": {
-            "type": "Number"
+            "type": "integer"
           },
           "tamponi": {
-            "type": "Number"
+            "type": "integer"
           },
           "casi_testati": {
-            "type": "Number"
+            "type": "integer"
           },
           "note": {
-            "type": "String"
+            "type": "string"
           },
           "ingressi_terapia_intensiva": {
-            "type": "Number"
+            "type": "integer"
           },
           "note_test": {
-            "type": "String"
+            "type": "string"
           },
           "note_casi": {
-            "type": "String"
+            "type": "string"
           },
           "totale_positivi_test_molecolare": {
-            "type": "Number"
+            "type": "integer"
           },
           "totale_positivi_test_antigenico_rapido": {
-            "type": "Number"
+            "type": "integer"
           },
           "tamponi_test_molecolare": {
-            "type": "Number"
+            "type": "integer"
           },
           "tamponi_test_antigenico_rapido": {
-            "type": "Number"
+            "type": "integer"
           },
           "codice_nuts_1": {
-            "type": "String"
+            "type": "string"
           },
           "codice_nuts_2": {
-            "type": "String"
+            "type": "string"
           }
         }
       },
