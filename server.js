@@ -8,9 +8,9 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-//routes
-const regioniRouter = require('./routes/regione');
-
+//routes import
+const regioniRouter = require('./routes/api/regione');
+const nazioneRouter = require('./routes/api/nazione');
 
 app.use(cors());
 app.use(express.json());
@@ -24,19 +24,11 @@ connection.once('open', () => {
     console.log(chalk.green(`Connected to MongoDB`));
 });
 
+
 //routes setup
 app.use('/api/regione', regioniRouter);
+app.use('/api/nazione', nazioneRouter);
 
-//listen on port
 app.listen(port, () =>
     console.log(chalk.green(`Server in esecuzione sulla porta: ${port}`))
 )
-
-
-
-
-
-
-
-
-
