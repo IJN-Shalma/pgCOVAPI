@@ -8,14 +8,10 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-<<<<<<< Updated upstream
-=======
-//routes
-const regioniRouter = require('./routes/api/regione');
-const nazioneRouter = require('./routes/api/nazione');
+//routes import
+const regioniRouter = require('./api/routes/regione');
+const nazioneRouter = require('./api/routes/regione');
 
-
->>>>>>> Stashed changes
 app.use(cors());
 app.use(express.json());
 
@@ -29,15 +25,11 @@ connection.once('open', () => {
 })
 
 
-const regioniRouter = require('./routes/regione');
 
-<<<<<<< Updated upstream
-app.use('/regione', regioniRouter);
-=======
+
 //routes setup
 app.use('/api/regione', regioniRouter);
 app.use('/api/nazione', nazioneRouter);
->>>>>>> Stashed changes
 
 app.listen(port, () =>
     console.log(chalk.green(`Server in esecuzione sulla porta: ${port}`))
