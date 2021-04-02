@@ -9,8 +9,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 //routes import
-const regioniRouter = require('./api/routes/regione');
-const nazioneRouter = require('./api/routes/regione');
+const regioniRouter = require('./routes/api/regione');
+const nazioneRouter = require('./routes/api/nazione');
 
 app.use(cors());
 app.use(express.json());
@@ -23,8 +23,6 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log(chalk.green(`Connected to MongoDB`));
 })
-
-
 
 
 //routes setup
