@@ -1,21 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const regioneSchema = new Schema({
+const nazioneSchema = new Schema({
     data: { type: String },
     stato: { type: String },
-<<<<<<< Updated upstream
-    codice_regione: { type: Number },
-    denominazione_regione: { type: String },
-    lat: { type: Number },
-    long: { type: Number },
-=======
     codice_regione: {type: Number},
-    denominazione_regione: {type: String},
-    lat: {type: Number},
-    long: {type: Number},
-    codice_regione: {type: Number},
->>>>>>> Stashed changes
     ricoverati_con_sintomi: { type: Number },
     terapia_intensiva: { type: Number },
     totale_ospedalizzati: { type: Number },
@@ -37,11 +26,9 @@ const regioneSchema = new Schema({
     totale_positivi_test_molecolare: { type: Number },
     totale_positivi_test_antigenico_rapido: { type: Number },
     tamponi_test_molecolare: { type: Number },
-    tamponi_test_antigenico_rapido: { type: Number },
-    codice_nuts_1: { type: String },
-    codice_nuts_2: { type: String }
-})
+    tamponi_test_antigenico_rapido: { type: Number }
+});
 
-const Regione = mongoose.model("Regione", regioneSchema, "report_regione");
+const Nazione = mongoose.model("Nazione", nazioneSchema, "report_nazione");
 
-module.exports = Regione;
+module.exports = Nazione;

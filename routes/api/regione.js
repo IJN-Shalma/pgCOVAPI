@@ -1,5 +1,9 @@
 const router = require('express').Router();
+<<<<<<< Updated upstream:routes/regione.js
 let Regione = require("../models/regione.model")
+=======
+let Regione = require("../../models/regione.model");
+>>>>>>> Stashed changes:routes/api/regione.js
 
 router.route('/').get((req, res) => {
     Regione.find()
