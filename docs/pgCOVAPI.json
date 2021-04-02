@@ -16,7 +16,7 @@
   },
   "servers": [
     {
-      "url": "https://pgcovapi.herokuapp.com/"
+      "url": "https://pgcovapi.herokuapp.com/api/"
     }
   ],
   "paths": {
