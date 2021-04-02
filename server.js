@@ -8,23 +8,26 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
+//routes
+const regioniRouter = require('./routes/regione');
+
+
 app.use(cors());
 app.use(express.json());
 
-
+//DB connection
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log(chalk.green(`Connected to MongoDB`));
-})
+});
 
+//routes setup
+app.use('/api/regione', regioniRouter);
 
-const regioniRouter = require('./routes/regione');
-
-app.use('/regione', regioniRouter);
-
+//listen on port
 app.listen(port, () =>
     console.log(chalk.green(`Server in esecuzione sulla porta: ${port}`))
 )
