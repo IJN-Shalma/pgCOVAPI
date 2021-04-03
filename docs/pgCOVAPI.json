@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "0.1",
+    "version": "0.2",
     "title": "pgCOVAPI",
-    "description": "API che fornisce dati riguardo l'epidemia COVID in Italia",
+    "description": "API che fornisce dati riguardo l'epidemia COVID in Italia. <br> Progetto maturità 2021 5^C Informatica IIS A.Avogadro. <br> <b>Alunni:</b> Silvio Caprara, Pietro Chiartano, Yun Qing Zhou.",
     "termsOfService": "",
     "contact": {
       "name": "",
@@ -19,22 +19,50 @@
       "url": "https://pgcovapi.herokuapp.com/api/"
     }
   ],
+  "tags": [
+    {
+      "name": "Regioni",
+      "description": "Dati COVID delle singole regioni"
+    }
+  ],
   "paths": {
-    "/regione/{regione}": {
+    "/regioni/{regione}": {
       "get": {
-        "description": "Ritorna tutti i dati riguardanti l'epidemia in una regione, organizzati per giorno dal primo giorno dell'epidemia all'ultimo giorno presente nel database\n",
+        "tags": [
+          "Regioni"
+        ],
+        "description": "Ritorna tutti i dati riguardanti l'epidemia in una regione, organizzati per giorno dal primo giorno dell'epidemia all'ultimo giorno presente nel database.\n",
         "operationId": "findRegione",
         "parameters": [
           {
             "name": "regione",
             "in": "path",
-            "description": "Regione italiana da ricercare",
+            "description": "Regione italiana da ricercare. La prima lettera deve essere maiuscola.",
             "required": true,
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "mese",
+            "in": "query",
+            "description": "Mese da ricercare. Va riportato in formato <b>mm-yyyy</b>, ad esempio 09-2020 per ottenere i dati del mese di settembre 2020.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "giorni",
+            "in": "query",
+            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Il parametro giorni, se riportato insieme al parametro mese, viene ignorato.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
           }
         ],
+        "summary": "Ritorna tutti i dati riguardanti l'epidemia in una regione, organizzati per giorno dal primo giorno dell'epidemia all'ultimo giorno presente nel database.",
         "responses": {
           "200": {
             "description": "Risposta con un array di oggetti, ognuno rappresentante un giorno nella regione selezionata",
@@ -74,6 +102,91 @@
                   "tamponi_test_antigenico_rapido": 880954,
                   "codice_nuts_1": "ITC",
                   "codice_nuts_2": "ITC1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regioni/{regione}/{campo}": {
+      "get": {
+        "tags": [
+          "Regioni"
+        ],
+        "description": "Ritorna tutti i dati riguardanti l'epidemia in una regione, con la possibilità di specificare solo il campo voluto.\n",
+        "operationId": "findRegioneCampo",
+        "parameters": [
+          {
+            "name": "regione",
+            "in": "path",
+            "description": "Regione italiana da ricercare. La prima lettera deve essere maiuscola.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "campo",
+            "in": "path",
+            "description": "Campo specifico da ritornare. I campi <b>data</b>, <b>stato</b>, <b>codice_regione</b> e <b>denominazione_regione</b> sono ritornati in ogni caso.",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "ricoverati_con_sintomi",
+              "terapia_intensiva",
+              "totale_ospedalizzati",
+              "isolamento_domiciliare",
+              "totale_positivi",
+              "variazione_totale_positivi",
+              "nuovi_positivi",
+              "dimessi_guariti",
+              "deceduti",
+              "totale_casi",
+              "tamponi",
+              "casi_testati",
+              "ingressi_terapia_intensiva",
+              "totale_positivi_test_molecolare",
+              "totale_positivi_test_antigenico_rapido",
+              "tamponi_test_molecolare",
+              "tamponi_test_antigenico_rapido"
+            ]
+          },
+          {
+            "name": "mese",
+            "in": "query",
+            "description": "Mese da ricercare. Va riportato in formato <b>mm-yyyy</b>, ad esempio 09-2020 per ottenere i dati del mese di settembre 2020.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "giorni",
+            "in": "query",
+            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Il parametro giorni, se riportato insieme al parametro mese, viene ignorato.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "summary": "Ritorna tutti i dati riguardanti l'epidemia in una regione con la possibilità di selezionare il campo voluto.",
+        "responses": {
+          "200": {
+            "description": "Risposta con un array di oggetti, ognuno rappresentante un giorno nella regione selezionata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Regione"
+                },
+                "example": {
+                  "data": "2021-03-27T17:00:00",
+                  "stato": "ITA",
+                  "codice_regione": 1,
+                  "denominazione_regione": "Piemonte",
+                  "ricoverati_con_sintomi": 3767,
+                  "terapia_intensiva": 360
                 }
               }
             }
