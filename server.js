@@ -24,9 +24,8 @@ connection.once('open', () => {
     console.log(chalk.green(`Connected to MongoDB`));
 });
 
-
 //routes setup
-app.use('/api/regione', regioniRouter);
+app.use('/api/regioni', regioniRouter);
 app.use('/api/nazione', nazioneRouter);
 
 app.listen(port, () =>
