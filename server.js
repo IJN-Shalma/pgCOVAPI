@@ -35,4 +35,4 @@ app.listen(port, () =>
     console.log(chalk.green(`Server in esecuzione sulla porta: ${port}`))
 )
 
-scheduler.scheduleJob('00 20 * * *',  scripts.updateRegioni);
+const job = scheduler.scheduleJob('00 00 * * * *',  scripts.updateRegioni);
