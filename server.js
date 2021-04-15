@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const chalk = require('chalk');
+const scripts = require('./scripts/updater')
+const scheduler = require("node-schedule")
 
 require('dotenv').config();
 
@@ -22,6 +24,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedT
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log(chalk.green(`Connected to MongoDB`));
+   
 });
 
 //routes setup
@@ -31,3 +34,5 @@ app.use('/api/nazione', nazioneRouter);
 app.listen(port, () =>
     console.log(chalk.green(`Server in esecuzione sulla porta: ${port}`))
 )
+
+scheduler.scheduleJob('00 20 * * *',  scripts.updateRegioni);

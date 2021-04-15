@@ -40,4 +40,10 @@ router.route('/:campo?').get((req, res) => {
         .catch(err => res.status(400).json('Error: ') + err);
 });
 
+
+function loadBasicParams(param) {
+    return [param, "data", "stato", "codice_regione", "denominazione_regione"].join(" ");
+}
+
+
 module.exports = router;
