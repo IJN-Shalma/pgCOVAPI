@@ -24,7 +24,6 @@ mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedT
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log(chalk.green(`Connected to MongoDB`));
-   
 });
 
 //routes setup
@@ -35,4 +34,5 @@ app.listen(port, () =>
     console.log(chalk.green(`Server in esecuzione sulla porta: ${port}`))
 )
 
-const job = scheduler.scheduleJob('00 00 * * * *',  scripts.updateRegioni);
+const regioniJob = scheduler.scheduleJob('00 00 * * * *',  scripts.updateRegioni);
+const nazioniJob = scheduler.scheduleJob('00 01 * * * *',  scripts.updateNazioni);
