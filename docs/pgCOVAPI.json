@@ -23,6 +23,10 @@
     {
       "name": "Regioni",
       "description": "Dati COVID delle singole regioni"
+    },
+    {
+      "name": "Nazione",
+      "description": "Dati COVID per l'andamento dell'intera nazione"
     }
   ],
   "paths": {
@@ -32,7 +36,7 @@
           "Regioni"
         ],
         "description": "Ritorna tutti i dati riguardanti l'epidemia in una regione, organizzati per giorno dal primo giorno dell'epidemia all'ultimo giorno presente nel database.\n",
-        "operationId": "findAll",
+        "operationId": "RegionifindAll",
         "parameters": [
           {
             "name": "mese",
@@ -106,7 +110,7 @@
           "Regioni"
         ],
         "description": "Ritorna tutti i dati riguardanti l'epidemia in una regione, organizzati per giorno dal primo giorno dell'epidemia all'ultimo giorno presente nel database.\n",
-        "operationId": "findRegione",
+        "operationId": "RegionifindRegione",
         "parameters": [
           {
             "name": "regione",
@@ -183,13 +187,90 @@
         }
       }
     },
+    "/regioni/{campo}": {
+      "get": {
+        "tags": [
+          "Regioni"
+        ],
+        "description": "Ritorna tutti i dati riguardanti l'epidemia in tutte le regioni, con la possibilità di specificare solo il campo voluto.\n",
+        "operationId": "RegionifindAllCampo",
+        "parameters": [
+          {
+            "name": "campo",
+            "in": "path",
+            "description": "Campo specifico da ritornare. I campi <b>data</b>, <b>stato</b>, <b>codice_regione</b> e <b>denominazione_regione</b> sono ritornati in ogni caso.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ricoverati_con_sintomi",
+                "terapia_intensiva",
+                "totale_ospedalizzati",
+                "isolamento_domiciliare",
+                "totale_positivi",
+                "variazione_totale_positivi",
+                "nuovi_positivi",
+                "dimessi_guariti",
+                "deceduti",
+                "totale_casi",
+                "tamponi",
+                "casi_testati",
+                "ingressi_terapia_intensiva",
+                "totale_positivi_test_molecolare",
+                "totale_positivi_test_antigenico_rapido",
+                "tamponi_test_molecolare",
+                "tamponi_test_antigenico_rapido"
+              ]
+            }
+          },
+          {
+            "name": "mese",
+            "in": "query",
+            "description": "Mese da ricercare. Va riportato in formato <b>mm-yyyy</b>, ad esempio 09-2020 per ottenere i dati del mese di settembre 2020.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "giorni",
+            "in": "query",
+            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Il parametro giorni, se riportato insieme al parametro mese, viene ignorato.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "summary": "Ritorna tutti i dati riguardanti l'epidemia in tutte le regioni, con la possibilità di specificare solo il campo voluto.",
+        "responses": {
+          "200": {
+            "description": "Risposta con un array di oggetti, ognuno rappresentante un giorno in una regione",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Regione"
+                },
+                "example": {
+                  "data": "2021-03-27T17:00:00",
+                  "stato": "ITA",
+                  "codice_regione": 1,
+                  "denominazione_regione": "Piemonte",
+                  "totale_positivi": 35585
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/regioni/{regione}/{campo}": {
       "get": {
         "tags": [
           "Regioni"
         ],
         "description": "Ritorna tutti i dati riguardanti l'epidemia in una regione, con la possibilità di specificare solo il campo voluto.\n",
-        "operationId": "findRegioneCampo",
+        "operationId": "RegionifindRegioneCampo",
         "parameters": [
           {
             "name": "regione",
@@ -262,6 +343,149 @@
                   "codice_regione": 1,
                   "denominazione_regione": "Piemonte",
                   "totale_positivi": 35585
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nazione/": {
+      "get": {
+        "tags": [
+          "Nazione"
+        ],
+        "description": "Ritorna tutti i dati riguardanti l'epidemia nella nazione raggruppati per giorno\n",
+        "operationId": "NazionefindAll",
+        "parameters": [
+          {
+            "name": "mese",
+            "in": "query",
+            "description": "Mese da ricercare. Va riportato in formato <b>mm-yyyy</b>, ad esempio 09-2020 per ottenere i dati del mese di settembre 2020.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "giorni",
+            "in": "query",
+            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Il parametro giorni, se riportato insieme al parametro mese, viene ignorato.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "summary": "Ritorna tutti i dati riguardanti l'epidemia nella nazione raggruppati per giorno.",
+        "responses": {
+          "200": {
+            "description": "Risposta con un array di oggetti, ognuno rappresentante un giorno nella nazione",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Nazione"
+                },
+                "example": {
+                  "data": "2021-03-28T17:00:00",
+                  "stato": "ITA",
+                  "ricoverati_con_sintomi": 28701,
+                  "terapia_intensiva": 3679,
+                  "totale_ospedalizzati": 32380,
+                  "isolamento_domiciliare": 540855,
+                  "totale_positivi": 573235,
+                  "variazione_totale_positivi": 1357,
+                  "nuovi_positivi": 19611,
+                  "dimessi_guariti": 2850889,
+                  "deceduti": 107933,
+                  "casi_da_sospetto_diagnostico": null,
+                  "casi_da_screening": null,
+                  "totale_casi": 3532057,
+                  "tamponi": 49093293,
+                  "casi_testati": 22718748,
+                  "note": null,
+                  "ingressi_terapia_intensiva": 217,
+                  "note_test": null,
+                  "note_casi": null,
+                  "totale_positivi_test_molecolare": 3424211,
+                  "totale_positivi_test_antigenico_rapido": 107846,
+                  "tamponi_test_molecolare": 39824085,
+                  "tamponi_test_antigenico_rapido": 9269208
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nazione/{campo}": {
+      "get": {
+        "tags": [
+          "Nazione"
+        ],
+        "description": "Ritorna i dati riguardanti l'epidemia nella nazione raggruppati per giorno con la possibilità di specificare il campo voluto\n",
+        "operationId": "NazionefindCampo",
+        "parameters": [
+          {
+            "name": "campo",
+            "in": "path",
+            "description": "Campo specifico da ritornare. I campi <b>data</b>, <b>stato</b>, <b>codice_regione</b> e <b>denominazione_regione</b> sono ritornati in ogni caso.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ricoverati_con_sintomi",
+                "terapia_intensiva",
+                "totale_ospedalizzati",
+                "isolamento_domiciliare",
+                "totale_positivi",
+                "variazione_totale_positivi",
+                "nuovi_positivi",
+                "dimessi_guariti",
+                "deceduti",
+                "totale_casi",
+                "tamponi",
+                "casi_testati",
+                "ingressi_terapia_intensiva",
+                "totale_positivi_test_molecolare",
+                "totale_positivi_test_antigenico_rapido",
+                "tamponi_test_molecolare",
+                "tamponi_test_antigenico_rapido"
+              ]
+            }
+          },
+          {
+            "name": "mese",
+            "in": "query",
+            "description": "Mese da ricercare. Va riportato in formato <b>mm-yyyy</b>, ad esempio 09-2020 per ottenere i dati del mese di settembre 2020.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "giorni",
+            "in": "query",
+            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Il parametro giorni, se riportato insieme al parametro mese, viene ignorato.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "summary": "Ritorna i dati riguardanti l'epidemia nella nazione raggruppati per giorno con la possibilità di specificare il campo voluto",
+        "responses": {
+          "200": {
+            "description": "Risposta con un array di oggetti, ognuno rappresentante un giorno nella nazione",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Nazione"
+                },
+                "example": {
+                  "data": "2021-03-27T17:00:00",
+                  "stato": "ITA",
+                  "totale_positivi": 571878
                 }
               }
             }
@@ -366,6 +590,86 @@
           },
           "codice_nuts_2": {
             "type": "string"
+          }
+        }
+      },
+      "Nazione": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string"
+          },
+          "stato": {
+            "type": "string"
+          },
+          "ricoverati_con_sintomi": {
+            "type": "integer"
+          },
+          "terapia_intensiva": {
+            "type": "integer"
+          },
+          "totale_ospedalizzati": {
+            "type": "integer"
+          },
+          "isolamento_domiciliare": {
+            "type": "integer"
+          },
+          "totale_positivi": {
+            "type": "integer"
+          },
+          "variazione_totale_positivi": {
+            "type": "integer"
+          },
+          "nuovi_positivi": {
+            "type": "integer"
+          },
+          "dimessi_guariti": {
+            "type": "integer"
+          },
+          "deceduti": {
+            "type": "integer"
+          },
+          "casi_da_sospetto_diagnostico": {
+            "type": "integer"
+          },
+          "casi_da_screening": {
+            "type": "integer"
+          },
+          "totale_casi": {
+            "type": "integer"
+          },
+          "tamponi": {
+            "type": "integer"
+          },
+          "casi_testati": {
+            "type": "integer"
+          },
+          "note": {
+            "type": "string"
+          },
+          "ingressi_terapia_intensiva": {
+            "type": "integer"
+          },
+          "note_test": {
+            "type": "string"
+          },
+          "note_casi": {
+            "type": "string"
+          },
+          "totale_positivi_test_molecolare": {
+            "type": "integer"
+          },
+          "totale_positivi_test_antigenico_rapido": {
+            "type": "integer"
+          },
+          "tamponi_test_molecolare": {
+            "type": "integer"
+          },
+          "tamponi_test_antigenico_rapido": {
+            "type": "integer"
+          },
+          "__v": {
+            "type": "integer"
           }
         }
       },

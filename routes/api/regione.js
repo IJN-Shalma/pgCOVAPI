@@ -1,7 +1,16 @@
 const router = require('express').Router();
 let Regione = require("../../models/regione.model")
 
-router.route('/').get((req, res) => {
+/**
+ * /regioni/
+ * /regioni/{totale_positivi}
+ * /regioni/?mese={02-2020}
+ * /regioni/?giorni={30}
+ * @route api/regioni
+ * @desc Get Informazioni Covid per tutte le regioni
+ * @access Public
+ **/
+router.route('/:campo?').get((req, res) => {
     const pMese = req.query.mese || null;
     var param = req.params.campo || null;
     let days = req.query.giorni || null;
@@ -32,12 +41,22 @@ router.route('/').get((req, res) => {
     }
 
     Regione.find(query)
-        .sort({ "data": 1 })
+        .sort({ "data": 1, "denominazione_regione" : 1})
+        .select(param)
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
 
+/**
+ * /regioni/{Piemonte}/
+ * /regioni/{Piemonte}/{totale_positivi}
+ * /regioni/{Piemonte}/?mese={02-2020}
+ * /regioni/{Piemonte}/?giorni={30}
+ * @route api/regioni
+ * @desc Get Informazioni Covid per regione
+ * @access Public
+**/
 router.route('/:regione/:campo?').get((req, res) => {
     const pMese = req.query.mese || null;
     var param = req.params.campo || null;
@@ -59,7 +78,7 @@ router.route('/:regione/:campo?').get((req, res) => {
     if (param) {
         param = loadBasicParams(param);
     }
-
+    
     query.denominazione_regione = req.params.regione;
 
     if (pMese) {
@@ -71,7 +90,7 @@ router.route('/:regione/:campo?').get((req, res) => {
     }
 
     Regione.find(query)
-        .sort({ "data": 1 })
+        .sort({ "data": 1 , "denominazione_regione" : 1})
         .select(param)
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ') + err);

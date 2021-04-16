@@ -2,19 +2,26 @@ const express = require('express');
 const router = express.Router();
 let Nazione = require("../../models/nazione.model");
 
-
+/**
+ * @route /api/nazione
+ * @route /nazione/{totale_positivi}
+ * @route /nazione/?mese={02-2020}
+ * @route /nazione/?giorni={30}
+ * @desc Get Informazioni Covid per riguardanti
+ * @access Public
+ */
 router.route('/:campo?').get((req, res) => {
     const pMese = req.query.mese || null;
     var param = req.params.campo || null;
     let days = req.query.giorni || null;
     let query = {};
 
-    if(days){
+    if (days) {
         let date = new Date();
         date.setDate(date.getDate() - days);
-        query.data = {$gte: date.toISOString()};
+        query.data = { $gte: date.toISOString() };
 
-        if(days <= 0){
+        if (days <= 0) {
             res.status(400);
             res.send("Il parametro giorni deve essere maggiore di 0");
             return;
@@ -40,6 +47,12 @@ router.route('/:campo?').get((req, res) => {
         .catch(err => res.status(400).json('Error: ') + err);
 });
 
+
+/**
+ * Prepares must parameters for Schema#select
+ * @param {*} param Parameter name in collection
+ * @returns Array of strings (parameters names)
+ */
 
 function loadBasicParams(param) {
     return [param, "data", "stato", "codice_regione", "denominazione_regione"].join(" ");

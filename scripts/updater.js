@@ -3,9 +3,12 @@ let Nazione = require("../models/nazione.model")
 let Axios = require("axios");
 let fs = require("fs")
 
+
+/**
+ * Automated Updater for the Regioni collection
+ */
+
 async function updateRegioni() {
-
-
     const lastDatePromise = new Promise((resolve, reject) => {
         Regione.find()
             .sort({ "data": -1 })
@@ -40,13 +43,10 @@ async function updateRegioni() {
     }
 }
 
-
 /**
- * 
+ * Automated Updater for the Nazioni collection
  */
 async function updateNazioni() {
-
-
     const lastDatePromise = new Promise((resolve, reject) => {
         Nazione.find()
             .sort({ "data": -1 })
