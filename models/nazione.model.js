@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const nazioneSchema = new Schema({
     data: { type: String },
     stato: { type: String },
-    codice_regione: {type: Number},
     ricoverati_con_sintomi: { type: Number },
     terapia_intensiva: { type: Number },
     totale_ospedalizzati: { type: Number },

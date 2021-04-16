@@ -1,19 +1,105 @@
 const router = require('express').Router();
-let Regione = require("../../models/regione.model");
+let Regione = require("../../models/regione.model")
 
-router.route('/').get((req, res) => {
-    Regione.find()
-        .sort({data: 1, denominazione_regione: 1})
+/**
+ * /regioni/
+ * /regioni/{totale_positivi}
+ * /regioni/?mese={02-2020}
+ * /regioni/?giorni={30}
+ * @route api/regioni
+ * @desc Get Informazioni Covid per tutte le regioni
+ * @access Public
+ **/
+router.route('/:campo?').get((req, res) => {
+    const pMese = req.query.mese || null;
+    var param = req.params.campo || null;
+    let days = req.query.giorni || null;
+    let query = {};
+
+    if (days) {
+        let date = new Date();
+        date.setDate(date.getDate() - days);
+        query = { "data": { $gte: date.toISOString() } };
+
+        if (days <= 0) {
+            res.status(400);
+            res.send("Il parametro giorni deve essere maggiore di 0");
+            return;
+        }
+    }
+
+    if (param) {
+        param = loadBasicParams(param);
+    }
+
+    if (pMese) {
+        //spMese[0] = Mese
+        //spMese[1] = Anno
+        let spMese = pMese.split('-');
+        spMese[0].length == 1 && spMese[0] < 10 ? spMese[0] = "".concat("0", spMese[0]) : null;
+        query.data = { $gte: spMese[1] + "-" + spMese[0] + "-0", $lte: spMese[1] + "-" + spMese[0] + "31" }
+    }
+
+    Regione.find(query)
+        .sort({ "data": 1, "denominazione_regione" : 1})
+        .select(param)
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
 
-router.route('/:regione').get((req, res) => {
-    Regione.find({'denominazione_regione': req.params.regione})
+/**
+ * /regioni/{Piemonte}/
+ * /regioni/{Piemonte}/{totale_positivi}
+ * /regioni/{Piemonte}/?mese={02-2020}
+ * /regioni/{Piemonte}/?giorni={30}
+ * @route api/regioni
+ * @desc Get Informazioni Covid per regione
+ * @access Public
+**/
+router.route('/:regione/:campo?').get((req, res) => {
+    const pMese = req.query.mese || null;
+    var param = req.params.campo || null;
+    let days = req.query.giorni || null;
+    let query = {};
+
+    if (days) {
+        let date = new Date();
+        date.setDate(date.getDate() - days);
+        query.data = { $gte: date.toISOString() };
+
+        if (days <= 0) {
+            res.status(400);
+            res.send("Il parametro giorni deve essere maggiore di 0");
+            return;
+        }
+    }
+
+    if (param) {
+        param = loadBasicParams(param);
+    }
+    
+    query.denominazione_regione = req.params.regione;
+
+    if (pMese) {
+        //spMese[0] = Mese
+        //spMese[1] = Anno
+        let spMese = pMese.split('-');
+        spMese[0].length == 1 && spMese[0] < 10 ? spMese[0] = "".concat("0", spMese[0]) : null;
+        query.data = { $gte: spMese[1] + "-" + spMese[0] + "-0", $lte: spMese[1] + "-" + spMese[0] + "31" }
+    }
+
+    Regione.find(query)
+        .sort({ "data": 1 , "denominazione_regione" : 1})
+        .select(param)
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ') + err);
 });
+
+
+function loadBasicParams(param) {
+    return [param, "data", "stato", "codice_regione", "denominazione_regione"].join(" ");
+}
 
 
 module.exports = router;
