@@ -10,7 +10,7 @@ let Regione = require("../../models/regione.model")
  * @desc Get Informazioni Covid per tutte le regioni
  * @access Public
  **/
-router.route('/:campo?').get((req, res) => {
+/*router.route('/:campo?').get((req, res) => {
     const pMese = req.query.mese || null;
     var param = req.params.campo || null;
     let days = req.query.giorni || null;
@@ -46,7 +46,7 @@ router.route('/:campo?').get((req, res) => {
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ' + err));
 });
-
+*/
 
 /**
  * /regioni/{Piemonte}/
@@ -79,7 +79,9 @@ router.route('/:regione/:campo?').get((req, res) => {
         param = loadBasicParams(param);
     }
     
-    query.denominazione_regione = req.params.regione;
+    if(req.params.regione != "all"){
+        query.denominazione_regione = req.params.regione;
+    }
 
     if (pMese) {
         //spMese[0] = Mese
@@ -91,7 +93,7 @@ router.route('/:regione/:campo?').get((req, res) => {
 
     Regione.find(query)
         .sort({ "data": 1 , "denominazione_regione" : 1})
-        .select(param)
+        //.select(param)
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ') + err);
 });
