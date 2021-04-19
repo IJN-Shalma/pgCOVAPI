@@ -3,16 +3,16 @@ let Regione = require("../../models/regione.model")
 
 /**
  * /regioni/
- * /regioni/{totale_positivi}
+ * /regioni/?campo=totale_positivi
  * /regioni/?mese={02-2020}
  * /regioni/?giorni={30}
  * @route api/regioni
  * @desc Get Informazioni Covid per tutte le regioni
  * @access Public
  **/
-/*router.route('/:campo?').get((req, res) => {
+router.route('/').get((req, res) => {
     const pMese = req.query.mese || null;
-    var param = req.params.campo || null;
+    var param = req.query.campo || null;
     let days = req.query.giorni || null;
     let query = {};
 
@@ -46,7 +46,7 @@ let Regione = require("../../models/regione.model")
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ' + err));
 });
-*/
+
 
 /**
  * /regioni/{Piemonte}/
@@ -56,12 +56,14 @@ let Regione = require("../../models/regione.model")
  * @route api/regioni
  * @desc Get Informazioni Covid per regione
  * @access Public
-**/
-router.route('/:regione/:campo?').get((req, res) => {
+*/
+router.route('/:regione').get((req, res) => {
     const pMese = req.query.mese || null;
-    var param = req.params.campo || null;
+    var param = req.query.campo || null;
     let days = req.query.giorni || null;
     let query = {};
+
+    query.denominazione_regione = req.params.regione;
 
     if (days) {
         let date = new Date();
@@ -79,10 +81,6 @@ router.route('/:regione/:campo?').get((req, res) => {
         param = loadBasicParams(param);
     }
     
-    if(req.params.regione != "all"){
-        query.denominazione_regione = req.params.regione;
-    }
-
     if (pMese) {
         //spMese[0] = Mese
         //spMese[1] = Anno
@@ -93,7 +91,7 @@ router.route('/:regione/:campo?').get((req, res) => {
 
     Regione.find(query)
         .sort({ "data": 1 , "denominazione_regione" : 1})
-        //.select(param)
+        .select(param)
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ') + err);
 });
