@@ -39,15 +39,6 @@
         "operationId": "RegionifindRegione",
         "parameters": [
           {
-            "name": "regione",
-            "in": "path",
-            "description": "Regione italiana da ricercare (inserire \"all\" per visualizzare tutte le regioni). La prima lettera deve essere maiuscola.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "campo",
             "in": "query",
             "description": "Campo specifico da ritornare. I campi <b>data</b>, <b>stato</b>, <b>codice_regione</b> e <b>denominazione_regione</b> sono ritornati in ogni caso.",
