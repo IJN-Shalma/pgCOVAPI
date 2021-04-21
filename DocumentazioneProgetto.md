@@ -10,12 +10,11 @@
 
    1. [DBMS noSQL MongoDB](#DBMS%20noSQL%20MongoDB)
    2. [Backend (API)](#Backend%20(API))
-
-      1. [Documentazione API con SwaggerUI](#Documentazione%20API%20con%20SwaggerUI)
-
-   3. [Frontend](#Frontend)
+1. [Documentazione API con SwaggerUI](#Documentazione%20API%20con%20SwaggerUI)
+      
+3. [Frontend](#Frontend)
    4. [Deployment su Heroku](#Deployment%20su%20Heroku)
-
+   
 6. [Sicurezza](#Sicurezza)
 7. [Comunicazione](#Comunicazione)
 8. [Sitografia e Bigliografia](#Sitrografia%20e%20Bibliografia)
@@ -27,8 +26,6 @@
 Realizzazione di un’applicazione web composta da un sito web dinamico a pagina singola nel frontend (Single Page Application) e una API (Application Program Interface) nel backend. Il tutto sarà realizzato con il  MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS).
 L'applicazione web permetterà di visualizzare graficamente gli Open Date ricevuti tramite l'API situata nel backend dell'applicazione che andrà ad interrogare il database MongoDB.
 <br>
-
-## Scenario e casi d'uso
 
 ## Open Data Covid-19
 I dati forniti dall'API provengono dalla repository [Github della Protezione Civile](https://github.com/pcm-dpc/COVID-19) e sono successivamente importati dentro il database MongoDB Atlas. La sorgente viene aggiornata ogni giorno alle 18:30 e tramite uno script automatizzato  (scheduler) viene a sua volta aggiornato anche il database. <br>
@@ -112,6 +109,8 @@ Il secondo file riporta invece i dati di ogni giornata in ogni regione
 }
 ```
 
+
+
 ## Workflow Github
 
 GitHub è un servizio web e cloud-based che aiuta gli sviluppatori ad archiviare e gestire il loro codice e a tracciare e controllare le modifiche.<br>
@@ -134,8 +133,19 @@ In particolare, Git è un sistema di controllo versioni distribuito, il che sign
 
 ## MERN Stack
 
+sLa sigla **MERN** sta per MongoDB, ExpressJS, ReactJS, NodeJS e sono le quattro tecnologie principali che formano un'applicazione MERN
 
-<br>
+- MongoDB - DBMS
+- ExpressJS - Framework WEB per NodeJS
+- ReactJS - Libreria JavaScript per front-end
+- NodeJS - WebServer JavaScript
+
+Il MERN stack è una delle varianti dell'originale **MEAN** stack (MongoDB, Express, Angular, Node). Esistono altri stack come il **MENV** (MongoDB, Express, Vue, Node).
+
+**3 Tier Architecture**
+Il MERN stack permette di creare una struttura a tre livelli: Frontend, Backend, Database. Il solo linguaggio utilizzato è JavaScript e i dati vengono scambiati in formato JSON.
+
+
 
 ### DBMS noSQL MongoDB
 
