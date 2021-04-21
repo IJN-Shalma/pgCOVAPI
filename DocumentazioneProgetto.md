@@ -145,54 +145,25 @@ Il MERN stack è una delle varianti dell'originale **MEAN** stack (MongoDB, Expr
 **3 Tier Architecture**
 Il MERN stack permette di creare una struttura a tre livelli: Frontend, Backend, Database. Il solo linguaggio utilizzato è JavaScript e i dati vengono scambiati in formato JSON.
 
-
-
 ### DBMS noSQL MongoDB
-
-<br>
 
 ### Backend (API)
 
-Text
+Per lo sviluppo del backend è stato è stato definito il file **server.js** e sono state installate all'interno della directory del progetto le prime dipendenze fondamentali che avremmo utilizzato in seguito:
+
+- Axios: Axios 
+- Cors
+- Dotenv
+- Express
+- Mongoose
+- Node-schedule
+- Nodemon
 
 #### Routes
 
-All'interno dell'API sono state sviluppate due diverse routes:
-
-```html
-https://pgcovapi.herokuapp.com/api/regioni/
-https://pgcovapi.herokuapp.com/api/nazione/
-```
-
-**[/api/regioni](https://pgcovapi.herokuapp.com/api/regioni/)**
-La route *regioni* preleva i dati dalla collecton "regioni" all'interno del database utilizzando lo schema Regioni ottenuto tramite l'utilizzo di Mongoose.
-
-La route posta senza parametri ritorna tutti i dati presentinella collection, ovvero tutti gli oggetti rappresentanti ognuno i dati di un giorno in una diversa regione.
-
-**Parametri in path**
-<br>
-***/api/regioni/:regione*** - Utilizzando il parametro in path :regione è possibile specificare la regione desiderata
-
-**Parametri in query**
-<br>
-***/api/regioni/?giorni*** - Tramite il parametro in query giorni è possibile specificare il numero di giorni di cui si vogliono i dati a partire dalla data corrente. Ad esempio se si specifica il valore "30" verranno ritornati i dati degli ultimi 30 giorni.
-<br>
-***/api/regioni/?mese*** - Tramite il paramentro in query mese è possibile specificare tutti i dati di un preciso mese, inserendoli in un formato mm-yyyy, ad esempio 02-2020
-<br>
-***/api/regioni/?campo*** - Tramite il parametro in query campo è possibile specificare il campo voluto all'interno tra i dati presenti in ogni documento per alleggerire la risposta, ad esempio "totale_positivi".
-<br>
-
-**[/api/nazione](https://pgcovapi.herokuapp.com/api/nazione)**
-<br>
-La route nazione ritorna tutti i dati presenti nella collection Nazione. Ogni documento rappresenta i dati generali di una giornata in Italia, senza una divisione per regione.
-
-Non sono presenti parametri in path.
-
-I parametri in query sono gli stessi utilizzati dalla route per la collection regioni.
-
 #### Documentazione API con SwaggerUI
 
-Text
+
 <br>
 
 ### Frontend
