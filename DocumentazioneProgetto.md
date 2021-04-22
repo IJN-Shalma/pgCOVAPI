@@ -5,16 +5,16 @@
 1. [Abstract](#Abstract)
 2. [Scenario e casi d'uso](#Scenario%20e%20casi%20d'uso)
 3. [Open Data Covid-19](#Open%20Data%20Covid-19)
+   1. [Licenza Creative Commons 4.0](#Licenza%20Creative%20Commons%204.0)
+   2. [Struttura dei dati](#Struttura%20dei%20dati)
 4. [Workflow Github](#Workflow%20Github)
 5. [MERN Stack](#MERN%20Stack)
-
    1. [DBMS noSQL MongoDB](#DBMS%20noSQL%20MongoDB)
    2. [Backend (API)](#Backend%20(API))
-6. [Documentazione API con SwaggerUI](#Documentazione%20API%20con%20SwaggerUI)
-      
-7. [Frontend](#Frontend)
-   1. [Deployment su Heroku](#Deployment%20su%20Heroku)
-   
+      1. [Routes](#Routes)
+      2. [Documentazione API con SwaggerUI](#Documentazione%20API%20con%20SwaggerUI)
+6. [Frontend](#Frontend)
+7. [Deployment su Heroku](#Deployment%20su%20Heroku)
 8. [Sicurezza](#Sicurezza)
 9. [Comunicazione](#Comunicazione)
 10. [Sitografia e Bigliografia](#Sitrografia%20e%20Bibliografia)
@@ -25,15 +25,17 @@
 
 Realizzazione di un’applicazione web composta da un sito web dinamico a pagina singola nel frontend (Single Page Application) e una API (Application Program Interface) nel backend. Il tutto sarà realizzato con il  MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS).
 L'applicazione web permetterà di visualizzare graficamente gli Open Date ricevuti tramite l'API situata nel backend dell'applicazione che andrà ad interrogare il database MongoDB.
-<br>
+
+## Scenario e casi d'uso
 
 ## Open Data Covid-19
 I dati forniti dall'API provengono dalla repository [Github della Protezione Civile](https://github.com/pcm-dpc/COVID-19) e sono successivamente importati dentro il database MongoDB Atlas. La sorgente viene aggiornata ogni giorno alle 18:30 e tramite uno script automatizzato  (scheduler) viene a sua volta aggiornato anche il database. <br>
-I dati sono resi pubblici dalla Protezione Civile sotto la licenza [Creative Commmons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode.it).
+I dati sono resi pubblici dalla Protezione Civile sotto la licenza **Creative Commmons Attribution 4.0 International**.
 
-<br>
+### Licenza Creative Commons 4.0
 
-**Struttura dei dati**
+### Struttura dei dati
+
 I dati provengono da due diversi file JSON: 
 
 * [dpc-covid19-ita-andamento-nazionale.json](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json)
@@ -117,23 +119,27 @@ GitHub è un servizio web e cloud-based che aiuta gli sviluppatori ad archiviare
 Per capire meglio cosa è GitHub è necessario introdurre due principi collegati:
 
 * Controllo versioni
-* Git<br><br>
+* Git
 
-**Cos'è il Controllo Versioni?**<br>
+**Cos'è il Controllo Versioni?**
+
 Il controllo delle versioni aiuta gli sviluppatori a tracciare e gestire le modifiche apportate al codice di un progetto software. Con la crescita di un progetto software, il controllo delle versioni diventa uno strumento essenziale per ogni sviluppatore.<br>
 Se prendiamo ad esempio un progetto come WordPress, che è un progetto piuttosto grande, per uno uno sviluppatore non è sicuro ed efficiente fargli modificare direttamente il codice sorgente.<br>
 Il controllo delle versioni permette agli sviluppatori di lavorare in sicurezza utilizzando due strumenti chiamati **branching** e **merging**.<br>
 Con il **branching** uno sviluppatore duplica parte del codice sorgente (chiamato **repository**). Lo sviluppatore ha duqnue la possibilità di apportare le modifiche in modo sicuro alla parte del codice senza influenzare il resto del progetto.
 Per apportare le modifiche al codice sorgente "ufficiale" è necessario effettuare un **merge** ovvero l'unione di due branch distinti.<br>
-Le modifiche possono poi essere monitorate e, se necessario, possono essere ripristinate.<br><br>
+Le modifiche possono poi essere monitorate e, se necessario, possono essere ripristinate.<br>
 
-**Cos'è Git?**<br>
+
+
+**Cos'è Git?**
+
 Git è uno specifico sistema di controllo versioni open-data creato da Linus Torvalds nel 2005.<br>
-In particolare, Git è un sistema di controllo versioni distribuito, il che significa che l'intero codice base e la coronologia sono disponibili sul computer di ogni sviluppatore.<br><br>
+In particolare, Git è un sistema di controllo versioni distribuito, il che significa che l'intero codice base e la coronologia sono disponibili sul computer di ogni sviluppatore.
 
 ## MERN Stack
 
-sLa sigla **MERN** sta per MongoDB, ExpressJS, ReactJS, NodeJS e sono le quattro tecnologie principali che formano un'applicazione MERN
+La sigla **MERN** sta per MongoDB, ExpressJS, ReactJS, NodeJS e sono le quattro tecnologie principali che formano un'applicazione MERN
 
 - MongoDB - DBMS
 - ExpressJS - Framework WEB per NodeJS
@@ -141,6 +147,8 @@ sLa sigla **MERN** sta per MongoDB, ExpressJS, ReactJS, NodeJS e sono le quattro
 - NodeJS - WebServer JavaScript
 
 Il MERN stack è una delle varianti dell'originale **MEAN** stack (MongoDB, Express, Angular, Node). Esistono altri stack come il **MENV** (MongoDB, Express, Vue, Node).
+
+
 
 **3 Tier Architecture**
 Il MERN stack permette di creare una struttura a tre livelli: Frontend, Backend, Database. Il solo linguaggio utilizzato è JavaScript e i dati vengono scambiati in formato JSON.
@@ -163,10 +171,7 @@ Per lo sviluppo del backend è stato è stato definito il file **server.js** e s
 
 #### Documentazione API con SwaggerUI
 
-
-<br>
-
-### Frontend
+## Frontend
 
 Il frontend, ovvero il lato dell'applicativo che è visibile ed intergaisce con l'utente, è realizzato tramite React js, un framework che permette di realizzare Single Page Applications, il quale obiettivo è quello di offrire una esperienza di navigazione più fluida, similmente a un'applicazione desktop.
 
@@ -182,22 +187,18 @@ Quando avviene una variazione dei dati all'interno dell'applicazione (per esempi
 React calcola poi la differenza tra le due rappresentazioni del Virtual DOM, ovvero fra la rappresentazione del Virtual DOM prima che i dati venissero modificati e l'attuale rappresentazione del Virtual DOM (dopo la modifica dei dati all'interno dell'applicazione). La differenza tra le due rappresentazioni del Virtual DOM, è ciò che deve essere cambiato nel DOM reale.
 A questo punto, React effettua le modifiche nel DOM reale, aggiornando solo ed esclusivamente quello che deve essere cambiato.
 Utilizzando questa tecnica, si riescono a ottenere prestazioni elevate che permettono alla nostra applicazione di funzionare in maniera veloce.)
-<br>
 
-### Deployment su Heroku
+## Deployment su Heroku
 
-Text
-<br>
+
 
 ## Sicurezza
 
-Text
-<br>
+
 
 ## Comunicazione
 
-Text
-<br>
+
 
 ## Sitografia e Bibliografia
 
