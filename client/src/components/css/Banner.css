@@ -10,8 +10,8 @@
 
 .banner-container {
     width: 100%;
-    min-height: 95vh;
-    max-height: 95vh;
+    min-height: 92vh;
+    max-height: 92vh;
     background-image: url('../../images/bg2.jpg');
     display: grid;
     grid-template-columns: 1fr;

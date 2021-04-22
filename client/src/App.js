@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Banner } from './components/Banner';
 import { Footer } from './components/Footer';
-
+import { NationContainer } from './components/NationContainer';
 import './App.css';
 
 const App = () => {
@@ -14,6 +14,9 @@ const App = () => {
           <Switch>
             <Route path='/' exact>
               <Banner/>
+            </Route>
+            <Route path='/grafici'>
+              <NationContainer/>
             </Route>
           </Switch>
           <Footer/>

@@ -11,6 +11,7 @@
     top: 0;
     z-index: 999;
     background-color: var(--color-background-light);
+    box-shadow: var(--box-shadow);
 }
 
 .navbar-container {
