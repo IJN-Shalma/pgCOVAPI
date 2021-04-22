@@ -45,7 +45,7 @@ I dati provengono da due diversi file JSON:
 Il primo file riporta l'andamento nazionale: ogni oggetto rappresenta una giornata.
 
 ``` javascript
-// 27 Marzo 2021 - Dati in Italia
+// Esempio - 27 Marzo 2021 - Dati in Italia
 {
     "_id": "6060a81c60b0830e3080d028",
     "data": "2021-03-27T17:00:00",
@@ -77,7 +77,7 @@ Il primo file riporta l'andamento nazionale: ogni oggetto rappresenta una giorna
 
 Il secondo file riporta invece i dati di ogni giornata in ogni regione
 ```javascript
-// 27 Marzo 2021 - Dati Regione Piemonte
+// Esempio - 27 Marzo 2021 - Dati Regione Piemonte
 {
   "data": "2021-03-27T17:00:00",
   "stato": "ITA",
