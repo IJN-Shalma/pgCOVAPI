@@ -1,0 +1,58 @@
+:root {
+    --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    --color-highlight: #2E8BC0;
+    --color-highlight-dark: #145DA0;
+    --color-background: #0C2D48;
+    --color-background-light: #00A8A8;
+    --color-text: #fff;
+    --cyan: #B1D4E0;
+}
+
+.banner-container {
+    width: 100%;
+    min-height: 95vh;
+    max-height: 95vh;
+    background-image: url('../../images/bg2.jpg');
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 12fr 3fr;
+}
+
+.banner-content{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    grid-column: 1;
+    grid-row: 1;
+    background-color:var(--color-background);
+    clip-path: polygon(50% 0%, 100% 0, 100% 35%, 100% 91%, 58% 71%, 19% 92%, 0 71%, 0% 35%, 0 0);
+}
+
+.down-button {
+    font-size: 4rem;
+    position: absolute;
+    right: 2rem;
+    bottom: 1rem;
+    cursor: pointer;
+}
+
+.title{
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+
+@media screen and (max-width: 960px) {
+    .down-button {
+        font-size: 3rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+}

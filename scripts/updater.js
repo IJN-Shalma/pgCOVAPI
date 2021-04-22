@@ -1,8 +1,6 @@
 let Regione = require("../models/regione.model");
 let Nazione = require("../models/nazione.model")
 let Axios = require("axios");
-let fs = require("fs")
-
 
 /**
  * Automated Updater for the Regioni collection
