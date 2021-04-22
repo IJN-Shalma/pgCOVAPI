@@ -2,28 +2,22 @@
 
 # Indice
 
-- [Progetto pgCOVAPI](#progetto-pgcovapi)
-- [Indice](#indice)
-  - [Abstract](#abstract)
-  - [Scenario e casi d'uso](#scenario-e-casi-duso)
-  - [Open Data Covid-19](#open-data-covid-19)
-    - [Licenza Creative Commons 4.0](#licenza-creative-commons-40)
-    - [Struttura dei dati](#struttura-dei-dati)
-  - [Workflow Github](#workflow-github)
-  - [MERN Stack](#mern-stack)
-    - [DBMS noSQL MongoDB](#dbms-nosql-mongodb)
-      - [SQL vs NoSQL](#sql-vs-nosql)
-      - [Modelli NoSql](#modelli-nosql)
-      - [Transazioni](#transazioni)
-      - [Quando usare cosa](#quando-usare-cosa)
-    - [Backend (API)](#backend-api)
-      - [Routes](#routes)
-      - [Documentazione API con SwaggerUI](#documentazione-api-con-swaggerui)
-  - [Frontend](#frontend)
-  - [Deployment su Heroku](#deployment-su-heroku)
-  - [Sicurezza](#sicurezza)
-  - [Comunicazione](#comunicazione)
-  - [Sitografia e Bibliografia](#sitografia-e-bibliografia)
+1. [Abstract](#Abstract)
+2. [Scenario e casi d'uso](#Scenario%20e%20casi%20d'uso)
+3. [Open Data Covid-19](#Open%20Data%20Covid-19)
+   1. [Licenza Creative Commons 4.0](#Licenza%20Creative%20Commons%204.0)
+   2. [Struttura dei dati](#Struttura%20dei%20dati)
+4. [Workflow Github](#Workflow%20Github)
+5. [MERN Stack](#MERN%20Stack)
+   1. [DBMS noSQL MongoDB](#DBMS%20noSQL%20MongoDB)
+   2. [Backend (API)](#Backend%20(API))
+      1. [Routes](#Routes)
+      2. [Documentazione API con SwaggerUI](#Documentazione%20API%20con%20SwaggerUI)
+6. [Frontend](#Frontend)
+7. [Deployment su Heroku](#Deployment%20su%20Heroku)
+8. [Sicurezza](#Sicurezza)
+9. [Comunicazione](#Comunicazione)
+10. [Sitografia e Bigliografia](#Sitrografia%20e%20Bibliografia)
 
 <div style="page-break-after: always; break-after: page; "></div>
 
@@ -176,21 +170,21 @@ Esistono 4 grandi modelli di database NoSql:
 #### Transazioni
 Uno dei cavalli di battaglia dei database relazionali sono le transazioni, della quale i database non relazionali sono generalmente sprovvisti.
 Per essere definite tali, le transazioni devono rispettare le proprietà **ACID**, ovvero:
-- **Atomicity** -> Significa che la transazione è indivisibile nella sua esecuzione, e che tale esecuzione deve essere compleata o nulla, in modo che non esistano esecuzioni parziali.
-- **Consistency** -> Significa che prima di iniziare una transazione il database deve trovarsi in uno stato coerente e quando la transazione terminerà dovrà trovarsi nel medesimo stato. Un database è coerente quando non viola i vincoli di integrità del database stesso che genererebbe inconsistenza nei dati delle tabelle.
-- **Isolation** -> Significa che ogni transazione deve essere eseguita in modo isoltato ed indipendente da tutte quante le altre. In caso di fallimento di una transazione, essa non deve influire con le altre in esecuizione al momento.
-- **Durability** -> Significa che una volta che la transazione è marcata come completata, i cambiamenti che essa ha apportato sul database non dovranno perdersi, salvandoli quindi su un supporto di memoria non volatile. Le modifiche effettuate devono garantirne la leggibilità anche in caso di guasto del sistema.
+- **Atomicity**: Significa che la transazione è indivisibile nella sua esecuzione, e che tale esecuzione deve essere compleata o nulla, in modo che non esistano esecuzioni parziali.
+- **Consistency**: Significa che prima di iniziare una transazione il database deve trovarsi in uno stato coerente e quando la transazione terminerà dovrà trovarsi nel medesimo stato. Un database è coerente quando non viola i vincoli di integrità del database stesso che genererebbe inconsistenza nei dati delle tabelle.
+- **Isolation**: Significa che ogni transazione deve essere eseguita in modo isoltato ed indipendente da tutte quante le altre. In caso di fallimento di una transazione, essa non deve influire con le altre in esecuizione al momento.
+- **Durability**: Significa che una volta che la transazione è marcata come completata, i cambiamenti che essa ha apportato sul database non dovranno perdersi, salvandoli quindi su un supporto di memoria non volatile. Le modifiche effettuate devono garantirne la leggibilità anche in caso di guasto del sistema.
 <br>
 Dall'altra parte troviamo invece i database non relazionali che in genere riescono a granatire l'atomicità sulla singola istruzione, indipendentemente dalla sua complessità. Per poter parlare delle proprietà che i database non relazionali devono seguire è necessario introdurre il concetto del teorema **CAP**. Il teorema CAP coinvolge i concetti di *Consistenza*,*Disponibilità di dati* e di *Tolleranza di partizione*. Queste sono le qualità desiderabili di ogni sistema sin dalla sua progettazione fino alla implementazione. Tuttavia non è possibile per un sistema informatico di calcolo distribuito di fornire simultaneamente tutte quante le carattersitiche:
-- **Coerenza** -> Tutti quanti i nodi del sistema vedono gli stessi dati nello stesso istante.
-- **Disponibilità** -> Garantire ad ogni richiesta una risposta su ciò che sia riuscito oppure fallito.
-- **Tolleranza di partizone** -> Garanzia che il sistema informatico continui a funzionare anche in caso di perdite di messaggi.
+- **Coerenza**: Tutti quanti i nodi del sistema vedono gli stessi dati nello stesso istante.
+- **Disponibilità**: Garantire ad ogni richiesta una risposta su ciò che sia riuscito oppure fallito.
+- **Tolleranza di partizone**: Garanzia che il sistema informatico continui a funzionare anche in caso di perdite di messaggi.
 Secondo il teorema prima citato è infatti solamente possibile garantire al massimo due di queste caratteristiche allo stesso tempo.
 Il paradigma BASE è adeguato alle applicazioni di tipo DSO (*Data Store Object*) in quanto esse non hanno lo scopo di generare transazioni.
 Il modello **BASE** si compone di queste caratteristiche:
-- **Basic Avability** -> Il sistema deve garantire la disponibilità dei dati. In questo caso ad ogni richiesta inviata sarà necessario inviare una risposta.
-- **Soft State** -> Lo stato del sistema può variare nel tempo e dunque il problema della consistenza dei dati non deve essere risolto dal database, ma dallo sviluppatore che lo gestisce.
-- **Eventually Consistent** -> Una volta inseriti i dati nel sistema, essi si propragheranno all'interno dei nodi in modo da diventare consistenti.
+- **Basic Avability**: Il sistema deve garantire la disponibilità dei dati. In questo caso ad ogni richiesta inviata sarà necessario inviare una risposta.
+- **Soft State**: Lo stato del sistema può variare nel tempo e dunque il problema della consistenza dei dati non deve essere risolto dal database, ma dallo sviluppatore che lo gestisce.
+- **Eventually Consistent**: Una volta inseriti i dati nel sistema, essi si propragheranno all'interno dei nodi in modo da diventare consistenti.
 Queste caratteristiche rendono evidente che l'esecuzione e la gestione delle transazioni ricada completamente sui database relazioniali.
 
 <br>
@@ -200,6 +194,8 @@ Una volta discusse le qualità di entrambe le tipologie di database è bene capi
 <br>
 D'altra parte troviamo in NoSQL i quali sono estremamente versatili nelle situazione in cui dobbiamo modellare i dati ed il polimorfismo. Se si hanno entità che tra loro portano quasi le medesime informazioni, con NoSql è possibile ovviare a tutti questi piccoli cambiamenti dove con l'SQL sarebbe stato necessario utilizzare una soluzione più complessa.
 NoSql è dunque l'ideale in caso di abbondanza di dati scorrelati i quali tendono ad evolvere nel tempo. L'assenza di una struttura fissa permette di aggiunngere nuovi dati senza dover cambiare il database.
+
+
 
 ### Backend (API)
 
@@ -253,13 +249,72 @@ app.use(cors())
 
 
 
-[**Dotenv**](https://www.npmjs.com/package/dotenv): 
+[**Dotenv**](https://www.npmjs.com/package/dotenv): Dotenv è un modulo che permette di caricare le variabili poste dentro un file **.env** all'interno di **process.env**, una variabile globale di NodeJS.
+Tramite .env abbiamo potuto creare una variabile che contenesse l'indirizzo per il collegamento al database MongoDB Atlas.
 
-**Mongoose**:
+
+
+**[Mongoose](https://www.npmjs.com/package/mongoose)**: Mongoose è un modulo che migliora l'interazione con MongoDB, fornendo un facile metodo di connessione e la possibilità di creare degli schemas, anche chiamati modelli.
+
+Tramite lo URI che abbiamo salvato all'interno del process.env stabiliamo una connessione con il database.
+
+```javascript
+const connection = mongoose.connection;
+connection.once('open', () => {
+    console.log(`Connected to MongoDB`);
+});
+```
+
+In seguito si creano dei modelli che rispecchino i documenti presenti all'interno del database MongoDB, sotto è riportato un esempio dello schema Regione.
+
+```javascript
+const regioneSchema = new Schema({
+    data: { type: String },
+    stato: { type: String },
+    codice_regione: {type: Number},
+    denominazione_regione: {type: String},
+    long: {type: Number},
+    codice_regione: {type: Number},
+    ricoverati_con_sintomi: { type: Number },
+    terapia_intensiva: { type: Number },
+    totale_ospedalizzati: { type: Number },
+    isolamento_domiciliare: { type: Number },
+    totale_positivi: { type: Number },
+    variazione_totale_positivi: { type: Number },
+    nuovi_positivi: { type: Number },
+    dimessi_guariti: { type: Number },
+    deceduti: { type: Number },
+    casi_da_sospetto_diagnostico: {},
+    casi_da_screening: {},
+    totale_casi: { type: Number },
+    tamponi: { type: Number },
+    casi_testati: { type: Number },
+    note: { type: String },
+    ingressi_terapia_intensiva: { type: Number },
+    note_test: { type: String },
+    note_casi: { type: String },
+    totale_positivi_test_molecolare: { type: Number },
+    totale_positivi_test_antigenico_rapido: { type: Number },
+    tamponi_test_molecolare: { type: Number },
+    tamponi_test_antigenico_rapido: { type: Number }
+})
+```
+
+Dopo aver creato un modello, Mongoose permette un'estrema semplificazione nelle interazioni con il database. Sotto è riportato il codice per una find:
+
+```	javascript
+ Nazione.find(query)
+        .sort({ "data": 1 })
+        .select(param)
+        .then(nazione => res.json(nazione))
+        .catch(err => res.status(400).json('Error: ') + err);
+```
+
+
 
 **Node-schedule**:
 
-**Nodemon**: 
+**Nodemon**:      
 
 #### Routes
 
