@@ -41,7 +41,7 @@ I dati provengono da due diversi file JSON:
 * [dpc-covid19-ita-andamento-nazionale.json](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json)
 * [dpc-covid19-ita-regioni.json](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-regioni.json)
 
-Il primo file riporta l'andamento nazionale: ogni oggetto rappresenta una giornata.
+Il primo file riporta l'andamento nazionale: ogni oggetto rappresenta una giornata in Italia.
 
 ``` javascript
 // Esempio - 27 Marzo 2021 - Dati in Italia
@@ -74,7 +74,7 @@ Il primo file riporta l'andamento nazionale: ogni oggetto rappresenta una giorna
 }
 ```
 
-Il secondo file riporta invece i dati di ogni giornata in ogni regione
+Il secondo file riporta invece i dati di ogni giornata in ogni regione.
 ```javascript
 // Esempio - 27 Marzo 2021 - Dati Regione Piemonte
 {
@@ -148,8 +148,6 @@ La sigla **MERN** sta per MongoDB, ExpressJS, ReactJS, NodeJS e sono le quattro 
 
 Il MERN stack è una delle varianti dell'originale **MEAN** stack (MongoDB, Express, Angular, Node). Esistono altri stack come il **MENV** (MongoDB, Express, Vue, Node).
 
-
-
 **3 Tier Architecture**
 Il MERN stack permette di creare una struttura a tre livelli: Frontend, Backend, Database. Il solo linguaggio utilizzato è JavaScript e i dati vengono scambiati in formato JSON.
 
@@ -157,15 +155,63 @@ Il MERN stack permette di creare una struttura a tre livelli: Frontend, Backend,
 
 ### Backend (API)
 
-Per lo sviluppo del backend è stato è stato definito il file **server.js** e sono state installate all'interno della directory del progetto le prime dipendenze fondamentali che avremmo utilizzato in seguito:
+Per la realizzazione del backend, partendo dalla directory vuota del progetto, tramite la console e il comando **npm install** (fornito da nodeJS) sono stati installati tutti i moduli fondamentali per il funzionamento del lato server.
 
-- Axios: Axios 
-- Cors
-- Dotenv
-- Express
-- Mongoose
-- Node-schedule
-- Nodemon
+**[Axios](https://www.npmjs.com/package/axios)**: Axios è una libreria per nodeJS che permette di realizzare richieste HTTP direttamente dal codice nodeJS, sfruttando anche il meccanismo delle Promise API.
+Axios permette ad esempio il funzionamento dello scheduler di aggiornamento del database, potendo richiedere i file JSON della protezione civile tramite una richiesta HTTP. Il modulo è anche il punto di collegamento tra frontend e backend, fornendo un modo per effettuare richieste all'API dal codice del frontend.
+
+```javascript
+Axios.get("https://pgcovapi.herokuapp.com/api/nazione")
+            .then(function (response) {
+                //do something
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+```
+
+
+
+**[Express](https://www.npmjs.com/package/express)**: Express è uno dei quattro elementi fondamentali dello stack. Il modulo è un "web application framework" utilizzato nello sviluppo di applicazioni single-page o di API pubbliche ed è in grado di fornire numerose funzionalità come:
+
+- Routing efficiente
+- Funzioni HTTP di redirect, caching etc...
+- Funzioni eseguibili per la preparazione di directory per applicazioni
+
+Express è diventato estremamente popolare semplificando notevolmente lo sviluppo di applicazioni, mettendo a disposizione metodi già pronti che nascondono la complessità del codice sottostante.
+
+``` javascript
+const express = require('express')
+const app = express()
+ 
+app.get('/', function (req, res) {
+  res.send('Hello World')
+})
+ 
+app.listen(3000)
+```
+
+
+
+[**Cors**](https://www.npmjs.com/package/cors): Cors è un modulo che svolge la funzione di middleware per Express e permette di abilitare il meccanismo CORS (cross-origin resource sharing), ovvero le richieste di risorse da parte di domini esterni.
+
+```javascript
+var express = require('express')
+var cors = require('cors')
+var app = express()
+ 
+app.use(cors())
+```
+
+
+
+[**Dotenv**](https://www.npmjs.com/package/dotenv): 
+
+**Mongoose**:
+
+**Node-schedule**:
+
+**Nodemon**: 
 
 #### Routes
 
