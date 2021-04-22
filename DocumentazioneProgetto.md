@@ -10,15 +10,14 @@
 
    1. [DBMS noSQL MongoDB](#DBMS%20noSQL%20MongoDB)
    2. [Backend (API)](#Backend%20(API))
-
-      1. [Documentazione API con SwaggerUI](#Documentazione%20API%20con%20SwaggerUI)
-
-   3. [Frontend](#Frontend)
-   4. [Deployment su Heroku](#Deployment%20su%20Heroku)
-
-6. [Sicurezza](#Sicurezza)
-7. [Comunicazione](#Comunicazione)
-8. [Sitografia e Bigliografia](#Sitrografia%20e%20Bibliografia)
+6. [Documentazione API con SwaggerUI](#Documentazione%20API%20con%20SwaggerUI)
+      
+7. [Frontend](#Frontend)
+   1. [Deployment su Heroku](#Deployment%20su%20Heroku)
+   
+8. [Sicurezza](#Sicurezza)
+9. [Comunicazione](#Comunicazione)
+10. [Sitografia e Bigliografia](#Sitrografia%20e%20Bibliografia)
 
 <div style="page-break-after: always; break-after: page; "></div>
 
@@ -27,8 +26,6 @@
 Realizzazione di un’applicazione web composta da un sito web dinamico a pagina singola nel frontend (Single Page Application) e una API (Application Program Interface) nel backend. Il tutto sarà realizzato con il  MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS).
 L'applicazione web permetterà di visualizzare graficamente gli Open Date ricevuti tramite l'API situata nel backend dell'applicazione che andrà ad interrogare il database MongoDB.
 <br>
-
-## Scenario e casi d'uso
 
 ## Open Data Covid-19
 I dati forniti dall'API provengono dalla repository [Github della Protezione Civile](https://github.com/pcm-dpc/COVID-19) e sono successivamente importati dentro il database MongoDB Atlas. La sorgente viene aggiornata ogni giorno alle 18:30 e tramite uno script automatizzato  (scheduler) viene a sua volta aggiornato anche il database. <br>
@@ -112,6 +109,8 @@ Il secondo file riporta invece i dati di ogni giornata in ogni regione
 }
 ```
 
+
+
 ## Workflow Github
 
 GitHub è un servizio web e cloud-based che aiuta gli sviluppatori ad archiviare e gestire il loro codice e a tracciare e controllare le modifiche.<br>
@@ -134,46 +133,37 @@ In particolare, Git è un sistema di controllo versioni distribuito, il che sign
 
 ## MERN Stack
 
-Text
-<br>
+sLa sigla **MERN** sta per MongoDB, ExpressJS, ReactJS, NodeJS e sono le quattro tecnologie principali che formano un'applicazione MERN
+
+- MongoDB - DBMS
+- ExpressJS - Framework WEB per NodeJS
+- ReactJS - Libreria JavaScript per front-end
+- NodeJS - WebServer JavaScript
+
+Il MERN stack è una delle varianti dell'originale **MEAN** stack (MongoDB, Express, Angular, Node). Esistono altri stack come il **MENV** (MongoDB, Express, Vue, Node).
+
+**3 Tier Architecture**
+Il MERN stack permette di creare una struttura a tre livelli: Frontend, Backend, Database. Il solo linguaggio utilizzato è JavaScript e i dati vengono scambiati in formato JSON.
 
 ### DBMS noSQL MongoDB
 
-<br>
-
 ### Backend (API)
 
-Text
+Per lo sviluppo del backend è stato è stato definito il file **server.js** e sono state installate all'interno della directory del progetto le prime dipendenze fondamentali che avremmo utilizzato in seguito:
 
-3<br>
+- Axios: Axios 
+- Cors
+- Dotenv
+- Express
+- Mongoose
+- Node-schedule
+- Nodemon
 
-Routes
-
-**/api/regione** <br>
--- /:regione/?days={0, 1, 2 ... all}<br>
--- /:regione/ospedalizzati/ <br>
--- /:regione/isolamento/<br>
--- /:regione/positivi/<br>
--- /:regione/variazione-positivi/ <br>
--- /:regione/nuovi-casi/<br>
--- /:regione/guariti/ <br>
--- /:regione/deceduti/ <br>
--- /:regione/totale-casi/ <br>
--- /:regione/tamponi/ <br>
--- /:regione/test/ <br>
-
-Stesse route per tutte le regioni **/regione** 
-
-:regione { piemonte, abruzzo, ecc...} <br>
-?giorni {0, 1, 2 ... all}
-
-**/api/nazione**
-
-Stesse route precedenti
+#### Routes
 
 #### Documentazione API con SwaggerUI
 
-Text
+
 <br>
 
 ### Frontend
@@ -183,7 +173,15 @@ Il frontend, ovvero il lato dell'applicativo che è visibile ed intergaisce con 
 Questo è possibile perché in una SPA, il server invia al client tutto il codice necessario al funzionamento della pagina web, cioé una pagina HTML, CSS e una serie di file JavaScript che si occupano di interagire con l'utente ed aggiornare i vari componenti della pagina dinamicamente, senza dover chiedere al server di rerenderizzare l'intera pagina come avviene in pagine dinamiche tradizionali scritti in linguaggi come PHP.
 Ulteriori risorse, come ad esempio dati conservati in un database, vengono richieste dinamicamente al web server senza dover interrompere la navigazione.
 
-React ci permette di creare viste che 
+React ci permette di creare intefacce utente componibili, ovvero formati da vari "componenti" che possono rappresentare dati che cambiano nel tempo, aggiornandosi automaticamente, infatti ogni componente possiede un proprio stato interno, e al suo cambiamento si aggiornerà.
+
+Tramite i componenti si possono creare diverse viste in base alla route, o URL, inserita dall'utente, simulando lo spostamento tra pagine diverse, renderizzando solo i componenti che cambiano, infatti solitamente nelle applicazioni React abbiamo diversi componenti che rimangono costanti come ad esempio la nav bar o la barra di ricerca.
+
+(**bozza**: Per far ciò, React utilizza il Virtual DOM invece di operare direttamente sul DOM reale. Il Virtual DOM è un'astrazione del DOM. Si tratta di una rappresentazione in memoria del DOM. È veloce e indipendente dalle specifiche implementazioni del browser. Possiamo pensare al Virtual DOM come una copia in memoria del DOM reale.
+Quando avviene una variazione dei dati all'interno dell'applicazione (per esempio cambia lo stato e le informazioni contenute in un componente), React effettua le modifiche sul Virtual DOM e lo aggiorna per rispecchiare i cambiamenti avvenuti.
+React calcola poi la differenza tra le due rappresentazioni del Virtual DOM, ovvero fra la rappresentazione del Virtual DOM prima che i dati venissero modificati e l'attuale rappresentazione del Virtual DOM (dopo la modifica dei dati all'interno dell'applicazione). La differenza tra le due rappresentazioni del Virtual DOM, è ciò che deve essere cambiato nel DOM reale.
+A questo punto, React effettua le modifiche nel DOM reale, aggiornando solo ed esclusivamente quello che deve essere cambiato.
+Utilizzando questa tecnica, si riescono a ottenere prestazioni elevate che permettono alla nostra applicazione di funzionare in maniera veloce.)
 <br>
 
 ### Deployment su Heroku

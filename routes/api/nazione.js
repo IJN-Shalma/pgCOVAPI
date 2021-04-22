@@ -10,9 +10,10 @@ let Nazione = require("../../models/nazione.model");
  * @desc Get Informazioni Covid per riguardanti
  * @access Public
  */
-router.route('/:campo?').get((req, res) => {
+
+router.route('/').get((req, res) => {
     const pMese = req.query.mese || null;
-    var param = req.params.campo || null;
+    var param = req.query.campo || null;
     let days = req.query.giorni || null;
     let query = {};
 
