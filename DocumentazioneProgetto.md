@@ -13,7 +13,7 @@
    2. [Backend (API)](#Backend%20(API))
       1. [Routes](#Routes)
       2. [Documentazione API con SwaggerUI](#Documentazione%20API%20con%20SwaggerUI)
-6. [Frontend](#Frontend)
+      3. [Frontend](#Frontend)
 7. [Deployment su Heroku](#Deployment%20su%20Heroku)
 8. [Sicurezza](#Sicurezza)
 9. [Comunicazione](#Comunicazione)
@@ -320,7 +320,7 @@ Dopo aver creato un modello, Mongoose permette un'estrema semplificazione nelle 
 
 #### Documentazione API con SwaggerUI
 
-## Frontend
+### Frontend
 
 Il frontend, ovvero il lato dell'applicativo che è visibile ed intergaisce con l'utente, è realizzato tramite React js, un framework che permette di realizzare Single Page Applications, il quale obiettivo è quello di offrire una esperienza di navigazione più fluida, similmente a un'applicazione desktop.
 
