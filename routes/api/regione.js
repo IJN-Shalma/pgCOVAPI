@@ -3,16 +3,16 @@ let Regione = require("../../models/regione.model")
 
 /**
  * /regioni/
- * /regioni/{totale_positivi}
+ * /regioni/?campo=totale_positivi
  * /regioni/?mese={02-2020}
  * /regioni/?giorni={30}
  * @route api/regioni
  * @desc Get Informazioni Covid per tutte le regioni
  * @access Public
  **/
-router.route('/:campo?').get((req, res) => {
+router.route('/').get((req, res) => {
     const pMese = req.query.mese || null;
-    var param = req.params.campo || null;
+    var param = req.query.campo || null;
     let days = req.query.giorni || null;
     let query = {};
 
@@ -56,12 +56,14 @@ router.route('/:campo?').get((req, res) => {
  * @route api/regioni
  * @desc Get Informazioni Covid per regione
  * @access Public
-**/
-router.route('/:regione/:campo?').get((req, res) => {
+*/
+router.route('/:regione').get((req, res) => {
     const pMese = req.query.mese || null;
-    var param = req.params.campo || null;
+    var param = req.query.campo || null;
     let days = req.query.giorni || null;
     let query = {};
+
+    query.denominazione_regione = req.params.regione;
 
     if (days) {
         let date = new Date();
@@ -79,8 +81,6 @@ router.route('/:regione/:campo?').get((req, res) => {
         param = loadBasicParams(param);
     }
     
-    query.denominazione_regione = req.params.regione;
-
     if (pMese) {
         //spMese[0] = Mese
         //spMese[1] = Anno
