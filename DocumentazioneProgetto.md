@@ -166,16 +166,20 @@ Esistono 4 grandi modelli di database NoSql:
 - **Database orientati alle colonne** -> Questo modello si chiama in questo modo perchè i dati vengono organizzati/memorizzati per colonne in contrapposizione ai database row-oriented (orientati alle righe), che memorizzano i dati per righe successive. Ogni riga può avere un insieme di colonne diverso, in quanto vengono aggiunte quelle necessari e tolte quelle inutilizzate, evitando la presenza di valori null. Questo modello permette la compressione delle informazioni ed il versioning. Un utilizzo di questo modello è l'indicizzazionde di pagine web.
 - **Database di documenti** -> Questo modello è caratterizzato da una struttura fondamentale chiamata document. Di solito il document viene scritto in JSON ed è costituito da un identificatore univoco e da un qualsiasi numero di attribuiti, che possono essere semplici o complessi. Questo modello si rivela utile quando i dati variano nel tempo, e possono mappare correttamente gli oggetti nel modello di programmazione ado oggetti. MongoDB fa parte di questa categoria di database in quanto utilizza dei file chiamati BSON. 
 - **Database di grafi** -> Quest'ultimo modello memorizza dei grafi e sono utili a rappresentare dati interconnessi tra loro e possono effettuare interrogazioni utilizzando un attraversamento efficiente della struttura. Rispetto a delle normali query di altri tipi di database, è possibile velocizzare il cammino da un nodo ad un altro aggiungendo un collegamento diretto tra i due.
-<br>
+- 
+
 #### Transazioni
+
 Uno dei cavalli di battaglia dei database relazionali sono le transazioni, della quale i database non relazionali sono generalmente sprovvisti.
 Per essere definite tali, le transazioni devono rispettare le proprietà **ACID**, ovvero:
+
 - **Atomicity**: Significa che la transazione è indivisibile nella sua esecuzione, e che tale esecuzione deve essere compleata o nulla, in modo che non esistano esecuzioni parziali.
 - **Consistency**: Significa che prima di iniziare una transazione il database deve trovarsi in uno stato coerente e quando la transazione terminerà dovrà trovarsi nel medesimo stato. Un database è coerente quando non viola i vincoli di integrità del database stesso che genererebbe inconsistenza nei dati delle tabelle.
 - **Isolation**: Significa che ogni transazione deve essere eseguita in modo isoltato ed indipendente da tutte quante le altre. In caso di fallimento di una transazione, essa non deve influire con le altre in esecuizione al momento.
 - **Durability**: Significa che una volta che la transazione è marcata come completata, i cambiamenti che essa ha apportato sul database non dovranno perdersi, salvandoli quindi su un supporto di memoria non volatile. Le modifiche effettuate devono garantirne la leggibilità anche in caso di guasto del sistema.
 <br>
 Dall'altra parte troviamo invece i database non relazionali che in genere riescono a granatire l'atomicità sulla singola istruzione, indipendentemente dalla sua complessità. Per poter parlare delle proprietà che i database non relazionali devono seguire è necessario introdurre il concetto del teorema **CAP**. Il teorema CAP coinvolge i concetti di *Consistenza*,*Disponibilità di dati* e di *Tolleranza di partizione*. Queste sono le qualità desiderabili di ogni sistema sin dalla sua progettazione fino alla implementazione. Tuttavia non è possibile per un sistema informatico di calcolo distribuito di fornire simultaneamente tutte quante le carattersitiche:
+
 - **Coerenza**: Tutti quanti i nodi del sistema vedono gli stessi dati nello stesso istante.
 - **Disponibilità**: Garantire ad ogni richiesta una risposta su ciò che sia riuscito oppure fallito.
 - **Tolleranza di partizone**: Garanzia che il sistema informatico continui a funzionare anche in caso di perdite di messaggi.
