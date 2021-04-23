@@ -55,8 +55,8 @@ router.route('/').get((req, res) => {
  * @returns Array of strings (parameters names)
  */
 
-function loadBasicParams(param) {
-    return [param, "data", "stato", "codice_regione", "denominazione_regione"].join(" ");
+ function loadBasicParams(param) {
+    return Array.isArray(param) ? param.concat(["data", "stato", "codice_regione", "denominazione_regione"]).join(" ") : [param, "data", "stato", "codice_regione", "denominazione_regione"].join(" ");
 }
 
 

@@ -41,7 +41,7 @@ router.route('/').get((req, res) => {
     }
 
     Regione.find(query)
-        .sort({ "data": 1, "denominazione_regione" : 1})
+        .sort({ "data": 1, "denominazione_regione": 1 })
         .select(param)
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ' + err));
@@ -62,6 +62,7 @@ router.route('/:regione').get((req, res) => {
     var param = req.query.campo || null;
     let days = req.query.giorni || null;
     let query = {};
+    console.log(param);
 
     query.denominazione_regione = req.params.regione;
 
@@ -80,7 +81,7 @@ router.route('/:regione').get((req, res) => {
     if (param) {
         param = loadBasicParams(param);
     }
-    
+
     if (pMese) {
         //spMese[0] = Mese
         //spMese[1] = Anno
@@ -90,7 +91,7 @@ router.route('/:regione').get((req, res) => {
     }
 
     Regione.find(query)
-        .sort({ "data": 1 , "denominazione_regione" : 1})
+        .sort({ "data": 1, "denominazione_regione": 1 })
         .select(param)
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ') + err);
@@ -98,7 +99,7 @@ router.route('/:regione').get((req, res) => {
 
 
 function loadBasicParams(param) {
-    return [param, "data", "stato", "codice_regione", "denominazione_regione"].join(" ");
+    return Array.isArray(param) ? param.concat(["data", "stato", "codice_regione", "denominazione_regione"]).join(" ") : [param, "data", "stato", "codice_regione", "denominazione_regione"].join(" ");
 }
 
 
