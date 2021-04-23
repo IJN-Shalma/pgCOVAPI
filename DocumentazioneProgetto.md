@@ -167,6 +167,8 @@ Esistono 4 grandi modelli di database NoSql:
 - **Database di documenti** -> Questo modello è caratterizzato da una struttura fondamentale chiamata document. Di solito il document viene scritto in JSON ed è costituito da un identificatore univoco e da un qualsiasi numero di attribuiti, che possono essere semplici o complessi. Questo modello si rivela utile quando i dati variano nel tempo, e possono mappare correttamente gli oggetti nel modello di programmazione ado oggetti. MongoDB fa parte di questa categoria di database in quanto utilizza dei file chiamati BSON. 
 - **Database di grafi** -> Quest'ultimo modello memorizza dei grafi e sono utili a rappresentare dati interconnessi tra loro e possono effettuare interrogazioni utilizzando un attraversamento efficiente della struttura. Rispetto a delle normali query di altri tipi di database, è possibile velocizzare il cammino da un nodo ad un altro aggiungendo un collegamento diretto tra i due.
 
+
+
 #### Transazioni
 
 Uno dei cavalli di battaglia dei database relazionali sono le transazioni, della quale i database non relazionali sono generalmente sprovvisti.
@@ -177,7 +179,6 @@ Per essere definite tali, le transazioni devono rispettare le proprietà **ACID*
 - **Isolation**: Significa che ogni transazione deve essere eseguita in modo isoltato ed indipendente da tutte quante le altre. In caso di fallimento di una transazione, essa non deve influire con le altre in esecuizione al momento.
 - **Durability**: Significa che una volta che la transazione è marcata come completata, i cambiamenti che essa ha apportato sul database non dovranno perdersi, salvandoli quindi su un supporto di memoria non volatile. Le modifiche effettuate devono garantirne la leggibilità anche in caso di guasto del sistema.
 Dall'altra parte troviamo invece i database non relazionali che in genere riescono a granatire l'atomicità sulla singola istruzione, indipendentemente dalla sua complessità. Per poter parlare delle proprietà che i database non relazionali devono seguire è necessario introdurre il concetto del teorema **CAP**. Il teorema CAP coinvolge i concetti di *Consistenza*,*Disponibilità di dati* e di *Tolleranza di partizione*. Queste sono le qualità desiderabili di ogni sistema sin dalla sua progettazione fino alla implementazione. Tuttavia non è possibile per un sistema informatico di calcolo distribuito di fornire simultaneamente tutte quante le carattersitiche:
-
 - **Coerenza**: Tutti quanti i nodi del sistema vedono gli stessi dati nello stesso istante.
 - **Disponibilità**: Garantire ad ogni richiesta una risposta su ciò che sia riuscito oppure fallito.
 - **Tolleranza di partizone**: Garanzia che il sistema informatico continui a funzionare anche in caso di perdite di messaggi.
@@ -188,6 +189,8 @@ Il modello **BASE** si compone di queste caratteristiche:
 - **Soft State**: Lo stato del sistema può variare nel tempo e dunque il problema della consistenza dei dati non deve essere risolto dal database, ma dallo sviluppatore che lo gestisce.
 - **Eventually Consistent**: Una volta inseriti i dati nel sistema, essi si propragheranno all'interno dei nodi in modo da diventare consistenti.
 Queste caratteristiche rendono evidente che l'esecuzione e la gestione delle transazioni ricada completamente sui database relazioniali.
+
+
 
 #### Quando usare cosa
 Una volta discusse le qualità di entrambe le tipologie di database è bene capirne l'utilizzo. I database relazionali trovano spazio di applicazione quando si ha a che fare con dati strutturati. Ciò vuol dire che è bene usare i database SQL quando è facilmente creabile una rappresentazione lineare su delle tabelle. Un altro aspetto da dover prendere in considerazione è la necessità della consistenza dei dati, la quale è una delle caratteristiche ACID.
@@ -335,6 +338,22 @@ scheduler.scheduleJob('00 00 * * * *',  scripts.updateRegioni);
 **[Nodemon](https://www.npmjs.com/package/nodemon)**: Nodemon è un modulo utilizzato durante lo sviluppo di applicazioni nodejs, il quale permette di rieseguire l'applicazione ogni volta che avvengono delle modifiche all'interno dei file. 
 
 #### Router
+
+Per la realizzazione delle route dell'API è stato utilizzato il router fornito da ExpressJS.
+
+```javascript
+const router = require('express').Router();
+```
+
+Dopo aver definito l'oggetto router, secondo le necessità di possono definire le diverse route:
+
+```javascript
+router.route('/').get((req, res) => {
+//do something
+})
+```
+
+La route sopra riportata, descritta all'interno del file **regione.js** entra in funzione quando si visita l'indirizzo
 
 #### Documentazione API con SwaggerUI
 
