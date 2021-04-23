@@ -303,20 +303,38 @@ const regioneSchema = new Schema({
 Dopo aver creato un modello, Mongoose permette un'estrema semplificazione nelle interazioni con il database. Sotto è riportato il codice per una find:
 
 ```	javascript
- Nazione.find(query)
-        .sort({ "data": 1 })
+Regione.find(query)
+        .sort({ "data": 1, "denominazione_regione" : 1})
         .select(param)
-        .then(nazione => res.json(nazione))
-        .catch(err => res.status(400).json('Error: ') + err);
+        .then(regione => res.json(regione))
+        .catch(err => res.status(400).json('Error: ' + err));
 ```
 
 
 
-**Node-schedule**:
+[**Node-schedule**](https://www.npmjs.com/package/node-schedule): node-schedule è un modulo che permette di programmare l'esecuzione di funzioni tramite l'utilizzo di un timer. E' possibile far eseguire una funzione ad un preciso orario oppure dopo intervalli definiti.
+Nel nostro caso il node-scheduler ci permette di controllare automaticamente  eventuali aggiornamenti nei dati della protezione civile e riflettere le modifiche all'interno del nestro database.
 
-**Nodemon**:      
+```javascript
+const regioniJob =
+scheduler.scheduleJob('00 00 * * * *',  scripts.updateRegioni);
 
-#### Routes
+*    *    *    *    *    *
+┬    ┬    ┬    ┬    ┬    ┬
+│    │    │    │    │    │
+│    │    │    │    │    └ day of week (0 - 7) (0 or 7 is Sun)
+│    │    │    │    └───── month (1 - 12)
+│    │    │    └────────── day of month (1 - 31)
+│    │    └─────────────── hour (0 - 23)
+│    └──────────────────── minute (0 - 59)
+└───────────────────────── second (0 - 59, OPTIONAL)
+```
+
+
+
+**[Nodemon](https://www.npmjs.com/package/nodemon)**: Nodemon è un modulo utilizzato durante lo sviluppo di applicazioni nodejs, il quale permette di rieseguire l'applicazione ogni volta che avvengono delle modifiche all'interno dei file. 
+
+#### Router
 
 #### Documentazione API con SwaggerUI
 
