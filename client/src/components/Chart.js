@@ -308,7 +308,7 @@ export const Chart = ({ data }) => {
 			legendOffset: -50,
 			legendPosition: "middle"
 		}}
-        enableGridX={true}
+        enableGridX={false}
         colors={{ scheme: 'spectral' }}
         lineWidth={1}
         pointSize={4}

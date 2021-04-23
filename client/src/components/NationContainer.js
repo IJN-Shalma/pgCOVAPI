@@ -8,7 +8,7 @@ export const NationContainer = () => {
     useEffect(() => {
         let isCancelled = false;
 
-        fetch('https://pgCOVAPI.herokuapp.com/api/nazione?giorni=5')
+        fetch('https://pgCOVAPI.herokuapp.com/api/nazione')
         .then(response => {
             if(response.ok){
                 return response.json();
