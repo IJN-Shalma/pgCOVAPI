@@ -62,7 +62,6 @@ router.route('/:regione').get((req, res) => {
     var param = req.query.campo || null;
     let days = req.query.giorni || null;
     let query = {};
-    console.log(param);
 
     query.denominazione_regione = req.params.regione;
 
