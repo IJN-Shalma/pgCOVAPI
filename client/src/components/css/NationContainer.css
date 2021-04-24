@@ -1,6 +1,12 @@
 .nation-container{
-    height: 60vh;
-    width: 80vw;
-    margin-left: 50px;
+    height: 90vh;
+    width: 100%;
+    background-color: var(--color-background);
+}
+
+.chart-container{
+    height: 50vh;
+    width: 60vw;
     color: black;
+    background-color: white;
 }

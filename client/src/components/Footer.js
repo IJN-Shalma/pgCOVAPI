@@ -5,7 +5,7 @@ export const Footer = () => {
     return (
         <div className='footer'>
             <div className="authors">
-                <h3>Autori: </h3>
+                <h3>Autori</h3>
                 <p>Silvio Caprara</p>
                 <p>Pietro Chiartano</p>
                 <p>Yun Qing Zhou</p>

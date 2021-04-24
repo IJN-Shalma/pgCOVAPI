@@ -7,11 +7,11 @@ export const Banner = () => {
             <div className='banner-content'>
                 <h2 className='title'>pgCOVAPI</h2>
                 <h2 className='title'>Open Data Covid-19 in Italia</h2>
-                <p>API open data gratuito, semplice e intuitivo</p>
+                <p>API OPEN DATA GRATUITO, SEMPLICE E INTUITIVO</p>
             </div>
 
             <div className='down-button'>
-                <i className='far fa-arrow-alt-circle-down' href=''/>
+                <i className="fas fa-angle-double-down"></i>
             </div>
         </div>
     )
