@@ -12,8 +12,9 @@ let Regione = require("../../models/regione.model")
  **/
 router.route('/').get((req, res) => {
     const pMese = req.query.mese || null;
-    var param = req.query.campo || null;
+    let param = req.query.campo || null;
     let days = req.query.giorni || null;
+
     let query = {};
 
     if (days) {
@@ -59,8 +60,10 @@ router.route('/').get((req, res) => {
 */
 router.route('/:regione').get((req, res) => {
     const pMese = req.query.mese || null;
-    var param = req.query.campo || null;
+    let param = req.query.campo || null;
     let days = req.query.giorni || null;
+    let startDate = req.query.dataInizio || null
+    let endDate = req.query.dataFine || null;
     let query = {};
 
     query.denominazione_regione = req.params.regione;
@@ -77,16 +80,25 @@ router.route('/:regione').get((req, res) => {
         }
     }
 
-    if (param) {
-        param = loadBasicParams(param);
+    if (pMese) {
+        //spMese[0] = Anno
+        //spMese[1] = Mese
+        let spMese = pMese.split('-');
+        query.data = { $gte: spMese[0] + "-" + spMese[1] + "-00", $lte: spMese[0] + "-" + spMese[1] + "-31" }
     }
 
-    if (pMese) {
-        //spMese[0] = Mese
-        //spMese[1] = Anno
-        let spMese = pMese.split('-');
-        spMese[0].length == 1 && spMese[0] < 10 ? spMese[0] = "".concat("0", spMese[0]) : null;
-        query.data = { $gte: spMese[1] + "-" + spMese[0] + "-0", $lte: spMese[1] + "-" + spMese[0] + "31" }
+    if (startDate && endDate) {
+        query.data = { $gte: startDate, $lte: endDate }
+    }
+    else if (startDate && !endDate) {
+        query.data = { $gte: startDate }
+    }
+    else if (endDate && !startDate) {
+        query.data = { $lte: endDate }
+    }
+
+    if (param) {
+        param = loadBasicParams(param);
     }
 
     Regione.find(query)
