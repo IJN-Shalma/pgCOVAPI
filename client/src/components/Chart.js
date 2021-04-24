@@ -1,10 +1,6 @@
-import React/* , {useEffect,useRef} */ from 'react';
-import { ResponsiveLine } from '@nivo/line'
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
+import React/* , {useEffect} */ from 'react';
+import { ResponsiveLine } from '@nivo/line';
+
 export const Chart = ({ data }) => {
     let dataContainer = [];
     let formattedData = [];
@@ -50,7 +46,6 @@ export const Chart = ({ data }) => {
             "data" : formattedData
         }
     ];
-
     return (
         <ResponsiveLine
 		data={dataContainer}
@@ -124,5 +119,4 @@ export const Chart = ({ data }) => {
         ]}
 	/>
 );
-
 }
