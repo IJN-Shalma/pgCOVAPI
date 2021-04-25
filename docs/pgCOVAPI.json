@@ -35,7 +35,7 @@
         "tags": [
           "Regioni"
         ],
-        "description": "Ritorna tutti i dati riguardanti l'epidemia in una regione, organizzati per giorno dal primo giorno dell'epidemia all'ultimo giorno presente nel database.\n",
+        "description": "Ritorna i dati riguardanti l'epidemia in tutte le regioni.",
         "operationId": "RegionifindRegione",
         "parameters": [
           {
@@ -44,32 +44,35 @@
             "description": "Campo specifico da ritornare. I campi <b>data</b>, <b>stato</b>, <b>codice_regione</b> e <b>denominazione_regione</b> sono ritornati in ogni caso.",
             "required": false,
             "schema": {
-              "type": "string",
-              "enum": [
-                "ricoverati_con_sintomi",
-                "terapia_intensiva",
-                "totale_ospedalizzati",
-                "isolamento_domiciliare",
-                "totale_positivi",
-                "variazione_totale_positivi",
-                "nuovi_positivi",
-                "dimessi_guariti",
-                "deceduti",
-                "totale_casi",
-                "tamponi",
-                "casi_testati",
-                "ingressi_terapia_intensiva",
-                "totale_positivi_test_molecolare",
-                "totale_positivi_test_antigenico_rapido",
-                "tamponi_test_molecolare",
-                "tamponi_test_antigenico_rapido"
-              ]
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ricoverati_con_sintomi",
+                  "terapia_intensiva",
+                  "totale_ospedalizzati",
+                  "isolamento_domiciliare",
+                  "totale_positivi",
+                  "variazione_totale_positivi",
+                  "nuovi_positivi",
+                  "dimessi_guariti",
+                  "deceduti",
+                  "totale_casi",
+                  "tamponi",
+                  "casi_testati",
+                  "ingressi_terapia_intensiva",
+                  "totale_positivi_test_molecolare",
+                  "totale_positivi_test_antigenico_rapido",
+                  "tamponi_test_molecolare",
+                  "tamponi_test_antigenico_rapido"
+                ]
+              }
             }
           },
           {
             "name": "mese",
             "in": "query",
-            "description": "Mese da ricercare. Va riportato in formato <b>mm-yyyy</b>, ad esempio 09-2020 per ottenere i dati del mese di settembre 2020.",
+            "description": "Mese da ricercare. Va riportato in formato <b>yyyy-mm</b>, ad esempio 2020-09 per ottenere i dati del mese di settembre 2020.<br> Questo parametro è incompatibile con `giorni`, `dataInizio`, `dataFine`",
             "required": false,
             "schema": {
               "type": "string"
@@ -78,10 +81,28 @@
           {
             "name": "giorni",
             "in": "query",
-            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Il parametro giorni, se riportato insieme al parametro mese, viene ignorato.",
+            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Questo parametro è incompatibile con `mese`, `dataInizio`, `dataFine`.",
             "required": false,
             "schema": {
               "type": "integer"
+            }
+          },
+          {
+            "name": "dataInizio",
+            "in": "query",
+            "description": "Data in formato <b>yyyy-mm-gg</b>. Vengono ritornati tutti i documenti con le date maggiori e uguali alla data specificata.<br> Questo parametro è incompatibile con `giorni`, `mese`.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dataFine",
+            "in": "query",
+            "description": "Data in formato <b>yyyy-mm-gg</b>. Vengono ritornati tutti i documenti con le date minori e uguali alla data specificata.<br> Questo parametro è incompatibile con `giorni`, `mese`.",
+            "required": false,
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -99,7 +120,32 @@
                   "stato": "ITA",
                   "codice_regione": 1,
                   "denominazione_regione": "Piemonte",
-                  "totale_positivi": 35585
+                  "lat": 45.0732745,
+                  "long": 7.680687483,
+                  "ricoverati_con_sintomi": 3767,
+                  "terapia_intensiva": 360,
+                  "totale_ospedalizzati": 4127,
+                  "isolamento_domiciliare": 31458,
+                  "totale_positivi": 35585,
+                  "variazione_totale_positivi": 450,
+                  "nuovi_positivi": 2636,
+                  "dimessi_guariti": 256309,
+                  "deceduti": 10180,
+                  "casi_da_sospetto_diagnostico": null,
+                  "casi_da_screening": null,
+                  "totale_casi": 302074,
+                  "tamponi": 3231331,
+                  "casi_testati": 1484100,
+                  "note": null,
+                  "ingressi_terapia_intensiva": 27,
+                  "note_test": null,
+                  "note_casi": null,
+                  "totale_positivi_test_molecolare": 288766,
+                  "totale_positivi_test_antigenico_rapido": 13308,
+                  "tamponi_test_molecolare": 2350377,
+                  "tamponi_test_antigenico_rapido": 880954,
+                  "codice_nuts_1": "ITC",
+                  "codice_nuts_2": "ITC1"
                 }
               }
             }
@@ -112,13 +158,13 @@
         "tags": [
           "Regioni"
         ],
-        "description": "Ritorna tutti i dati riguardanti l'epidemia in una regione, organizzati per giorno dal primo giorno dell'epidemia all'ultimo giorno presente nel database.\n",
+        "description": "Ritorna i dati riguardanti l'epidemia in una regione specifica.\n",
         "operationId": "RegionifindAllCampo",
         "parameters": [
           {
             "name": "regione",
             "in": "path",
-            "description": "Regione italiana da ricercare (inserire \"all\" per visualizzare tutte le regioni). La prima lettera deve essere maiuscola.",
+            "description": "Regione italiana da ricercare.",
             "required": true,
             "schema": {
               "type": "string"
@@ -130,32 +176,35 @@
             "description": "Campo specifico da ritornare. I campi <b>data</b>, <b>stato</b>, <b>codice_regione</b> e <b>denominazione_regione</b> sono ritornati in ogni caso.",
             "required": false,
             "schema": {
-              "type": "string",
-              "enum": [
-                "ricoverati_con_sintomi",
-                "terapia_intensiva",
-                "totale_ospedalizzati",
-                "isolamento_domiciliare",
-                "totale_positivi",
-                "variazione_totale_positivi",
-                "nuovi_positivi",
-                "dimessi_guariti",
-                "deceduti",
-                "totale_casi",
-                "tamponi",
-                "casi_testati",
-                "ingressi_terapia_intensiva",
-                "totale_positivi_test_molecolare",
-                "totale_positivi_test_antigenico_rapido",
-                "tamponi_test_molecolare",
-                "tamponi_test_antigenico_rapido"
-              ]
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ricoverati_con_sintomi",
+                  "terapia_intensiva",
+                  "totale_ospedalizzati",
+                  "isolamento_domiciliare",
+                  "totale_positivi",
+                  "variazione_totale_positivi",
+                  "nuovi_positivi",
+                  "dimessi_guariti",
+                  "deceduti",
+                  "totale_casi",
+                  "tamponi",
+                  "casi_testati",
+                  "ingressi_terapia_intensiva",
+                  "totale_positivi_test_molecolare",
+                  "totale_positivi_test_antigenico_rapido",
+                  "tamponi_test_molecolare",
+                  "tamponi_test_antigenico_rapido"
+                ]
+              }
             }
           },
           {
             "name": "mese",
             "in": "query",
-            "description": "Mese da ricercare. Va riportato in formato <b>mm-yyyy</b>, ad esempio 09-2020 per ottenere i dati del mese di settembre 2020.",
+            "description": "Mese da ricercare. Va riportato in formato <b>yyyy-mm</b>, ad esempio 2020-09 per ottenere i dati del mese di settembre 2020.<br> Questo parametro è incompatibile con `giorni`, `dataInizio`, `dataFine`",
             "required": false,
             "schema": {
               "type": "string"
@@ -164,14 +213,32 @@
           {
             "name": "giorni",
             "in": "query",
-            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Il parametro giorni, se riportato insieme al parametro mese, viene ignorato.",
+            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Questo parametro è incompatibile con `mese`, `dataInizio`, `dataFine`.",
             "required": false,
             "schema": {
               "type": "integer"
             }
+          },
+          {
+            "name": "dataInizio",
+            "in": "query",
+            "description": "Data in formato <b>yyyy-mm-gg</b>. Vengono ritornati tutti i documenti con le date maggiori e uguali alla data specificata.<br> Questo parametro è incompatibile con `giorni`, `mese`.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dataFine",
+            "in": "query",
+            "description": "Data in formato <b>yyyy-mm-gg</b>. Vengono ritornati tutti i documenti con le date minori e uguali alla data specificata.<br> Questo parametro è incompatibile con `giorni`, `mese`.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
-        "summary": "Ritorna tutti i dati riguardanti l'epidemia in tutte le regioni, con la possibilità di specificare solo il campo voluto.",
+        "summary": "Ritorna i dati riguardanti l'epidemia in una regione specifica.",
         "responses": {
           "200": {
             "description": "Risposta con un array di oggetti, ognuno rappresentante un giorno in una regione",
@@ -185,7 +252,32 @@
                   "stato": "ITA",
                   "codice_regione": 1,
                   "denominazione_regione": "Piemonte",
-                  "totale_positivi": 35585
+                  "lat": 45.0732745,
+                  "long": 7.680687483,
+                  "ricoverati_con_sintomi": 3767,
+                  "terapia_intensiva": 360,
+                  "totale_ospedalizzati": 4127,
+                  "isolamento_domiciliare": 31458,
+                  "totale_positivi": 35585,
+                  "variazione_totale_positivi": 450,
+                  "nuovi_positivi": 2636,
+                  "dimessi_guariti": 256309,
+                  "deceduti": 10180,
+                  "casi_da_sospetto_diagnostico": null,
+                  "casi_da_screening": null,
+                  "totale_casi": 302074,
+                  "tamponi": 3231331,
+                  "casi_testati": 1484100,
+                  "note": null,
+                  "ingressi_terapia_intensiva": 27,
+                  "note_test": null,
+                  "note_casi": null,
+                  "totale_positivi_test_molecolare": 288766,
+                  "totale_positivi_test_antigenico_rapido": 13308,
+                  "tamponi_test_molecolare": 2350377,
+                  "tamponi_test_antigenico_rapido": 880954,
+                  "codice_nuts_1": "ITC",
+                  "codice_nuts_2": "ITC1"
                 }
               }
             }
@@ -198,13 +290,44 @@
         "tags": [
           "Nazione"
         ],
-        "description": "Ritorna tutti i dati riguardanti l'epidemia nella nazione raggruppati per giorno\n",
+        "description": "Ritorna tutti i dati riguardanti l'epidemia nella nazione raggruppati per giorno.\n",
         "operationId": "NazionefindAll",
         "parameters": [
           {
+            "name": "campo",
+            "in": "query",
+            "description": "Campo specifico da ritornare. I campi <b>data</b>, <b>stato</b>, <b>codice_regione</b> e <b>denominazione_regione</b> sono ritornati in ogni caso.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ricoverati_con_sintomi",
+                  "terapia_intensiva",
+                  "totale_ospedalizzati",
+                  "isolamento_domiciliare",
+                  "totale_positivi",
+                  "variazione_totale_positivi",
+                  "nuovi_positivi",
+                  "dimessi_guariti",
+                  "deceduti",
+                  "totale_casi",
+                  "tamponi",
+                  "casi_testati",
+                  "ingressi_terapia_intensiva",
+                  "totale_positivi_test_molecolare",
+                  "totale_positivi_test_antigenico_rapido",
+                  "tamponi_test_molecolare",
+                  "tamponi_test_antigenico_rapido"
+                ]
+              }
+            }
+          },
+          {
             "name": "mese",
             "in": "query",
-            "description": "Mese da ricercare. Va riportato in formato <b>mm-yyyy</b>, ad esempio 09-2020 per ottenere i dati del mese di settembre 2020.",
+            "description": "Mese da ricercare. Va riportato in formato <b>yyyy-mm</b>, ad esempio 2020-09 per ottenere i dati del mese di settembre 2020.<br> Questo parametro è incompatibile con `giorni`, `dataInizio`, `dataFine`",
             "required": false,
             "schema": {
               "type": "string"
@@ -213,38 +336,28 @@
           {
             "name": "giorni",
             "in": "query",
-            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Il parametro giorni, se riportato insieme al parametro mese, viene ignorato.",
+            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Questo parametro è incompatibile con `mese`, `dataInizio`, `dataFine`.",
             "required": false,
             "schema": {
               "type": "integer"
             }
           },
           {
-            "name": "campo",
+            "name": "dataInizio",
             "in": "query",
-            "description": "Campo specifico da ritornare. I campi <b>data</b>, <b>stato</b>, <b>codice_regione</b> e <b>denominazione_regione</b> sono ritornati in ogni caso.",
+            "description": "Data in formato <b>yyyy-mm-gg</b>. Vengono ritornati tutti i documenti con le date maggiori e uguali alla data specificata.<br> Questo parametro è incompatibile con `giorni`, `mese`.",
             "required": false,
             "schema": {
-              "type": "string",
-              "enum": [
-                "ricoverati_con_sintomi",
-                "terapia_intensiva",
-                "totale_ospedalizzati",
-                "isolamento_domiciliare",
-                "totale_positivi",
-                "variazione_totale_positivi",
-                "nuovi_positivi",
-                "dimessi_guariti",
-                "deceduti",
-                "totale_casi",
-                "tamponi",
-                "casi_testati",
-                "ingressi_terapia_intensiva",
-                "totale_positivi_test_molecolare",
-                "totale_positivi_test_antigenico_rapido",
-                "tamponi_test_molecolare",
-                "tamponi_test_antigenico_rapido"
-              ]
+              "type": "string"
+            }
+          },
+          {
+            "name": "dataFine",
+            "in": "query",
+            "description": "Data in formato <b>yyyy-mm-gg</b>. Vengono ritornati tutti i documenti con le date minori e uguali alla data specificata.<br> Questo parametro è incompatibile con `giorni`, `mese`.",
+            "required": false,
+            "schema": {
+              "type": "string"
             }
           }
         ],

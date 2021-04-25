@@ -12,19 +12,42 @@ let Regione = require("../../models/regione.model")
  **/
 router.route('/').get((req, res) => {
     const pMese = req.query.mese || null;
-    var param = req.query.campo || null;
+    let param = req.query.campo || null;
     let days = req.query.giorni || null;
+    let startDate = req.query.dataInizio || null
+    let endDate = req.query.dataFine || null;
+
     let query = {};
 
-    if (days) {
-        let date = new Date();
-        date.setDate(date.getDate() - days);
-        query = { "data": { $gte: date.toISOString() } };
+    if ((days && (startDate || endDate)) || (pMese && (startDate || endDate)) || (pMese && days)) {
+        return res.status(400).json('Errore: Parametri incompatibili')
+    }
+    else {
+        if (days) {
+            let date = new Date();
+            date.setDate(date.getDate() - days);
+            query.data = { $gte: date.toISOString() };
 
-        if (days <= 0) {
-            res.status(400);
-            res.send("Il parametro giorni deve essere maggiore di 0");
-            return;
+            if (days <= 0) {
+                return res.status(400).json('Errore: Valore minore di 0')
+            }
+        }
+
+        if (pMese) {
+            //spMese[0] = Anno
+            //spMese[1] = Mese
+            let spMese = pMese.split('-');
+            query.data = { $gte: spMese[0] + "-" + spMese[1] + "-00", $lte: spMese[0] + "-" + spMese[1] + "-31" }
+        }
+
+        if (startDate && endDate) {
+            query.data = { $gte: startDate, $lte: endDate }
+        }
+        else if (startDate && !endDate) {
+            query.data = { $gte: startDate }
+        }
+        else if (endDate && !startDate) {
+            query.data = { $lte: endDate }
         }
     }
 
@@ -32,16 +55,8 @@ router.route('/').get((req, res) => {
         param = loadBasicParams(param);
     }
 
-    if (pMese) {
-        //spMese[0] = Mese
-        //spMese[1] = Anno
-        let spMese = pMese.split('-');
-        spMese[0].length == 1 && spMese[0] < 10 ? spMese[0] = "".concat("0", spMese[0]) : null;
-        query.data = { $gte: spMese[1] + "-" + spMese[0] + "-0", $lte: spMese[1] + "-" + spMese[0] + "31" }
-    }
-
     Regione.find(query)
-        .sort({ "data": 1, "denominazione_regione" : 1})
+        .sort({ "data": 1, "denominazione_regione": 1 })
         .select(param)
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ' + err));
@@ -57,40 +72,53 @@ router.route('/').get((req, res) => {
  * @desc Get Informazioni Covid per regione
  * @access Public
 */
-router.route('/:regione').get((req, res) => {
+router.route('/:regione').get((req, res, next) => {
     const pMese = req.query.mese || null;
-    var param = req.query.campo || null;
+    let param = req.query.campo || null;
     let days = req.query.giorni || null;
+    let startDate = req.query.dataInizio || null
+    let endDate = req.query.dataFine || null;
     let query = {};
-
     query.denominazione_regione = req.params.regione;
 
-    if (days) {
-        let date = new Date();
-        date.setDate(date.getDate() - days);
-        query.data = { $gte: date.toISOString() };
+    if ((days && (startDate || endDate)) || (pMese && (startDate || endDate)) || (pMese && days)) {
+        return res.status(400).json('Errore: Parametri incompatibili')
+    }
+    else {
+        if (days) {
+            let date = new Date();
+            date.setDate(date.getDate() - days);
+            query.data = { $gte: date.toISOString() };
 
-        if (days <= 0) {
-            res.status(400);
-            res.send("Il parametro giorni deve essere maggiore di 0");
-            return;
+            if (days <= 0) {
+                return res.status(400).json('Errore: Valore minore di 0')
+            }
+        }
+
+        if (pMese) {
+            //spMese[0] = Anno
+            //spMese[1] = Mese
+            let spMese = pMese.split('-');
+            query.data = { $gte: spMese[0] + "-" + spMese[1] + "-00", $lte: spMese[0] + "-" + spMese[1] + "-31" }
+        }
+
+        if (startDate && endDate) {
+            query.data = { $gte: startDate, $lte: endDate }
+        }
+        else if (startDate && !endDate) {
+            query.data = { $gte: startDate }
+        }
+        else if (endDate && !startDate) {
+            query.data = { $lte: endDate }
         }
     }
 
     if (param) {
         param = loadBasicParams(param);
     }
-    
-    if (pMese) {
-        //spMese[0] = Mese
-        //spMese[1] = Anno
-        let spMese = pMese.split('-');
-        spMese[0].length == 1 && spMese[0] < 10 ? spMese[0] = "".concat("0", spMese[0]) : null;
-        query.data = { $gte: spMese[1] + "-" + spMese[0] + "-0", $lte: spMese[1] + "-" + spMese[0] + "31" }
-    }
 
     Regione.find(query)
-        .sort({ "data": 1 , "denominazione_regione" : 1})
+        .sort({ "data": 1, "denominazione_regione": 1 })
         .select(param)
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ') + err);
@@ -98,7 +126,7 @@ router.route('/:regione').get((req, res) => {
 
 
 function loadBasicParams(param) {
-    return [param, "data", "stato", "codice_regione", "denominazione_regione"].join(" ");
+    return Array.isArray(param) ? param.concat(["data", "stato", "codice_regione", "denominazione_regione"]).join(" ") : [param, "data", "stato", "codice_regione", "denominazione_regione"].join(" ");
 }
 
 
