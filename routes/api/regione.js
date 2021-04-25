@@ -19,33 +19,36 @@ router.route('/').get((req, res) => {
 
     let query = {};
 
-    if (days) {
-        let date = new Date();
-        date.setDate(date.getDate() - days);
-        query = { "data": { $gte: date.toISOString() } };
+    if ((days && (startDate || endDate)) || (pMese && (startDate || endDate)) || (pMese && days)) {
+        return res.status(400).json('Errore: Parametri incompatibili')
+    }
+    else {
+        if (days) {
+            let date = new Date();
+            date.setDate(date.getDate() - days);
+            query.data = { $gte: date.toISOString() };
 
-        if (days <= 0) {
-            res.status(400);
-            res.send("Il parametro giorni deve essere maggiore di 0");
-            return;
+            if (days <= 0) {
+                return res.status(400).json('Errore: Valore minore di 0')
+            }
         }
-    }
 
-    if (pMese) {
-        //spMese[0] = Anno
-        //spMese[1] = Mese
-        let spMese = pMese.split('-');
-        query.data = { $gte: spMese[0] + "-" + spMese[1] + "-00", $lte: spMese[0] + "-" + spMese[1] + "-31" }
-    }
+        if (pMese) {
+            //spMese[0] = Anno
+            //spMese[1] = Mese
+            let spMese = pMese.split('-');
+            query.data = { $gte: spMese[0] + "-" + spMese[1] + "-00", $lte: spMese[0] + "-" + spMese[1] + "-31" }
+        }
 
-    if (startDate && endDate) {
-        query.data = { $gte: startDate, $lte: endDate }
-    }
-    else if (startDate && !endDate) {
-        query.data = { $gte: startDate }
-    }
-    else if (endDate && !startDate) {
-        query.data = { $lte: endDate }
+        if (startDate && endDate) {
+            query.data = { $gte: startDate, $lte: endDate }
+        }
+        else if (startDate && !endDate) {
+            query.data = { $gte: startDate }
+        }
+        else if (endDate && !startDate) {
+            query.data = { $lte: endDate }
+        }
     }
 
     if (param) {
@@ -69,43 +72,45 @@ router.route('/').get((req, res) => {
  * @desc Get Informazioni Covid per regione
  * @access Public
 */
-router.route('/:regione').get((req, res) => {
+router.route('/:regione').get((req, res, next) => {
     const pMese = req.query.mese || null;
     let param = req.query.campo || null;
     let days = req.query.giorni || null;
     let startDate = req.query.dataInizio || null
     let endDate = req.query.dataFine || null;
     let query = {};
-
     query.denominazione_regione = req.params.regione;
 
-    if (days) {
-        let date = new Date();
-        date.setDate(date.getDate() - days);
-        query.data = { $gte: date.toISOString() };
+    if ((days && (startDate || endDate)) || (pMese && (startDate || endDate)) || (pMese && days)) {
+        return res.status(400).json('Errore: Parametri incompatibili')
+    }
+    else {
+        if (days) {
+            let date = new Date();
+            date.setDate(date.getDate() - days);
+            query.data = { $gte: date.toISOString() };
 
-        if (days <= 0) {
-            res.status(400);
-            res.send("Il parametro giorni deve essere maggiore di 0");
-            return;
+            if (days <= 0) {
+                return res.status(400).json('Errore: Valore minore di 0')
+            }
         }
-    }
 
-    if (pMese) {
-        //spMese[0] = Anno
-        //spMese[1] = Mese
-        let spMese = pMese.split('-');
-        query.data = { $gte: spMese[0] + "-" + spMese[1] + "-00", $lte: spMese[0] + "-" + spMese[1] + "-31" }
-    }
+        if (pMese) {
+            //spMese[0] = Anno
+            //spMese[1] = Mese
+            let spMese = pMese.split('-');
+            query.data = { $gte: spMese[0] + "-" + spMese[1] + "-00", $lte: spMese[0] + "-" + spMese[1] + "-31" }
+        }
 
-    if (startDate && endDate) {
-        query.data = { $gte: startDate, $lte: endDate }
-    }
-    else if (startDate && !endDate) {
-        query.data = { $gte: startDate }
-    }
-    else if (endDate && !startDate) {
-        query.data = { $lte: endDate }
+        if (startDate && endDate) {
+            query.data = { $gte: startDate, $lte: endDate }
+        }
+        else if (startDate && !endDate) {
+            query.data = { $gte: startDate }
+        }
+        else if (endDate && !startDate) {
+            query.data = { $lte: endDate }
+        }
     }
 
     if (param) {
