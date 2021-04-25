@@ -164,7 +164,7 @@
           {
             "name": "regione",
             "in": "path",
-            "description": "Regione italiana da ricercare (inserire \"all\" per visualizzare tutte le regioni). La prima lettera deve essere maiuscola.",
+            "description": "Regione italiana da ricercare.",
             "required": true,
             "schema": {
               "type": "string"
