@@ -1,7 +1,7 @@
 import React/* , {useEffect} */ from 'react';
 import { ResponsiveLine } from '@nivo/line';
 
-export const Chart = ({ data }) => {
+export const Chart = ({ data, campo }) => {
     let dataContainer = [];
     let formattedData = [];
     let days = [];
@@ -25,7 +25,7 @@ export const Chart = ({ data }) => {
             /* console.log(formattedDate) */
             days.push(formattedDate);
             
-            values.push(day.totale_positivi);
+            values.push(day[campo]);
             return true;
         })
         
@@ -41,7 +41,7 @@ export const Chart = ({ data }) => {
 
     dataContainer = [
         {
-            "id":"Italia",
+            "id": "Italia",
             "color": "hsl(214, 70%, 50%)",
             "data" : formattedData
         }
@@ -83,7 +83,7 @@ export const Chart = ({ data }) => {
 			tickSize: 0,
 			tickPadding: 0,
 			tickRotation: 0,
-			legend: "Infetti Totali",
+			legend: campo.replace("_"," "),
 			legendOffset: -50,
 			legendPosition: "middle"
 		}}
