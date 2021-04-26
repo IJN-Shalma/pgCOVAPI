@@ -46,6 +46,7 @@ export const Chart = ({ data }) => {
             "data" : formattedData
         }
     ];
+    
     return (
         <ResponsiveLine
 		data={dataContainer}
