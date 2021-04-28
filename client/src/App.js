@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Banner } from './components/Banner';
 import { Footer } from './components/Footer';
-import { NationContainer } from './components/NationContainer';
+import { ChartContainer } from './components/ChartContainer';
 import './App.css';
 
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
               <Banner/>
             </Route>
             <Route path='/grafici'>
-              <NationContainer/>
+              <ChartContainer/>
             </Route>
           </Switch>
           <Footer/>

@@ -48,10 +48,6 @@ h3 {
     width: 100%;
 }
 
-.btn:focus {
-    outline: 0;
-}
-
 .fa-viruses {
     color: rgb(196, 80, 80);
 }

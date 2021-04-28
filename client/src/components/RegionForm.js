@@ -1,58 +1,75 @@
-import React, {useEffect,useState} from 'react';
-import {Chart} from './Chart';
-import {Loading} from './Loading'
-import {trackPromise} from 'react-promise-tracker';
-import {TextField, Grid, Select, FormControl, InputLabel} from '@material-ui/core';
+import React from 'react';
+import {TextField, Grid, Select, FormControl, InputLabel, MenuItem} from '@material-ui/core';
 
-import './css/NationContainer.css';
+export const RegionForm = ({setDateStart, setDateEnd, setField, setSelectedRegions, selectedRegions, setAddedRegion}) => {
+    let regionNames = [    
+        "Abruzzo",
+        "Basilicata",
+        "Calabria",
+        "Campania",
+        "Emilia-Romagna",
+        "Friuli Venezia Giulia",
+        "Lazio",
+        "Liguria",
+        "Lombardia",
+        "Marche",
+        "Molise",
+        "Piemonte",
+        "Puglia",
+        "Sardegna",
+        "Sicilia",
+        "Toscana",
+        "Trentino Alto Adige",
+        "Umbria",
+        "Val d'Aosta",
+        "Veneto",
+        "P.A. Trento",
+        "P.A Bolzano"
+    ];
 
-export const NationContainer = () => {
-    const [json, setJson] = useState([]);
-    const [dateEnd, setDateEnd] = useState("");
-    const [dateStart, setDateStart] = useState("");
-    const [field, setField] = useState("totale_positivi");
-
-    useEffect(() => {
-        /* let isCancelled = false; // */
-        let url = "https://pgCOVAPI.herokuapp.com/api/nazione/?";
-
-        if(dateStart && dateEnd){
-            url = url.concat("dataInizio=" + dateStart).concat("&dataFine=" + dateEnd);
-        }
-
-        if(field){
-            url = url.concat("&campo=" + field);
-        }
-
-        console.log(url)
-        //track fetch status using custom hook
-        trackPromise(
-            fetch(url)
-            .then(response => {
-                if(response.ok){
-                    return response.json();
-                }
-            })
-            .then((jsonData) => {
-                /* if(!isCancelled){
-                    setJson(jsonData);
-                }; */
-
-                setJson(jsonData);
-            })
-        );
-
-        /* return () => { isCancelled = true }; */
-    }, [field, dateStart, dateEnd]);
-
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+    PaperProps: {
+        style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 200,
+        },
+    }
+    };
+    
     return (
-        <Grid container className="nation-container">
-            <Grid item xs={12} lg={8} className = "chart-container" >
-                <Loading/>
-                <Chart data={json} campo={field}/>
-            </Grid>
- 
+        <>
             <Grid item container xs={12} lg={4} justify="center" alignItems="center" direction="column">
+                <FormControl>
+                    <InputLabel>Regione</InputLabel>
+                        <Select 
+                            multiple
+                            width={"10rem"}
+                            id="region-selector"
+                            value={selectedRegions}
+                            onChange={(event) => {
+                                setSelectedRegions(prev => {
+                                    if(event.target.value.length > prev.length){
+                                        /* console.log("added") */
+                                        setAddedRegion(true);
+                                    }else{
+                                        /* console.log("deleted") */
+                                    }
+
+                                    return event.target.value
+                                });
+                            }}
+                            MenuProps={MenuProps}>
+
+                        {regionNames.map((name) => (
+                            <MenuItem key={name} value={name}>
+                                {name}
+                            </MenuItem>
+                        ))}
+                        </Select>
+                    </FormControl>
+
                     <TextField 
                         id="date-start" 
                         label="Inizio intervallo" 
@@ -60,7 +77,6 @@ export const NationContainer = () => {
                         onChange={(event) => {
                             setDateStart(event.target.value);
                         }}
-                        on
                         type="date"
                         InputLabelProps={{
                             shrink: true,
@@ -81,8 +97,9 @@ export const NationContainer = () => {
                         }}
                         y={1}
                     />
-                    <FormControl>
-                        <InputLabel htmlFor="field">field</InputLabel>
+
+                <FormControl>
+                    <InputLabel htmlFor="field">Field</InputLabel>
                         <Select 
                             native
                             onChange={(event) => {
@@ -111,8 +128,8 @@ export const NationContainer = () => {
                             <option value="tamponi_test_molecolare">Tamponi Test Molecolare</option>
                             <option value="tamponi_test_antigenico_rapido">Tamponi Test Antigenico Rapido</option>
                         </Select>
-                    </FormControl>
+                </FormControl>
             </Grid>
-        </Grid>
+        </>
     )
 }

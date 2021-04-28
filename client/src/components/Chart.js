@@ -1,65 +1,21 @@
-import React/* , {useEffect} */ from 'react';
+import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
 
-export const Chart = ({ data, campo }) => {
-    let dataContainer = [];
-    let formattedData = [];
-    let days = [];
-    let values = [];
-
-    const formatDate = (d) =>{
-            let month = String(d.getMonth() + 1);
-            let day = String(d.getDate());
-            let year = String(d.getFullYear());
-          
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
-            return `${day}-${month}-${year}`;
-          
-    }
-
-    const formatData = () => {
-        data.map(day =>{
-            let date = new Date(day.data+"Z");
-            let formattedDate = formatDate(date);
-            /* console.log(formattedDate) */
-            days.push(formattedDate);
-            
-            values.push(day[campo]);
-            return true;
-        })
-        
-        for (let i=0; i<days.length;i++){
-            formattedData[i] = {
-                x: days[i],
-                y: values[i]
-            }
-        }
-    }
-
-    formatData();
-
-    dataContainer = [
-        {
-            "id": "Italia",
-            "color": "hsl(214, 70%, 50%)",
-            "data" : formattedData
-        }
-    ];
-    
+export const Chart = ({data, labelY}) => {
     return (
+        <>
         <ResponsiveLine
-		data={dataContainer}
+		data={data}
 		margin={{
 			top: 30,
-			right: 60,
+			right: 90,
 			bottom: 70,
 			left: 100
 		}}
 		xScale={{
             format: '%d-%m-%Y',
-            type: 'time'
-            /* precision: 'day' */
+            type: 'time',
+            precision: 'day'
 		}}
 		yScale={{
 			type: 'linear',
@@ -73,7 +29,7 @@ export const Chart = ({ data, campo }) => {
             tickValues: 'every month',
 			tickSize: 10,
 			tickPadding: 5,
-			tickRotation: 45,
+			tickRotation: 25,
 			legend: "Data",
 			legendOffset: 60,
             legendPosition: "middle",
@@ -83,7 +39,7 @@ export const Chart = ({ data, campo }) => {
 			tickSize: 0,
 			tickPadding: 0,
 			tickRotation: 0,
-			legend: campo.replace("_"," "),
+			legend: labelY.replace("_"," "),
 			legendOffset: -50,
 			legendPosition: "middle"
 		}}
@@ -97,7 +53,7 @@ export const Chart = ({ data, campo }) => {
                 anchor: 'bottom-right',
                 direction: 'column',
                 justify: false,
-                translateX: 140,
+                translateX: 85,
                 translateY: 0,
                 itemsSpacing: 2,
                 itemDirection: 'left-to-right',
@@ -119,5 +75,6 @@ export const Chart = ({ data, campo }) => {
             }
         ]}
 	/>
+    </>
 );
 }
