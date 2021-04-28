@@ -30,12 +30,12 @@ export const RegionForm = ({setDateStart, setDateEnd, setField, setSelectedRegio
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
     const MenuProps = {
-    PaperProps: {
-        style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 200,
-        },
-    }
+        PaperProps: {
+            style: {
+                maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+                width: "200px",
+            },
+        }
     };
     
     return (
@@ -45,8 +45,8 @@ export const RegionForm = ({setDateStart, setDateEnd, setField, setSelectedRegio
                     <InputLabel>Regione</InputLabel>
                         <Select 
                             multiple
-                            width={"10rem"}
                             id="region-selector"
+                            style={{width:"10rem"}}
                             value={selectedRegions}
                             onChange={(event) => {
                                 setSelectedRegions(prev => {
