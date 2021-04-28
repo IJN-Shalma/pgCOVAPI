@@ -1,7 +1,7 @@
 import React from 'react';
 import {TextField, Grid, Select, FormControl, InputLabel, MenuItem} from '@material-ui/core';
 
-export const RegionForm = ({setDateStart, setDateEnd, setField, setSelectedRegions, selectedRegions, setAddedRegion}) => {
+export const RegionForm = ({field, className, setDateStart, setDateEnd, setField, setSelectedRegions, selectedRegions, setAddedRegion}) => {
     let regionNames = [    
         "Abruzzo",
         "Basilicata",
@@ -29,7 +29,7 @@ export const RegionForm = ({setDateStart, setDateEnd, setField, setSelectedRegio
     
     return (
         <>
-            <Grid item container xs={12} lg={4} justify="center" alignItems="center" direction="column">
+            <Grid className={className} item container xs={12} lg={4} justify="center" alignItems="center" direction="column">
                 <FormControl>
                     <InputLabel>Regione</InputLabel>
                         <Select 
@@ -98,6 +98,8 @@ export const RegionForm = ({setDateStart, setDateEnd, setField, setSelectedRegio
                                 name: 'field',
                                 id: 'field'
                             }}
+
+                            value={field}
                         >
                             <option value="totale_positivi">Totale Positivi</option>
                             <option value="ricoverati_con_sintomi">Ricoverati con Sintomi</option>

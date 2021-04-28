@@ -1,5 +1,6 @@
 .chart-container-wrapper{
     background-color: var(--color-background);
+    padding: 0 1rem 1rem 1rem;
 }
 
 .chart-container{
@@ -9,8 +10,13 @@
     background-color: white;
 }
 
+.form-container{
+    padding: 1rem 1rem;
+}
+
 @media screen and (max-width: 960px) {
     .chart-container{
         width: 100vw;
+        height: 50vh;
     }
 }

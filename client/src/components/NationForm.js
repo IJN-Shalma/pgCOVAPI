@@ -1,10 +1,10 @@
 import React from 'react';
 import {TextField, Grid, Select, FormControl, InputLabel} from '@material-ui/core';
 
-export const NationForm = ({setDateStart, setDateEnd, setField}) => {
+export const NationForm = ({field, className, setDateStart, setDateEnd, setField}) => {
     return (
         <>
-            <Grid item container xs={12} lg={4} justify="center" alignItems="center" direction="column">
+            <Grid className={className} item container xs={12} lg={4} justify="center" alignItems="center" direction="column">
                     <TextField 
                         id="date-start" 
                         label="Inizio intervallo" 
@@ -43,6 +43,8 @@ export const NationForm = ({setDateStart, setDateEnd, setField}) => {
                                 name: 'field',
                                 id: 'field'
                             }}
+
+                            value={field}
                         >
                             <option value="totale_positivi">Totale Positivi</option>
                             <option value="ricoverati_con_sintomi">Ricoverati con Sintomi</option>

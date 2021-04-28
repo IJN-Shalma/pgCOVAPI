@@ -10,7 +10,7 @@ export const Chart = ({data, labelY}) => {
 			top: 30,
 			right: 90,
 			bottom: 70,
-			left: 100
+			left: 80
 		}}
 		xScale={{
             format: '%d-%m-%Y',
@@ -29,7 +29,7 @@ export const Chart = ({data, labelY}) => {
             tickValues: 'every month',
 			tickSize: 10,
 			tickPadding: 5,
-			tickRotation: 25,
+			tickRotation: 45,
 			legend: "Data",
 			legendOffset: 60,
             legendPosition: "middle",

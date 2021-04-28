@@ -140,8 +140,8 @@ export const ChartContainer = () => {
 
             {
             selectedChart==="nazione" 
-                ? (<NationForm setDateStart={setDateStart} setDateEnd={setDateEnd} setField={setField}/>) 
-                : (<RegionForm setAddedRegion={setAddedRegion} setDateStart={setDateStart} setDateEnd={setDateEnd} setField={setField} setSelectedRegions={setSelectedRegions} selectedRegions={selectedRegions}/>)
+                ? (<NationForm className="form-container" setDateStart={setDateStart} setDateEnd={setDateEnd} setField={setField} field={field}/>) 
+                : (<RegionForm className="form-container" setAddedRegion={setAddedRegion} setDateStart={setDateStart} setDateEnd={setDateEnd} setField={setField} setSelectedRegions={setSelectedRegions} selectedRegions={selectedRegions} />)
             }
         </Grid>
     )
