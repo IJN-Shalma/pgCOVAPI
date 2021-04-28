@@ -21,6 +21,7 @@ export const ChartContainer = () => {
 
     useEffect(() => {
         setChartData([]);
+        setSelectedRegions([]);
     }, [selectedChart, field])
 
     useEffect(()=>{
@@ -95,7 +96,7 @@ export const ChartContainer = () => {
             url = url.concat("?&campo=" + field);
         }
 
-        console.log(url);
+        /* console.log(url); */
         
         if(valid){
             //track fetch status using custom hook

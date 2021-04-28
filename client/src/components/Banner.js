@@ -3,6 +3,8 @@ import Button from '@material-ui/core/Button';
 import './css/Banner.css';
 
 export const Banner = () => {
+    console.log("RENDERED")
+
     return (
         <div className='banner-container'>
             <div className='banner-wrapper'>
