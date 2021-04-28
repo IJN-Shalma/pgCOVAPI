@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from 'react';
+import React, {useEffect,useState,useRef} from 'react';
 import {trackPromise} from 'react-promise-tracker';
 import {Grid} from '@material-ui/core';
 import {Chart} from './Chart';
@@ -10,6 +10,8 @@ import {ChartSelect} from './ChartSelect';
 import './css/ChartContainer.css';
 
 export const ChartContainer = () => {
+    const nationChartRendered = useRef(false);
+
     const [dateEnd, setDateEnd] = useState("");
     const [dateStart, setDateStart] = useState("");
     const [loaded, setLoaded] = useState(false);
@@ -22,11 +24,12 @@ export const ChartContainer = () => {
     useEffect(() => {
         setChartData([]);
         setSelectedRegions([]);
+        nationChartRendered.current = false;
     }, [selectedChart, field])
 
     useEffect(()=>{
         setChartData(c => {
-            return c.filter(series => selectedRegions.indexOf(series.id) > -1);
+                return c.filter(series => selectedRegions.indexOf(series.id) > -1);
             }
         );
     }, [selectedRegions]);
@@ -82,8 +85,9 @@ export const ChartContainer = () => {
             url = url.concat(lastRegion);
             setAddedRegion(false);
             valid = true;
-        }else if(selectedChart === "nazione"){
+        }else if(selectedChart === "nazione" && !nationChartRendered.current){
             valid = true;
+            nationChartRendered.current = true;
         }else if(!addedRegion){
             setLoaded(true)
         }

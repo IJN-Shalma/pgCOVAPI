@@ -26,17 +26,6 @@ export const RegionForm = ({setDateStart, setDateEnd, setField, setSelectedRegio
         "P.A. Trento",
         "P.A Bolzano"
     ];
-
-    const ITEM_HEIGHT = 48;
-    const ITEM_PADDING_TOP = 8;
-    const MenuProps = {
-        PaperProps: {
-            style: {
-                maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-                width: "200px",
-            },
-        }
-    };
     
     return (
         <>
@@ -60,7 +49,7 @@ export const RegionForm = ({setDateStart, setDateEnd, setField, setSelectedRegio
                                     return event.target.value
                                 });
                             }}
-                            MenuProps={MenuProps}>
+                            MenuProps={{getContentAnchorEl: () => null}}>
 
                         {regionNames.map((name) => (
                             <MenuItem key={name} value={name}>
