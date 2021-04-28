@@ -60,7 +60,7 @@
 }
 
 .nav-links:hover {
-    border-left: 4px solid var(--color-highlight-dark);
+    border-right: 4px solid var(--color-highlight-dark);
     color: var(--color-highlight-dark);
     transition: all 0.1s ease-in-out;
 }
