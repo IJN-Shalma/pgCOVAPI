@@ -134,6 +134,9 @@ export const ChartContainer = () => {
     }, [field, dateStart, dateEnd, selectedChart, selectedRegions]);
 
     return (
+        /**
+         * @return Ritorna il grid contenente il grafico selezionato nel ChartSelect
+         */
         <Grid container className="chart-container-wrapper">
             <ChartSelect onClick={setSelectedChart}></ChartSelect>
 

@@ -6,7 +6,9 @@ import './css/Loading.css';
 export const Loading = () => 
 {
     const {promiseInProgress} = usePromiseTracker();
-    
+    /**
+     * @return Ritorna.
+     */
     return(
         <>
             {promiseInProgress && 

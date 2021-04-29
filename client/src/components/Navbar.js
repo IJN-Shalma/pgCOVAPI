@@ -8,7 +8,15 @@ export const Navbar = () => {
 
     const handleClick = () => setMenuActive(!menuActive);
     const closeMenu = () => setMenuActive(false);
-
+    /**
+     * @return Ritorna la navbar dell'applicazione. La navbar contiene:
+     *              - Il logo
+     *              - Il titolo
+     *              - I bottoni per la navigazione:
+     *                  I. Home => Cliccandolo visualizza la home dell'applicazione
+     *                  II. Documentazione API => Cliccandolo porta alla documentazione Swagger della API
+     *                  III. Grafici => Cliccandolo visualizza il grafico dei dati.
+     */
     return (
         <nav className='navbar'>
             <div className='navbar-container'>

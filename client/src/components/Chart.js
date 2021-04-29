@@ -2,8 +2,10 @@ import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
 
 export const Chart = ({data, labelY}) => {
+// 21 colori corrispondenti alle 21 regioni selezionabili (19 regioni, 2 P.A.)
 const colors = ['#eb4034','#eb9634','#ebdc34','#c1e010','#80eb07','#0dd41a','#44e37c','#31e8cd','#1ccfd9','#0fafdb','#0f79d6','#1444e0','#2f2196','#6e18c4','#6e18c4','#cf13bc','#c90e5c','#de0b35','#ff191d','#176b0e','#550e57']
 
+// creazione legenda della linea quando il mouse va in hover su di essa
 const legendProps =
     {
         anchor: 'top-left',
@@ -29,7 +31,7 @@ const legendProps =
             }
         ]
     };
-
+    // Grafico
     return (
         <>
         <ResponsiveLine

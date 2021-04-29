@@ -1,6 +1,7 @@
 import React from 'react';
 import {TextField, Grid, Select, FormControl, InputLabel, MenuItem} from '@material-ui/core';
 
+// Possibili regioni selezionabili all'interno del form
 export const RegionForm = ({field, className, setDateStart, setDateEnd, setField, setSelectedRegions, selectedRegions, setAddedRegion}) => {
     let regionNames = [    
         "Abruzzo",
@@ -25,7 +26,14 @@ export const RegionForm = ({field, className, setDateStart, setDateEnd, setField
         "P.A. Trento",
         "P.A. Bolzano"
     ];
-    
+    /**
+     * @return Ritorna il form per la gestione dei dati relativi alle regioni italiane.
+     *         All'interno del form è possibile selezionare:
+     *              - Regioni di cui visualizzare i dati (da migliorare forse con dei checkbox)
+     *              - Inizio intervallo 
+     *              - Fine intervallo
+     *              - Dato da visualizzare
+     */
     return (
         <>
             <Grid className={className} item container xs={12} lg={4} justify="center" alignItems="center" direction="column">

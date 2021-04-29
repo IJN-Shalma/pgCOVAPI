@@ -2,6 +2,11 @@ import React from 'react';
 import './css/Footer.css'
 
 export const Footer = () => {
+    /**
+     * @return Ritorna il footer della pagina che contiene:
+     *          - Autori
+     *          - Crediti
+     */
     return (
         <div className='footer'>
             <div className="authors">

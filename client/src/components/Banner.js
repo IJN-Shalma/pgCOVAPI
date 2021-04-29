@@ -4,6 +4,13 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import DescriptionIcon from '@material-ui/icons/Description';
 import './css/Banner.css';
 
+/**
+ * @returns Ritorna l'elemento div della pagina Home contenente alcune informazioni riguardo all'utilizzo del sito.
+ *          All'interno del sito troviamo anche due bottoni:
+ *              - Github => Quando cliccato porta alla repository del progetto
+ *              - Documentazione => Quando cliccato porta alla documentazione swagger dell'API
+ */
+
 export const Banner = () => {
 
     return (

@@ -2,6 +2,13 @@ import React from 'react';
 import {TextField, Grid, Select, FormControl, InputLabel} from '@material-ui/core';
 
 export const NationForm = ({field, className, setDateStart, setDateEnd, setField}) => {
+    /**
+     * @return Ritorna il form per la gestione dei dati rigurdanti l'Italia.
+     *         All'interno del form è possibile selezionare:
+     *              - Inizio dell'intervallo
+     *              - Fine dell'intervallo
+     *              - Dato da visualizzare
+     */
     return (
         <>
             <Grid className={className} item container xs={12} lg={4} justify="center" alignItems="center" direction="column">
