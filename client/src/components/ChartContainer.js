@@ -12,26 +12,30 @@ import './css/ChartContainer.css';
 export const ChartContainer = () => {
     const nationChartRendered = useRef(false);
 
-    const [dateEnd, setDateEnd] = useState("");
-    const [dateStart, setDateStart] = useState("");
-    const [loaded, setLoaded] = useState(false);
-    const [field, setField] = useState("totale_positivi");
-    const [selectedChart, setSelectedChart] = useState("nazione");
-    const [selectedRegions, setSelectedRegions] = useState(["Abruzzo"]);
-    const [chartData, setChartData] = useState([]);
-    const [addedRegion, setAddedRegion] = useState(true);
+    const [dateEnd, setDateEnd] = useState(""); // end interval
+    const [dateStart, setDateStart] = useState(""); // start interval
+    const [loaded, setLoaded] = useState(false); // chart loaded
+    const [field, setField] = useState("totale_positivi"); // selected field (campo)
+    const [selectedChart, setSelectedChart] = useState("nazione"); // selected chart (nazione / regioni)
+    const [selectedRegions, setSelectedRegions] = useState(["Abruzzo"]); // list of selected Regions
+    const [chartData, setChartData] = useState([]); // chart Data
+    const [addedRegion, setAddedRegion] = useState(true); // if region is added or removed
 
+    // clear chart data and selected regions
     useEffect(() => {
         setChartData([]);
         setSelectedRegions([]);
         nationChartRendered.current = false;
     }, [selectedChart, field])
 
+    // remove deleted regions
     useEffect(()=>{
-        setChartData(c => {
-                return c.filter(series => selectedRegions.indexOf(series.id) > -1);
-            }
-        );
+        if(addedRegion){
+            setChartData(c => {
+                    return c.filter(series => selectedRegions.indexOf(series.id) > -1);
+                }
+            );
+        }
     }, [selectedRegions]);
 
     useEffect(() => {

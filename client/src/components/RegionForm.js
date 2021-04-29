@@ -19,12 +19,11 @@ export const RegionForm = ({field, className, setDateStart, setDateEnd, setField
         "Sardegna",
         "Sicilia",
         "Toscana",
-        "Trentino Alto Adige",
         "Umbria",
-        "Val d'Aosta",
+        "Valle d'Aosta",
         "Veneto",
         "P.A. Trento",
-        "P.A Bolzano"
+        "P.A. Bolzano"
     ];
     
     return (
@@ -43,10 +42,11 @@ export const RegionForm = ({field, className, setDateStart, setDateEnd, setField
                                         /* console.log("added") */
                                         setAddedRegion(true);
                                     }else{
+                                        setAddedRegion(false);
                                         /* console.log("deleted") */
                                     }
 
-                                    return event.target.value
+                                    return event.target.value;
                                 });
                             }}
                             MenuProps={{getContentAnchorEl: () => null}}>

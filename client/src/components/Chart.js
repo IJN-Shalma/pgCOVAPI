@@ -2,15 +2,43 @@ import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
 
 export const Chart = ({data, labelY}) => {
+const colors = ['#eb4034','#eb9634','#ebdc34','#c1e010','#80eb07','#0dd41a','#44e37c','#31e8cd','#1ccfd9','#0fafdb','#0f79d6','#1444e0','#2f2196','#6e18c4','#6e18c4','#cf13bc','#c90e5c','#de0b35','#ff191d','#176b0e','#550e57']
+
+const legendProps =
+    {
+        anchor: 'top-left',
+        direction: 'column',
+        justify: false,
+        translateX: -50,
+        translateY: -190,
+        itemsSpacing: 2,
+        itemDirection: 'left-to-right',
+        itemWidth: 80,
+        itemHeight: 12,
+        itemOpacity: 0.75,
+        symbolSize: 10,
+        symbolShape: 'circle',
+        symbolBorderColor: 'rgba(0, 0, 0, .5)',
+        effects: [
+            {
+                on: 'hover',
+                style: {
+                    itemBackground: 'rgba(0, 0, 0, .03)',
+                    itemOpacity: 1
+                }
+            }
+        ]
+    };
+
     return (
         <>
         <ResponsiveLine
 		data={data}
 		margin={{
-			top: 30,
-			right: 90,
-			bottom: 70,
-			left: 80
+			top: 200,
+			right: 30,
+			bottom: 80,
+			left: 70
 		}}
 		xScale={{
             format: '%d-%m-%Y',
@@ -44,36 +72,49 @@ export const Chart = ({data, labelY}) => {
 			legendPosition: "middle"
 		}}
         enableGridX={false}
-        colors={{ scheme: 'spectral' }}
+        colors={colors}
         enablePoints={false}
         lineWidth={3}
         useMesh={true}
-		legends={[
-            {
-                anchor: 'bottom-right',
-                direction: 'column',
-                justify: false,
-                translateX: 85,
-                translateY: 0,
-                itemsSpacing: 2,
-                itemDirection: 'left-to-right',
-                itemWidth: 80,
-                itemHeight: 12,
-                itemOpacity: 0.75,
-                symbolSize: 12,
-                symbolShape: 'circle',
-                symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                effects: [
-                    {
-                        on: 'hover',
-                        style: {
-                            itemBackground: 'rgba(0, 0, 0, .03)',
-                            itemOpacity: 1
-                        }
-                    }
-                ]
-            }
-        ]}
+		legends={
+            data && data.length <= 11 ? 
+            [{
+                ...legendProps,
+                symbolSize: 18,
+                itemsSpacing: 4
+            }]
+            : 
+            [
+                {
+                  ...legendProps,
+                  symbolSize: 10,
+                  itemsSpacing: 2,
+                  translateX: 0,
+                  data: data
+                    .slice(0, Math.floor(data.length / 2))
+                    .map((cur, index) => ({
+                      id: cur.id,
+                      label: cur.id,
+                      color: colors
+                        .slice(0, Math.floor(data.length / 2))[index],
+                    })),
+                },
+                {
+                  ...legendProps,
+                  symbolSize: 10,
+                  itemsSpacing: 2,
+                  translateX: 120,
+                  data: data
+                    .slice(Math.floor(data.length / 2))
+                    .map((cur, index) => ({
+                      id: cur.id,
+                      label: cur.id,
+                      color: colors
+                        .slice(Math.floor(data.length / 2))[index],
+                    })),
+                },
+              ]
+        }
 	/>
     </>
 );
