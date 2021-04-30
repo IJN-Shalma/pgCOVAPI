@@ -23,14 +23,14 @@ export const Navbar = () => {
                 {/* Title */}
                 <div>
                     <Link to='/' className='navbar-logo'>
-                        pgCOVAPI <i className='fas fa-viruses'/>
+                        pgCOVAPI <i className='fas fa-viruses' />
                     </Link>
                 </div>
-                
+
 
                 {/* Hamburger Menu Icon */}
                 <div className='menu-icon' onClick={handleClick}>
-                    <p>MENU</p><i className={menuActive ? 'fas fa-times' : 'fas fa-bars'}/>
+                    <i className={menuActive ? 'fas fa-times' : 'fas fa-bars'} />
                 </div>
 
                 {/* Nav items */}

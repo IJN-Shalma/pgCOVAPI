@@ -20,7 +20,7 @@ export const Footer = () => {
                 <h3>Extra</h3>
                 <p>Progetto Maturità 2021</p>
                 <p>5^C Informatica IIS A. Avogadro Torino</p>
-                <p>Copyright &copy; 2021</p>
+                <p>&nbsp;</p>
             </div>
         </div>
     )

@@ -1,0 +1,37 @@
+.carousel-container{
+    height: auto;
+    background-color: var(--color-background-light)
+}
+
+.carousel-wrapper{
+    margin: 5vh auto;
+    text-align: center;
+}
+
+.carousel{
+    height: 17vh;
+}
+
+.data-box{
+    padding: 10px;
+}
+
+.datainfo{
+    font-size: 25px;
+}
+
+.data{
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.c1{color:#ffadad}
+
+.c2{color: #ffd6a5}
+
+.c3{color: #caffbf}
+
+.c4{color: #9bf6ff}
+
+.c5{color: #bdb2ff}
+
