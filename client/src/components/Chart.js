@@ -38,9 +38,9 @@ const legendProps =
 		data={data}
 		margin={{
 			top: 200,
-			right: 30,
+			right: 40,
 			bottom: 80,
-			left: 70
+			left: 80
 		}}
 		xScale={{
             format: '%d-%m-%Y',
@@ -70,7 +70,7 @@ const legendProps =
 			tickPadding: 0,
 			tickRotation: 0,
 			legend: labelY.replace("_"," "),
-			legendOffset: -50,
+			legendOffset: -60,
 			legendPosition: "middle"
 		}}
         enableGridX={false}

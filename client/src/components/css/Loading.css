@@ -7,4 +7,6 @@
     top: 0;
     align-items: center;
     position: absolute;
+    /*background-color: whitesmoke;*/
+    z-index: 99;
 }

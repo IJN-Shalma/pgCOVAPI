@@ -8,10 +8,12 @@
     width: 70vw;
     color: black;
     background-color: white;
+    position: relative;
 }
 
 .form-container{
     padding: 1rem 1rem;
+    background-color: whitesmoke;
 }
 
 @media screen and (max-width: 960px) {
