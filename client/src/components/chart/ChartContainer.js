@@ -59,28 +59,41 @@ export const ChartContainer = () => {
     
         const createChartData = (urlList) => {
             let newData = [];
-
+            let promises = [];
+            
             urlList.forEach(url => {
-                trackPromise(
-                    fetch(url)
-                    .then(response => {
-                        if(response.ok){
-                            return response.json();
-                        }
-                    })
-                    .then(jsonData => {
-                        let data = formatData(jsonData);
-                        newData.push(
-                            {
-                                "id": data.id,
-                                "color": "hsl(214, 70%, 50%)",
-                                "data" : data.formattedData
+                promises.push(
+                    trackPromise(
+                        fetch(url)
+                        .then(response => {
+                            if(response.ok){
+                                return response.json();
                             }
-                        );
-                    })
+                        })
+                        .then(jsonData => {
+                            let data = formatData(jsonData);
+                            /* setChartData([
+                                {
+                                    "id": data.id,
+                                    "color": "hsl(214, 70%, 50%)",
+                                    "data" : data.formattedData
+                                }
+                            ])  */
+                            newData.push(
+                                {
+                                    "id": data.id,
+                                    "color": "hsl(214, 70%, 50%)",
+                                    "data" : data.formattedData
+                                }
+                            );
+                        })
+                    )  
                 );
             });
-            setChartData(newData);
+            
+            Promise.all(promises).then(() =>{
+                setChartData(newData);
+            })
         }
 
         let urlList = [];
@@ -109,7 +122,7 @@ export const ChartContainer = () => {
                 });
             }
         }
-        console.log(urlList)
+        
         createChartData(urlList);
 
     }, [field, time, selectedRegions, selectedChart])
