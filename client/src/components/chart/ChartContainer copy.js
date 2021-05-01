@@ -6,7 +6,7 @@ import {Loading} from './Loading';
 import {ChartForm} from './ChartForm';
 import {ChartSelect} from './ChartSelect';
 
-import './css/ChartContainer.css';
+import '../css/ChartContainer.css';
 
 export const ChartContainer = () => {
     const nationChartRendered = useRef(false);

@@ -81,17 +81,7 @@ export const ChartForm = ({field, className, setField, setSelectedRegions, selec
                             style={{width:"10rem"}}
                             value={selectedRegions}
                             onChange={(event) => {
-                                setSelectedRegions(prev => {
-                                    if(event.target.value.length > prev.length && !(prev.indexOf(event.target.value[event.target.value.length])>-1)){
-                                        /* console.log("added") */
-                                        addedRegion.current = true;
-                                    }else{
-                                        addedRegion.current = false;
-                                        /* console.log("deleted") */
-                                    }
-
-                                    return event.target.value;
-                                });
+                                setSelectedRegions(() =>  event.target.value);
                             }}
                             MenuProps={{getContentAnchorEl: () => null}}>
 
@@ -109,7 +99,8 @@ export const ChartForm = ({field, className, setField, setSelectedRegions, selec
                     <Slider
                     value={timeInDays}
                     onChange={ (event, newValue) => setTimeInDays(newValue)}
-                    onChangeCommitted={(event, newValue)=>{setTime(()=>{
+                    onChangeCommitted={(event, newValue)=>{
+                        setTime(()=>{
                         let endDate = new Date();
                         let startDate = new Date();
 
@@ -118,8 +109,9 @@ export const ChartForm = ({field, className, setField, setSelectedRegions, selec
                         return {
                             'date-start': formatDate(startDate),
                             'date-end': formatDate(endDate)
+                            }
                         }
-                    })}}
+                    )}}
                     valueLabelDisplay="auto"
                     aria-labelledby="range-slider"
                     valueLabelFormat={valueText}

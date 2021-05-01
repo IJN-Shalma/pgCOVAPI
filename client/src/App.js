@@ -4,7 +4,8 @@ import { Navbar } from './components/Navbar';
 import { Banner } from './components/Banner';
 import { Footer } from './components/Footer';
 import { DataCarousel } from './components/DataCarousel';
-import { ChartContainer } from './components/ChartContainer';
+import { ChartContainer } from './components/chart/ChartContainer';
+
 import './App.css';
 
 const App = () => {

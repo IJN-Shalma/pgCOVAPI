@@ -119,5 +119,5 @@ const legendProps =
         }
 	/>
     </>
-);
+    );
 }
