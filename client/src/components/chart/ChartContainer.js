@@ -18,8 +18,6 @@ export const ChartContainer = () => {
     const [hasLoaded, setHasLoaded] = useState(false);
     
     useEffect(() => {
-        console.log("rendered")
-
         const formatDate = d => {
             let month = String(d.getMonth() + 1);
             let day = String(d.getDate());
@@ -72,13 +70,6 @@ export const ChartContainer = () => {
                         })
                         .then(jsonData => {
                             let data = formatData(jsonData);
-                            /* setChartData([
-                                {
-                                    "id": data.id,
-                                    "color": "hsl(214, 70%, 50%)",
-                                    "data" : data.formattedData
-                                }
-                            ])  */
                             newData.push(
                                 {
                                     "id": data.id,
