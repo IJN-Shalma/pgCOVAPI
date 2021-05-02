@@ -15,7 +15,7 @@ Verrà adottato il **MERN** stack:
  - ReactJS (Single Page Application Framework)
  - NodeJS (Runtime Enviroment)
 
-Le diverse route dell'API, la quale sarà resa pubblica, permetteranno una facile implementazione da parte di applicazioni anche esterne. Verrà sviluppato un frontend tramite ReactJS che si interfaccerà al backend tramite il client http Axios.
+Le diverse route dell'API, la quale sarà resa pubblica, permetteranno una facile implementazione da parte di applicazioni anche esterne. Verrà sviluppato un frontend tramite ReactJS che si interfaccerà al backend tramite chiamate API.
 Sarà facile comprendere le funzioni fornite dall'API grazie alla documentazione WEB realizzata tramite Swagger UI e pubblicata tramite le Github Pages.
 
 
