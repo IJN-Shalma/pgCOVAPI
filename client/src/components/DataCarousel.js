@@ -9,7 +9,7 @@ export const DataCarousel = () => {
 
     useEffect(() => {
 
-        const url = "https://pgcovapi.herokuapp.com/api/nazione/?giorni=1";
+        const url = "https://pgcovapi.herokuapp.com/api/nazione/?giorni=4";
         console.log("hello")
 
         fetch(url)
@@ -19,13 +19,12 @@ export const DataCarousel = () => {
                 }
             })
             .then((jsonData) => {
-                setResponseAPI(jsonData[0]);
-                console.log(jsonData[0])
+                setResponseAPI(jsonData[jsonData.length - 1]);
             })
     }, []);
 
     function formatDate(raw_date) {
-        let date = new Date(raw_date+"Z");
+        let date = new Date(raw_date + "Z");
         let month = String(date.getMonth() + 1);
         let day = String(date.getDate());
         let year = String(date.getFullYear());
