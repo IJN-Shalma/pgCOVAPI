@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const chalk = require('chalk');
 const scripts = require('./scripts/updater');
 const scheduler = require("node-schedule");
+const path = require("path");
 
 require('dotenv').config();
 
@@ -12,6 +13,7 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 //DB connection
 const uri = process.env.ATLAS_URI;
@@ -30,6 +32,9 @@ const rootRouter = require('./routes/api/root');
 app.use('/api/regioni', regioniRouter);
 app.use('/api/nazione', nazioneRouter);
 app.use('/api/', rootRouter);
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 //Open port
 app.listen(port, () =>
