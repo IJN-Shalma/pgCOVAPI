@@ -1,0 +1,24 @@
+.chart-container-wrapper{
+    background-color: var(--color-background);
+    padding: 0 1rem 1rem 1rem;
+}
+
+.chart-container{
+    height: 80vh;
+    width: 70vw;
+    color: black;
+    background-color: white;
+    position: relative;
+}
+
+.form-container{
+    padding: 1rem 1rem;
+    background-color: whitesmoke;
+}
+
+@media screen and (max-width: 960px) {
+    .chart-container{
+        width: 100vw;
+        height: 70vh;
+    }
+}
