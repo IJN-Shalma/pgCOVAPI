@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "client", "build")));
+app.use(express.static('client/build'));
 
 //DB connection
 const uri = process.env.ATLAS_URI;
@@ -33,7 +33,7 @@ app.use('/api/regioni', regioniRouter);
 app.use('/api/nazione', nazioneRouter);
 app.use('/api/', rootRouter);
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
 //Open port
