@@ -21,10 +21,11 @@
     "dev": "nodemon server.js",
     "start": "node server.js",
     "install-client": "npm install --prefix client",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "npm run install-client && npm run build --prefix client"
   },
   "engines": {
-      "node": "12.13.1"
+    "node": "12.x",
+    "npm": "6.12.1"
   },
   "author": "Caprara Silvio, Chiartano Pietro, Zhou Yun Qing",
   "license": "ISC"
