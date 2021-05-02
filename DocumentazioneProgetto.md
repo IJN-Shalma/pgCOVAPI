@@ -2,22 +2,29 @@
 
 # Indice
 
-1. [Abstract](#Abstract)
-2. [Scenario e casi d'uso](#Scenario%20e%20casi%20d'uso)
-3. [Open Data Covid-19](#Open%20Data%20Covid-19)
-   1. [Licenza Creative Commons 4.0](#Licenza%20Creative%20Commons%204.0)
-   2. [Struttura dei dati](#Struttura%20dei%20dati)
-4. [Workflow Github](#Workflow%20Github)
-5. [MERN Stack](#MERN%20Stack)
-   1. [DBMS noSQL MongoDB](#DBMS%20noSQL%20MongoDB)
-   2. [Backend (API)](#Backend%20(API))
-      1. [Routes](#Routes)
-      2. [Documentazione API con SwaggerUI](#Documentazione%20API%20con%20SwaggerUI)
-      3. [Frontend](#Frontend)
-7. [Deployment su Heroku](#Deployment%20su%20Heroku)
-8. [Sicurezza](#Sicurezza)
-9. [Comunicazione](#Comunicazione)
-10. [Sitografia e Bigliografia](#Sitrografia%20e%20Bibliografia)
+- [Progetto pgCOVAPI](#progetto-pgcovapi)
+- [Indice](#indice)
+  - [Abstract](#abstract)
+  - [Scenario e casi d'uso](#scenario-e-casi-duso)
+  - [Open Data Covid-19](#open-data-covid-19)
+    - [Licenza Creative Commons 4.0](#licenza-creative-commons-40)
+    - [Struttura dei dati](#struttura-dei-dati)
+  - [Workflow Github](#workflow-github)
+  - [MERN Stack](#mern-stack)
+    - [DBMS noSQL MongoDB](#dbms-nosql-mongodb)
+      - [SQL vs NoSQL](#sql-vs-nosql)
+      - [Modelli NoSQL](#modelli-nosql)
+      - [Transazioni](#transazioni)
+      - [Normalizzazione dei dati](#normalizzazione-dei-dati)
+      - [Quando usare cosa](#quando-usare-cosa)
+    - [Backend (API)](#backend-api)
+      - [Router](#router)
+      - [Documentazione API con SwaggerUI](#documentazione-api-con-swaggerui)
+    - [Frontend](#frontend)
+  - [Deployment su Heroku](#deployment-su-heroku)
+  - [Sicurezza](#sicurezza)
+  - [Comunicazione](#comunicazione)
+  - [Sitografia e Bibliografia](#sitografia-e-bibliografia)
 
 <div style="page-break-after: always; break-after: page; "></div>
 
@@ -159,15 +166,15 @@ Quando ci si immerge nel mondo dei database è necessario riflettere sull'uso ch
 #### SQL vs NoSQL
 Per spiegare la differenza è prima necessario capire il significato dei due acronimi. **SQL** ovvero *Structured Query* Language è un linguaggio rivolto all'interrogazione di dati strutturati. Pur esistendo uno standard SQL, ogni database relazionale ha le sue pecularità e la sintassi del linguaggio di interrogazione è molto simile. Questo permette infatti relativo basso costo di migrazione da un engine ad un altro.
 D'altro canto abbiamo invece i database NoSQL, nella quale il prefisso "No" significa *Not Only SQL*. I database NoSQL nascono per rappresentare dati eterogenei, per il quale dover forzare una struttura causerebbe molti inconvenienti, come potrebbero essere delle query lunghe e pesanti.
-#### Modelli NoSql
-I database NoSql vengono classificati in base al tipo di modello utilizzato per la memorizzazione dei dati.
-Esistono 4 grandi modelli di database NoSql:
+#### Modelli NoSQL
+I database NoSQL vengono classificati in base al tipo di modello utilizzato per la memorizzazione dei dati.
+Esistono 4 grandi modelli di database NoSQL:
 - **Archivi chiave-valore** -> Il modello chiave-valore si basa su una API analoga ad una mappa, accessibile tramite chiave. Il valore che viene archiviato può contenere sia dati elementari che dati avanzati. L'utilizzo di questo modello è conveniente quando non c'è la possibilità di definire uno schema in base ai dati ed è dunque necessario un accesso veloce alle informazioni singole. Questo modello viene spesso utilizzato per memorizzare informazioni che non presentano relazioni.
 - **Database orientati alle colonne** -> Questo modello si chiama in questo modo perchè i dati vengono organizzati/memorizzati per colonne in contrapposizione ai database row-oriented (orientati alle righe), che memorizzano i dati per righe successive. Ogni riga può avere un insieme di colonne diverso, in quanto vengono aggiunte quelle necessari e tolte quelle inutilizzate, evitando la presenza di valori null. Questo modello permette la compressione delle informazioni ed il versioning. Un utilizzo di questo modello è l'indicizzazionde di pagine web.
 - **Database di documenti** -> Questo modello è caratterizzato da una struttura fondamentale chiamata document. Di solito il document viene scritto in JSON ed è costituito da un identificatore univoco e da un qualsiasi numero di attribuiti, che possono essere semplici o complessi. Questo modello si rivela utile quando i dati variano nel tempo, e possono mappare correttamente gli oggetti nel modello di programmazione ado oggetti. MongoDB fa parte di questa categoria di database in quanto utilizza dei file chiamati BSON. 
 - **Database di grafi** -> Quest'ultimo modello memorizza dei grafi e sono utili a rappresentare dati interconnessi tra loro e possono effettuare interrogazioni utilizzando un attraversamento efficiente della struttura. Rispetto a delle normali query di altri tipi di database, è possibile velocizzare il cammino da un nodo ad un altro aggiungendo un collegamento diretto tra i due.
 
-
+Per quanto riguarda invece le performance è sicuramente vero che i database NoSQL tendono ad essere più veloci di quelli SQL, tuttavia è possibile affermarlo quanto entrame i database vengono progettati in maniera adeguata e permettendone un lavoro fluido.
 
 #### Transazioni
 
@@ -190,13 +197,19 @@ Il modello **BASE** si compone di queste caratteristiche:
 - **Eventually Consistent**: Una volta inseriti i dati nel sistema, essi si propragheranno all'interno dei nodi in modo da diventare consistenti.
 Queste caratteristiche rendono evidente che l'esecuzione e la gestione delle transazioni ricada completamente sui database relazioniali.
 
+#### Normalizzazione dei dati
 
+Uno dei maggiori vincoli dei database SQL risiede nella normalizzazione dei dati. Sui database viene posto questo vincolo per ridurre la ridondanza dei dati e consentire controlli di integrità su di essi. Questo vincolo ha il vantaggio della non ridondanza, tuttavia ne comporta anche uno svantaggio ovvero le join. Partendo da una tabella SQL è necessario creare una relazione che permetta di collegare un'entità ad un'altra. Con i database NonSQL questà necessità viene a mancare in quanto non è necessario uno schema definito di attributi, i quali possono contenere a loro volta entità annidate.
+
+La denormalizzazione va tuttavia usata con cautela in quanto porta alla duplicazione dei dati all'interno del database. Se in un primo momento la velocità di accesso ai dati aumenta, troviamo anche delle problematiche non trascurabili.
+
+La duplicazione dei dati comporta un aumento dello spazio richiesto dal database sul disco. Tuttavia questa è una delle problematiche trascurabili dato il basso costo dei dispositivi di memorizzazione. Il vero problema si trova nell'integrità dei dati. Nel momento in cui si deve aggiornare un'entità duplicata sarà necessario aggiornare ogni singola copia, che a seconda delle circostanze potrebbe essere un operazione dispendiosa.
 
 #### Quando usare cosa
 Una volta discusse le qualità di entrambe le tipologie di database è bene capirne l'utilizzo. I database relazionali trovano spazio di applicazione quando si ha a che fare con dati strutturati. Ciò vuol dire che è bene usare i database SQL quando è facilmente creabile una rappresentazione lineare su delle tabelle. Un altro aspetto da dover prendere in considerazione è la necessità della consistenza dei dati, la quale è una delle caratteristiche ACID.
 <br>
-D'altra parte troviamo in NoSQL i quali sono estremamente versatili nelle situazione in cui dobbiamo modellare i dati ed il polimorfismo. Se si hanno entità che tra loro portano quasi le medesime informazioni, con NoSql è possibile ovviare a tutti questi piccoli cambiamenti dove con l'SQL sarebbe stato necessario utilizzare una soluzione più complessa.
-NoSql è dunque l'ideale in caso di abbondanza di dati scorrelati i quali tendono ad evolvere nel tempo. L'assenza di una struttura fissa permette di aggiunngere nuovi dati senza dover cambiare il database.
+D'altra parte troviamo in NoSQL i quali sono estremamente versatili nelle situazione in cui dobbiamo modellare i dati ed il polimorfismo. Se si hanno entità che tra loro portano quasi le medesime informazioni, con NoSQL è possibile ovviare a tutti questi piccoli cambiamenti dove con l'SQL sarebbe stato necessario utilizzare una soluzione più complessa.
+NoSQL è dunque l'ideale in caso di abbondanza di dati scorrelati i quali tendono ad evolvere nel tempo. L'assenza di una struttura fissa permette di aggiunngere nuovi dati senza dover cambiare il database.
 
 
 
