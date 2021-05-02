@@ -21,7 +21,7 @@
     "dev": "nodemon server.js",
     "start": "node server.js",
     "install-client": "npm install --prefix client",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client &&  npm run build --prefix client"
   },
   "engines": {
     "node": "12.x",
