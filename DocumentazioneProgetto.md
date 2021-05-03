@@ -377,15 +377,10 @@ Il frontend, ovvero il lato dell'applicativo che è visibile ed intergaisce con 
 Questo è possibile perché in una SPA, il server invia al client tutto il codice necessario al funzionamento della pagina web, cioé una pagina HTML, CSS e una serie di file JavaScript che si occupano di interagire con l'utente ed aggiornare i vari componenti della pagina dinamicamente, senza dover chiedere al server di rerenderizzare l'intera pagina come avviene in pagine dinamiche tradizionali scritti in linguaggi come PHP.
 Ulteriori risorse, come ad esempio dati conservati in un database, vengono richieste dinamicamente al web server senza dover interrompere la navigazione.
 
-React ci permette di creare intefacce utente componibili, ovvero formati da vari "componenti" che possono rappresentare dati che cambiano nel tempo, aggiornandosi automaticamente, infatti ogni componente possiede un proprio stato interno, e al suo cambiamento si aggiornerà.
+React ci permette di creare intefacce utente componibili, ovvero formati da vari "componenti" riutilizzabili che possono rappresentare dati che cambiano nel tempo, aggiornandosi automaticamente, infatti ogni componente possiede un proprio stato interno, e al suo cambiamento si aggiornerà.
 
-Tramite i componenti si possono creare diverse viste in base alla route, o URL, inserita dall'utente, simulando lo spostamento tra pagine diverse, renderizzando solo i componenti che cambiano, infatti solitamente nelle applicazioni React abbiamo diversi componenti che rimangono costanti come ad esempio la nav bar o la barra di ricerca.
+Tramite i componenti si possono creare diverse viste in base alla route, o URL, inserita dall'utente, simulando lo spostamento tra pagine diverse, renderizzando solo i componenti che cambiano, infatti solitamente nelle applicazioni React abbiamo diversi componenti che rimangono costanti nell'intera navigazione del sito come ad esempio la nav bar o la barra di ricerca.
 
-(**bozza**: Per far ciò, React utilizza il Virtual DOM invece di operare direttamente sul DOM reale. Il Virtual DOM è un'astrazione del DOM. Si tratta di una rappresentazione in memoria del DOM. È veloce e indipendente dalle specifiche implementazioni del browser. Possiamo pensare al Virtual DOM come una copia in memoria del DOM reale.
-Quando avviene una variazione dei dati all'interno dell'applicazione (per esempio cambia lo stato e le informazioni contenute in un componente), React effettua le modifiche sul Virtual DOM e lo aggiorna per rispecchiare i cambiamenti avvenuti.
-React calcola poi la differenza tra le due rappresentazioni del Virtual DOM, ovvero fra la rappresentazione del Virtual DOM prima che i dati venissero modificati e l'attuale rappresentazione del Virtual DOM (dopo la modifica dei dati all'interno dell'applicazione). La differenza tra le due rappresentazioni del Virtual DOM, è ciò che deve essere cambiato nel DOM reale.
-A questo punto, React effettua le modifiche nel DOM reale, aggiornando solo ed esclusivamente quello che deve essere cambiato.
-Utilizzando questa tecnica, si riescono a ottenere prestazioni elevate che permettono alla nostra applicazione di funzionare in maniera veloce.)
 
 ## Deployment su Heroku
 
