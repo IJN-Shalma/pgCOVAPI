@@ -6,6 +6,7 @@ const regioneSchema = new Schema({
     stato: { type: String },
     codice_regione: {type: Number},
     denominazione_regione: {type: String},
+    lat: {type: Number},
     long: {type: Number},
     codice_regione: {type: Number},
     ricoverati_con_sintomi: { type: Number },
