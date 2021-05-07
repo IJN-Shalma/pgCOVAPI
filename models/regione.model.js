@@ -8,7 +8,6 @@ const regioneSchema = new Schema({
     denominazione_regione: { type: String },
     lat: { type: Number },
     long: { type: Number },
-    codice_regione: { type: Number },
     ricoverati_con_sintomi: { type: Number },
     terapia_intensiva: { type: Number },
     totale_ospedalizzati: { type: Number },
