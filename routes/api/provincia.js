@@ -4,7 +4,6 @@ let Provincia = require("../../models/provincia.model");
 
 router.route('/').get((req, res) => {
     const pMese = req.query.mese || null;
-    let param = req.query.campo || null;
     let days = req.query.giorni || null;
     let startDate = req.query.dataInizio || null
     let endDate = req.query.dataFine || null;
@@ -42,13 +41,8 @@ router.route('/').get((req, res) => {
         }
     }
 
-    if (param) {
-        param = loadBasicParams(param);
-    }
-
     Provincia.find(query)
         .sort({ "data": 1, "denominazione_regione": 1, "denominazione_provincia": 1 })
-        .select(param)
         .then(provincia => res.json(provincia))
         .catch(err => res.status(400).json('Error: ') + err);
 });
@@ -56,7 +50,6 @@ router.route('/').get((req, res) => {
 
 router.route('/:provincia').get((req, res, next) => {
     const pMese = req.query.mese || null;
-    let param = req.query.campo || null;
     let days = req.query.giorni || null;
     let startDate = req.query.dataInizio || null
     let endDate = req.query.dataFine || null;
@@ -95,27 +88,10 @@ router.route('/:provincia').get((req, res, next) => {
         }
     }
 
-    if (param) {
-        param = loadBasicParams(param);
-    }
-
     Provincia.find(query)
         .sort({ "data": 1, "denominazione_regione": 1, "denominazione_provincia": 1 })
-        .select(param)
         .then(provincia => res.json(provincia))
         .catch(err => res.status(400).json('Error: ') + err);
 });
-
-
-/**
- * Prepares must parameters for Schema#select
- * @param {*} param Parameter name in collection
- * @returns Array of strings (parameters names)
- */
-
-function loadBasicParams(param) {
-    return Array.isArray(param) ? param.concat(["data", "stato", "sigla_provincia", "denominazione_provincia"]).join(" ") : [param, "data", "stato", "codice_regione", "denominazione_regione"].join(" ");
-}
-
 
 module.exports = router;
