@@ -485,7 +485,7 @@
     "/province/{province}": {
       "get": {
         "tags": [
-          "Provincia"
+          "Province"
         ],
         "description": "Ritorna i dati riguardanti l'epidemia in una provincia specifica.\n",
         "operationId": "ProvincefindAllCampo",
