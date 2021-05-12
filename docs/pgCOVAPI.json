@@ -482,7 +482,7 @@
         }
       }
     },
-    "/province/{province}": {
+    "/province/{provincia}": {
       "get": {
         "tags": [
           "Province"
