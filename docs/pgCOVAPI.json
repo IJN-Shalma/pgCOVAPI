@@ -29,7 +29,7 @@
       "description": "Dati COVID per l'andamento dell'intera nazione"
     },
     {
-      "name": "Provincia",
+      "name": "Province",
       "description": "Dati COVID delle singole province"
     }
   ],
@@ -406,13 +406,13 @@
         }
       }
     },
-    "/provincia/": {
+    "/province/": {
       "get": {
         "tags": [
-          "Provincia"
+          "Province"
         ],
         "description": "Ritorna i dati riguardanti l'epidemia in tutte le province.",
-        "operationId": "ProvinciafindProvincia",
+        "operationId": "ProvincefindProvince",
         "parameters": [
           {
             "name": "mese",
@@ -482,13 +482,13 @@
         }
       }
     },
-    "/provincia/{provincia}": {
+    "/province/{province}": {
       "get": {
         "tags": [
           "Provincia"
         ],
         "description": "Ritorna i dati riguardanti l'epidemia in una provincia specifica.\n",
-        "operationId": "ProvinciafindAllCampo",
+        "operationId": "ProvincefindAllCampo",
         "parameters": [
           {
             "name": "provincia",

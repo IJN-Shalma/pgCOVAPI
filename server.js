@@ -27,7 +27,7 @@ connection.once('open', () => {
 //Routes Setup
 const regioniRouter = require('./routes/api/regione');
 const nazioneRouter = require('./routes/api/nazione');
-const provinceRouter = require('./routes/api/provincia');
+const provinceRouter = require('./routes/api/province');
 const rootRouter = require('./routes/api/root');
 
 app.use('/api/regioni', regioniRouter);
