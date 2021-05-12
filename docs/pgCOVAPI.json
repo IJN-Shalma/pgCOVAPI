@@ -29,7 +29,7 @@
       "description": "Dati COVID per l'andamento dell'intera nazione"
     },
     {
-      "name": "Province",
+      "name": "Provincia",
       "description": "Dati COVID delle singole province"
     }
   ],
@@ -485,7 +485,7 @@
     "/provincia/{provincia}": {
       "get": {
         "tags": [
-          "Province"
+          "Provincia"
         ],
         "description": "Ritorna i dati riguardanti l'epidemia in una provincia specifica.\n",
         "operationId": "ProvincefindAllCampo",
