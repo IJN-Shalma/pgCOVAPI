@@ -412,7 +412,7 @@
           "Provincia"
         ],
         "description": "Ritorna i dati riguardanti l'epidemia in tutte le province.",
-        "operationId": "ProvincefindProvince",
+        "operationId": "ProvinciafindProvincia",
         "parameters": [
           {
             "name": "mese",
@@ -488,7 +488,7 @@
           "Provincia"
         ],
         "description": "Ritorna i dati riguardanti l'epidemia in una provincia specifica.\n",
-        "operationId": "ProvincefindAllCampo",
+        "operationId": "ProvinciafindAllCampo",
         "parameters": [
           {
             "name": "provincia",
