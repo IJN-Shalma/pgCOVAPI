@@ -27,6 +27,10 @@
     {
       "name": "Nazione",
       "description": "Dati COVID per l'andamento dell'intera nazione"
+    },
+    {
+      "name": "Province",
+      "description": "Dati COVID delle singole province"
     }
   ],
   "paths": {
@@ -401,6 +405,167 @@
           }
         }
       }
+    },
+    "/province/": {
+      "get": {
+        "tags": [
+          "Province"
+        ],
+        "description": "Ritorna i dati riguardanti l'epidemia in tutte le province.",
+        "operationId": "ProvincefindProvince",
+        "parameters": [
+          {
+            "name": "mese",
+            "in": "query",
+            "description": "Mese da ricercare. Va riportato in formato <b>yyyy-mm</b>, ad esempio 2020-09 per ottenere i dati del mese di settembre 2020.<br> Questo parametro è incompatibile con `giorni`, `dataInizio`, `dataFine`",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "giorni",
+            "in": "query",
+            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Questo parametro è incompatibile con `mese`, `dataInizio`, `dataFine`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "dataInizio",
+            "in": "query",
+            "description": "Data in formato <b>yyyy-mm-gg</b>. Vengono ritornati tutti i documenti con le date maggiori e uguali alla data specificata.<br> Questo parametro è incompatibile con `giorni`, `mese`.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dataFine",
+            "in": "query",
+            "description": "Data in formato <b>yyyy-mm-gg</b>. Vengono ritornati tutti i documenti con le date minori e uguali alla data specificata.<br> Questo parametro è incompatibile con `giorni`, `mese`.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Ritorna i dati riguardanti l'epidemia in tutte le province.",
+        "responses": {
+          "200": {
+            "description": "Risposta con un array di oggetti, ognuno rappresentante un giorno in una provincia",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Provincia"
+                },
+                "example": {
+                  "data":"2021-03-27T17:00:00",
+                  "stato":"ITA",
+                  "codice_regione":13,
+                  "denominazione_regione":"Abruzzo",
+                  "codice_provincia":66,
+                  "denominazione_provincia":"L'Aquila",
+                  "sigla_provincia":"AQ",
+                  "lat":42.35122196,
+                  "long":13.39843823,
+                  "totale_casi":15520,
+                  "note":null,
+                  "codice_nuts_1":"ITF",
+                  "codice_nuts_2":"ITF1",
+                  "codice_nuts_3":"ITF11"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/province/{provincia}": {
+      "get": {
+        "tags": [
+          "Province"
+        ],
+        "description": "Ritorna i dati riguardanti l'epidemia in una provincia specifica.\n",
+        "operationId": "ProvincefindAllCampo",
+        "parameters": [
+          {
+            "name": "provincia",
+            "in": "path",
+            "description": "Provincia italiana da ricercare.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mese",
+            "in": "query",
+            "description": "Mese da ricercare. Va riportato in formato <b>yyyy-mm</b>, ad esempio 2020-09 per ottenere i dati del mese di settembre 2020.<br> Questo parametro è incompatibile con `giorni`, `dataInizio`, `dataFine`",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "giorni",
+            "in": "query",
+            "description": "In base al valore N inserito, ritorna i record degli ultimi N giorni. Ad esempio, se il valore inserito è 30 ritorna i record degli ultimi 30 giorni. <br> Questo parametro è incompatibile con `mese`, `dataInizio`, `dataFine`.",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "dataInizio",
+            "in": "query",
+            "description": "Data in formato <b>yyyy-mm-gg</b>. Vengono ritornati tutti i documenti con le date maggiori e uguali alla data specificata.<br> Questo parametro è incompatibile con `giorni`, `mese`.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dataFine",
+            "in": "query",
+            "description": "Data in formato <b>yyyy-mm-gg</b>. Vengono ritornati tutti i documenti con le date minori e uguali alla data specificata.<br> Questo parametro è incompatibile con `giorni`, `mese`.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Ritorna i dati riguardanti l'epidemia in una provincia specifica.",
+        "responses": {
+          "200": {
+            "description": "Risposta con un array di oggetti, ognuno rappresentante un giorno in una provincia",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Provincia"
+                },
+                "example": {
+                  "data":"2021-03-27T17:00:00",
+                  "stato":"ITA",
+                  "codice_regione":13,
+                  "denominazione_regione":"Abruzzo",
+                  "codice_provincia":66,
+                  "denominazione_provincia":"L'Aquila",
+                  "sigla_provincia":"AQ",
+                  "lat":42.35122196,
+                  "long":13.39843823,
+                  "totale_casi":15520,
+                  "note":null,
+                  "codice_nuts_1":"ITF",
+                  "codice_nuts_2":"ITF1",
+                  "codice_nuts_3":"ITF11"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -576,10 +741,54 @@
           },
           "tamponi_test_antigenico_rapido": {
             "type": "integer"
-          },
-          "__v": {
-            "type": "integer"
           }
+        }
+      },
+      "Provincia":{
+        "type": "object",
+        "properties": {
+            "data":{
+              "type": "string"
+            },
+            "stato": {
+              "type": "string"
+            },
+            "codice_regione": {
+              "type": "integer"
+            },
+            "denominazione_regione": {
+              "type": "string"
+            },
+            "codice_provincia": {
+              "type": "integer"
+            },
+            "denominazione_provincia": {
+              "type": "string"
+            },
+            "sigla_provincia": {
+              "type": "string"
+            },
+            "lat": {
+              "type": "integer"
+            },
+            "long": {
+              "type": "integer"
+            },
+            "totale_casi": {
+              "type": "integer"
+            },
+            "note": {
+              "type": "string"
+            },
+            "codice_nuts_1": {
+              "type": "string"
+            },
+            "codice_nuts_2": {
+              "type": "string"
+            },
+            "codice_nuts_3": {
+              "type": "string"
+            }
         }
       },
       "Error": {

@@ -27,10 +27,12 @@ connection.once('open', () => {
 //Routes Setup
 const regioniRouter = require('./routes/api/regione');
 const nazioneRouter = require('./routes/api/nazione');
+const provinceRouter = require('./routes/api/province');
 const rootRouter = require('./routes/api/root');
 
 app.use('/api/regioni', regioniRouter);
 app.use('/api/nazione', nazioneRouter);
+app.use('/api/province', provinceRouter)
 app.use('/api/', rootRouter);
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
