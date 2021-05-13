@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 
 //DB connection
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, ssl:true });
 
 const connection = mongoose.connection;
 connection.once('open', () => {
