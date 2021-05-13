@@ -46,6 +46,10 @@ export const Navbar = () => {
                     <li className='menu-item'>
                         <Link className='nav-links' to='/grafici' onClick={closeMenu}>Grafici</Link>
                     </li>
+
+                    <li className='menu-item'>
+                        <Link className='nav-links' to='/mappa' onClick={closeMenu}>Mappa</Link>
+                    </li>
                 </ul>
             </div>
         </nav>

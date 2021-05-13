@@ -39,15 +39,14 @@
       const ui = SwaggerUIBundle({
         url: "./pgCOVAPI.json",
         dom_id: '#swagger-ui',
+        defaultModelsExpandDepth: -1,
         deepLinking: true,
         presets: [
-          SwaggerUIBundle.presets.apis,
-          SwaggerUIStandalonePreset
+          SwaggerUIBundle.presets.apis
         ],
         plugins: [
           SwaggerUIBundle.plugins.DownloadUrl
-        ],
-        layout: "StandaloneLayout"
+        ]
       });
       // End Swagger UI call region
 

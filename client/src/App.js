@@ -5,6 +5,7 @@ import { Banner } from './components/Banner';
 import { Footer } from './components/Footer';
 import { DataCarousel } from './components/DataCarousel';
 import { ChartContainer } from './components/chart/ChartContainer';
+import { Map } from './components/map/Map';
 
 import './App.css';
 
@@ -20,6 +21,9 @@ const App = () => {
           </Route>
           <Route path='/grafici'>
             <ChartContainer />
+          </Route>
+          <Route path='/mappa'>
+            <Map />
           </Route>
         </Switch>
         <Footer />
