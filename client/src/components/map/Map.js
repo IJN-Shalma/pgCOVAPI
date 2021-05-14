@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import './Map.css';
-import data from './data/limits_IT_provinces.geojson'
+import data from './data/limits_IT_provinces.json'
  
 mapboxgl.accessToken = 'pk.eyJ1Ijoic3BhY2VyY3Jvd25kIiwiYSI6ImNrb21rbGpnNzBpNGkyd3BuYmRkbmRyMncifQ.CqPZGVTjV3AEX2bfZ9wgUQ';
 
@@ -11,7 +11,15 @@ export const Map = () => {
     const [lng, setLng] = useState(12.4818);
     const [lat, setLat] = useState(41.9109);
     const [zoom, setZoom] = useState(4.4);
-    const provinceData = useRef(null);
+
+    function createSource(json){
+       data.features.forEach(feature => {
+           /* console.log(json)
+           console.log(feature) */
+           let properties = json.filter((obj) => obj.codice_provincia === feature.properties.prov_istat_code_num);
+           feature.properties.totale_casi = properties[0].totale_casi;
+        });
+    }
     
     useEffect(() => {
         if (map.current) return; // initialize map only once
@@ -21,60 +29,141 @@ export const Map = () => {
             center: [lng, lat],
             zoom: zoom
         });
+        
+        fetch("https://pgcovapi.herokuapp.com/api/province/?dataInizio=2021-05-07&dataFine=2021-05-08")
+        .then(response =>{
+            return response.json();
+        })
+        .then(json =>{
+            map.current.on('load', function () {
+                createSource(json);
+                // Add a data source containing GeoJSON data.
+                map.current.addSource('province', {
+                    'type':'geojson',
+                    'generateId': true,
+                    'data':data
+                });
 
-        map.current.on('load', function () {
-            // Add a data source containing GeoJSON data.
-            map.current.addSource('province', {
-                'type':'geojson',
-                'data':data
-            });
-            
-            // Add a new layer to visualize the polygon.
-            map.current.addLayer({
-                'id': 'maine',
-                'type': 'fill',
-                'source': 'province', // reference the data source
-                'layout': {},
-                'paint': {
-                'fill-color': '#0080ff', // blue color fill
-                'fill-opacity': 0.5
-                }
-            });
+                /* var expression = ["match", ["get", "prov_istat_code_num"]];
 
-            // Add a black outline around the polygon.
-            map.current.addLayer({
-                'id': 'outline',
-                'type': 'line',
-                'source': 'province',
-                'layout': {},
-                'paint': {
-                'line-color': '#000',
-                'line-width': 3
-                }
+                // Calculate color for each state based on cases
+                json.forEach(function(row) {
+
+                    var green = (row["totale_casi"] / 100000) * 255;
+                    var color = "rgba(" + 0 + ", " + green + ", " + 0 + ", 1)";
+                    expression.push(row["codice_provincia"], color);
+                });
+
+                // Last value is the default, used where there is no data
+                expression.push("rgba(0,0,0,0)"); */
+
+                
+                // Add a new layer to visualize the polygon.
+                map.current.addLayer({
+                    'id': 'province-fill',
+                    'type': 'fill',
+                    'source': 'province', // reference the data source
+                    'layout': {},
+                    'paint': {
+                        'fill-color': {
+                            "property": "totale_casi",
+                            "stops": [
+                                [0, '#33cc33'],
+                                [100, '#66ff33'],
+                                [1000, '#ffff66'],
+                                [10000, '#ff9933'],
+                                [100000, '#ff0000']
+                            ]
+                        },
+                        'fill-opacity': [
+                            'case',
+                            ['boolean', ['feature-state', 'hover'], false],
+                            1,
+                            0.5
+                        ]
+                    }
+                });
+
+                map.current.addLayer({
+                    'id': 'outline',
+                    'type': 'line',
+                    'source': 'province', // reference the data source
+                    'layout': {},
+                    'paint': {
+                        'line-color': '#fff',
+                        'line-width': 1
+                    }
+                });
+
+                var popup = new mapboxgl.Popup({
+                    closeButton: false,
+                    closeOnClick: false,
+                    className: "popup"
+                });
+                
+                var hoveredStateId = null;
+                // When the user moves their mouse over the state-fill layer, we'll update the
+                // feature state for the feature under the mouse.
+                map.current.on('mousemove', 'province-fill', function (e) {
+                    if (e.features.length > 0) {
+                        if (hoveredStateId !== null) {
+                            map.current.setFeatureState(
+                                { source: 'province', id: hoveredStateId },
+                                { hover: false }
+                            );
+                            popup.remove();
+                        }
+
+                        var coordinates = e.lngLat;
+                        var description = e.features[0].properties.totale_casi;
+                        popup.setLngLat(coordinates).setHTML(`<h4>${e.features[0].properties.prov_name}</h4><br/>Totale Casi: ${description}`).addTo(map.current);
+
+                        hoveredStateId = e.features[0].id;
+                        map.current.setFeatureState(
+                            { source: 'province', id: hoveredStateId },
+                            { hover: true }
+                        );
+                    }
+                });
+                    
+                // When the mouse leaves the province-fill layer, update the feature state of the
+                // previously hovered feature.
+                map.current.on('mouseleave', 'province-fill', function () {
+                    if (hoveredStateId !== null) {
+                        map.current.setFeatureState(
+                            { source: 'province', id: hoveredStateId },
+                            { hover: false }
+                        );
+                    }
+                    hoveredStateId = null;
+                    popup.remove();
+                });
+    
+                // Add a black outline around the polygon.
+                /* map.current.addLayer({
+                    'id': 'outline',
+                    'type': 'line',
+                    'source': 'province',
+                    'layout': {},
+                    'paint': {
+                        'line-color': '#000',
+                        'line-width': 3
+                    }
+                }); */
             });
         });
+
+        
     });
     
     useEffect(() => {
-        if (!map.current && !provinceData) return; // wait for map to initialize
+        if (!map.current) return; // wait for map to initialize
         map.current.on('move', () => {
             setLng(map.current.getCenter().lng.toFixed(4));
             setLat(map.current.getCenter().lat.toFixed(4));
             setZoom(map.current.getZoom().toFixed(2));
         });
     });
-
-    useEffect(() => {
-        if(provinceData.current) return;
-        fetch("https://pgcovapi.herokuapp.com/api/province/?dataInizio=2021-05-07&dataFine=2021-05-08")
-        .then(response =>{
-            return response.json();
-        })
-        .then(json =>{
-            provinceData.current = json;
-            console.log(provinceData)
-        });
-    })
     
     return (
     <>
