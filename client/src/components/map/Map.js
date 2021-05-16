@@ -12,12 +12,13 @@ export const Map = () => {
     const [lat, setLat] = useState(41.9109);
     const [zoom, setZoom] = useState(4.4);
 
-    function createSource(json){
+    function createSource(curr, prev){
        data.features.forEach(feature => {
            /* console.log(json)
            console.log(feature) */
-           let properties = json.filter((obj) => obj.codice_provincia === feature.properties.prov_istat_code_num);
-           feature.properties.totale_casi = properties[0].totale_casi;
+           let propertiesCurr = curr.filter((obj) => obj.codice_provincia === feature.properties.prov_istat_code_num);
+           let propertiesPrev = prev.filter((obj) => obj.codice_provincia === feature.properties.prov_istat_code_num);
+           feature.properties.totale_casi = propertiesCurr[0].totale_casi - propertiesPrev[0].totale_casi;
         });
     }
     
@@ -30,130 +31,108 @@ export const Map = () => {
             zoom: zoom
         });
         
-        fetch("https://pgcovapi.herokuapp.com/api/province/?dataInizio=2021-05-07&dataFine=2021-05-08")
+        fetch("https://pgcovapi.herokuapp.com/api/province/?dataInizio=2021-05-05&dataFine=2021-05-06")
         .then(response =>{
             return response.json();
         })
-        .then(json =>{
-            map.current.on('load', function () {
-                createSource(json);
-                // Add a data source containing GeoJSON data.
-                map.current.addSource('province', {
-                    'type':'geojson',
-                    'generateId': true,
-                    'data':data
-                });
-
-                /* var expression = ["match", ["get", "prov_istat_code_num"]];
-
-                // Calculate color for each state based on cases
-                json.forEach(function(row) {
-
-                    var green = (row["totale_casi"] / 100000) * 255;
-                    var color = "rgba(" + 0 + ", " + green + ", " + 0 + ", 1)";
-                    expression.push(row["codice_provincia"], color);
-                });
-
-                // Last value is the default, used where there is no data
-                expression.push("rgba(0,0,0,0)"); */
-
-                
-                // Add a new layer to visualize the polygon.
-                map.current.addLayer({
-                    'id': 'province-fill',
-                    'type': 'fill',
-                    'source': 'province', // reference the data source
-                    'layout': {},
-                    'paint': {
-                        'fill-color': {
-                            "property": "totale_casi",
-                            "stops": [
-                                [0, '#33cc33'],
-                                [100, '#66ff33'],
-                                [1000, '#ffff66'],
-                                [10000, '#ff9933'],
-                                [100000, '#ff0000']
+        .then(curr =>{
+            fetch("https://pgcovapi.herokuapp.com/api/province/?dataInizio=2021-05-04&dataFine=2021-05-05")
+            .then(response =>{
+                return response.json();
+            })
+            .then(prev =>{
+                map.current.on('load', function () {
+                    createSource(curr, prev);
+                    // Add a data source containing GeoJSON data.
+                    map.current.addSource('province', {
+                        'type':'geojson',
+                        'generateId': true,
+                        'data':data
+                    });
+                    
+                    // Add a new layer to visualize the polygon.
+                    map.current.addLayer({
+                        'id': 'province-fill',
+                        'type': 'fill',
+                        'source': 'province', // reference the data source
+                        'layout': {},
+                        'paint': {
+                            'fill-color': {
+                                "property": "totale_casi",
+                                "stops": [
+                                    [0, '#33cc33'],
+                                    [10, '#66ff33'],
+                                    [100, '#ffff66'],
+                                    [500, '#ff9933'],
+                                    [1000, '#ff0000']
+                                ]
+                            },
+                            'fill-opacity': [
+                                'case',
+                                ['boolean', ['feature-state', 'hover'], false],
+                                1,
+                                0.5
                             ]
-                        },
-                        'fill-opacity': [
-                            'case',
-                            ['boolean', ['feature-state', 'hover'], false],
-                            1,
-                            0.5
-                        ]
-                    }
-                });
-
-                map.current.addLayer({
-                    'id': 'outline',
-                    'type': 'line',
-                    'source': 'province', // reference the data source
-                    'layout': {},
-                    'paint': {
-                        'line-color': '#fff',
-                        'line-width': 1
-                    }
-                });
-
-                var popup = new mapboxgl.Popup({
-                    closeButton: false,
-                    closeOnClick: false,
-                    className: "popup"
-                });
-                
-                var hoveredStateId = null;
-                // When the user moves their mouse over the state-fill layer, we'll update the
-                // feature state for the feature under the mouse.
-                map.current.on('mousemove', 'province-fill', function (e) {
-                    if (e.features.length > 0) {
+                        }
+                    });
+    
+                    map.current.addLayer({
+                        'id': 'outline',
+                        'type': 'line',
+                        'source': 'province', // reference the data source
+                        'layout': {},
+                        'paint': {
+                            'line-color': '#fff',
+                            'line-width': 1
+                        }
+                    });
+    
+                    var popup = new mapboxgl.Popup({
+                        closeButton: false,
+                        closeOnClick: false,
+                        className: "popup"
+                    });
+                    
+                    var hoveredStateId = null;
+                    // When the user moves their mouse over the state-fill layer, we'll update the
+                    // feature state for the feature under the mouse.
+                    map.current.on('mousemove', 'province-fill', function (e) {
+                        if (e.features.length > 0) {
+                            if (hoveredStateId !== null) {
+                                map.current.setFeatureState(
+                                    { source: 'province', id: hoveredStateId },
+                                    { hover: false }
+                                );
+                                popup.remove();
+                            }
+    
+                            var coordinates = e.lngLat;
+                            var description = e.features[0].properties.totale_casi;
+                            popup.setLngLat(coordinates).setHTML(`<h4>${e.features[0].properties.prov_name}</h4><br/>Nuovi Casi: ${description}`).addTo(map.current);
+    
+                            hoveredStateId = e.features[0].id;
+                            map.current.setFeatureState(
+                                { source: 'province', id: hoveredStateId },
+                                { hover: true }
+                            );
+                        }
+                    });
+                        
+                    // When the mouse leaves the province-fill layer, update the feature state of the
+                    // previously hovered feature.
+                    map.current.on('mouseleave', 'province-fill', function () {
                         if (hoveredStateId !== null) {
                             map.current.setFeatureState(
                                 { source: 'province', id: hoveredStateId },
                                 { hover: false }
                             );
-                            popup.remove();
                         }
-
-                        var coordinates = e.lngLat;
-                        var description = e.features[0].properties.totale_casi;
-                        popup.setLngLat(coordinates).setHTML(`<h4>${e.features[0].properties.prov_name}</h4><br/>Totale Casi: ${description}`).addTo(map.current);
-
-                        hoveredStateId = e.features[0].id;
-                        map.current.setFeatureState(
-                            { source: 'province', id: hoveredStateId },
-                            { hover: true }
-                        );
-                    }
+                        hoveredStateId = null;
+                        popup.remove();
+                    });
                 });
-                    
-                // When the mouse leaves the province-fill layer, update the feature state of the
-                // previously hovered feature.
-                map.current.on('mouseleave', 'province-fill', function () {
-                    if (hoveredStateId !== null) {
-                        map.current.setFeatureState(
-                            { source: 'province', id: hoveredStateId },
-                            { hover: false }
-                        );
-                    }
-                    hoveredStateId = null;
-                    popup.remove();
-                });
-    
-                // Add a black outline around the polygon.
-                /* map.current.addLayer({
-                    'id': 'outline',
-                    'type': 'line',
-                    'source': 'province',
-                    'layout': {},
-                    'paint': {
-                        'line-color': '#000',
-                        'line-width': 3
-                    }
-                }); */
-            });
+            });  
         });
-
-        
     });
     
     useEffect(() => {
