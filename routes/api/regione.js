@@ -89,7 +89,7 @@ router.route('/:regione').get((req, res, next) => {
             let date = new Date();
             date.setDate(date.getDate() - days);
             query.data = { $gte: date.toISOString() };
-
+            
             if (days <= 0) {
                 return res.status(400).json('Errore: Valore minore di 0')
             }

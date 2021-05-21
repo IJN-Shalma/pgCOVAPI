@@ -9,7 +9,7 @@ export const DataCarousel = () => {
 
     useEffect(() => {
 
-        const url = "https://pgcovapi.herokuapp.com/api/nazione/?giorni=4";
+        const url = "https://pgcovapi.herokuapp.com/api/nazione/?giorni=2";
 
         fetch(url)
             .then(response => {
