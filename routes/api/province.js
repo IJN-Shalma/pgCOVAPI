@@ -2,6 +2,16 @@ const express = require('express');
 const router = express.Router();
 let Provincia = require("../../models/provincia.model");
 
+/**
+ * @route api/province
+ * @route /province/?campo=totale_positivi
+ * @route /province/?mese={02-2020}
+ * @route /province/?giorni={30}
+ * @route /province/?dataInizio=2021-05-01&dataFine=2021-05-06
+ * @route /province/{provincia}
+ * @access Public
+ **/
+
 router.route('/').get((req, res) => {
     const pMese = req.query.mese || null;
     let days = req.query.giorni || null;

@@ -2,11 +2,12 @@ const router = require('express').Router();
 let Regione = require("../../models/regione.model")
 
 /**
- * /regioni/
- * /regioni/?campo=totale_positivi
- * /regioni/?mese={02-2020}
- * /regioni/?giorni={30}
  * @route api/regioni
+ * @route /regioni/?campo=totale_positivi
+ * @route /regioni/?mese={02-2020}
+ * @route /regioni/?giorni={30}
+ * @route /regioni/?dataInizio=2021-05-01&dataFine=2021-05-06
+ * @route /regioni/{regione}
  * @desc Get Informazioni Covid per tutte le regioni
  * @access Public
  **/
