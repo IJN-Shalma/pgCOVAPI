@@ -17,7 +17,7 @@ const App = () => {
         <Switch>
           <Route path='/' exact>
             <Banner />
-            <DataCarousel/>
+            <DataCarousel />
           </Route>
           <Route path='/grafici'>
             <ChartContainer />

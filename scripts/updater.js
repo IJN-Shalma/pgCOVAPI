@@ -2,7 +2,8 @@ let Regione = require("../models/regione.model");
 let Nazione = require("../models/nazione.model");
 let Provincia = require("../models/provincia.model");
 let Axios = require("axios");
-let fs = require("fs")
+let fs = require("fs");
+const { json } = require("express");
 
 
 /**
@@ -86,7 +87,7 @@ async function updateNazioni() {
 /**
  * Automated Updater for the Province collection
  */
- async function updateProvince() {
+async function updateProvince() {
     const lastDatePromise = new Promise((resolve, reject) => {
         Provincia.find()
             .sort({ "data": -1 })
