@@ -4,10 +4,11 @@ let Nazione = require("../../models/nazione.model");
 
 /**
  * @route /api/nazione
- * @route /nazione/{totale_positivi}
- * @route /nazione/?mese={02-2020}
- * @route /nazione/?giorni={30}
- * @desc Get Informazioni Covid per riguardanti
+ * @route /nazione/?campo=totale_positivi
+ * @route /nazione/?mese=02-2020
+ * @route /nazione/?giorni=30
+ * @route /nazione/?dataInizio=2021-05-01&dataFine=2021-05-06
+ * @desc Get Informazioni Covid riguardanti l'andamento nazionale
  * @access Public
  */
 

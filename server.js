@@ -17,7 +17,7 @@ app.use(express.static('client/build'));
 
 //DB connection
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, ssl:true });
 
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -27,10 +27,12 @@ connection.once('open', () => {
 //Routes Setup
 const regioniRouter = require('./routes/api/regione');
 const nazioneRouter = require('./routes/api/nazione');
+const provinceRouter = require('./routes/api/province');
 const rootRouter = require('./routes/api/root');
 
 app.use('/api/regioni', regioniRouter);
 app.use('/api/nazione', nazioneRouter);
+app.use('/api/province', provinceRouter)
 app.use('/api/', rootRouter);
 app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
@@ -44,3 +46,4 @@ app.listen(port, () =>
 //Job Scheduler per aggiornare i dati del database ogni ora 
 const regioniJob = scheduler.scheduleJob('00 00 * * * *',  scripts.updateRegioni);
 const nazioniJob = scheduler.scheduleJob('00 01 * * * *',  scripts.updateNazioni);
+const provinceJob = scheduler.scheduleJob('00 02 * * * *', scripts.updateProvince);
