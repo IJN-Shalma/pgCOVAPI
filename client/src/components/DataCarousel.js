@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import './css/DataCarousel.css'
@@ -19,7 +19,11 @@ export const DataCarousel = () => {
                 }
             })
             .then((jsonData) => {
-                setResponseAPI(jsonData[jsonData.length - 1]);
+                if(jsonData.length > 0){
+                    dataOk.current = true;
+                    setResponseAPI(jsonData[jsonData.length - 1]);
+                }
+                console.log(dataOk.current)
             })
     }, []);
 
@@ -36,7 +40,6 @@ export const DataCarousel = () => {
     return (
         <>
         {dataOk.current && 
-            (
             <div className='carousel-container'>
                 <div className='carousel-wrapper'>
                     <p className='today-date'>{formatDate(responseAPI.data)}</p>
@@ -68,7 +71,6 @@ export const DataCarousel = () => {
                     </Carousel>
                 </div>
             </div>
-            )
         }
         </>
     )
