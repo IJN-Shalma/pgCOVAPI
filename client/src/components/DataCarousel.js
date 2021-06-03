@@ -6,6 +6,7 @@ import './css/DataCarousel.css'
 export const DataCarousel = () => {
 
     const [responseAPI, setResponseAPI] = useState({})
+    const dataOk = useRef(false)
 
     useEffect(() => {
 
@@ -34,6 +35,8 @@ export const DataCarousel = () => {
 
     return (
         <>
+        {dataOk.current && 
+            (
             <div className='carousel-container'>
                 <div className='carousel-wrapper'>
                     <p className='today-date'>{formatDate(responseAPI.data)}</p>
@@ -65,6 +68,8 @@ export const DataCarousel = () => {
                     </Carousel>
                 </div>
             </div>
+            )
+        }
         </>
     )
 }
