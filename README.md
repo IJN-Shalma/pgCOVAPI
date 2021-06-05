@@ -1,6 +1,6 @@
 # pgCOVAPI - Progetto esame di maturità 2021 
 
-> pgCOVAPI mette a disposizione un servizio Web API pubblico, che permette di accedere agli Open Data COVID-19 pubblicati sulla repository Github del Dipartimento di Protezione Civile. Tramite il sito Web è possibile visualizzare i dati forniti dal servizio ed elaborarli in forma grafica.
+> pgCOVAPI mette a disposizione un servizio Web API pubblico che permette di accedere agli Open Data COVID-19 pubblicati sulla repository Github del Dipartimento di Protezione Civile. Tramite il sito Web è possibile visualizzare i dati forniti dal servizio elaborati in forma grafica.
 
 
 ## Applicazione pgCOVAPI
