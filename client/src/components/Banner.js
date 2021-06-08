@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import DescriptionIcon from '@material-ui/icons/Description';
+import { HashLink as Link } from 'react-router-hash-link';
 import './css/Banner.css';
 
 /**
@@ -25,8 +26,8 @@ export const Banner = () => {
                 </div>
             </div>
 
-            <div className='down-button'>
-                <i className="fas fa-angle-double-down"></i>
+            <div className='down-button' href="#main">
+                <Link to="#main"><i className="fas fa-angle-double-down" ></i></Link>
             </div>
         </div>
     )
