@@ -139,11 +139,11 @@ export const Map = () => {
             return response.json();
         })
         .then(data => {
-            let temp1 = new Date(data[0].data + "Z");
-            let temp2 = new Date(data[data.length - 1].data + "Z");
-
-            temp1.setDate(temp1.getDate()+1)
-            temp2.setDate(temp2.getDate()+1)
+            //console.log(data)
+            let temp1 = new Date(data[data.length - 1].data + "Z");
+            let temp2 = new Date();
+            temp1.setDate(temp1.getDate())
+            temp2.setDate(temp1.getDate()+1)
 
             let dataInizioIeri = formatDate(temp1);
             let dataFineIeri = formatDate(temp2);

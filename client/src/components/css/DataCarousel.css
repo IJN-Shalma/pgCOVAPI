@@ -25,6 +25,10 @@
     font-weight: bold;
 }
 
+.carousel .control-dots{
+    margin:0;
+}
+
 .c1{color:#ffadad}
 
 .c2{color: #ffd6a5}
