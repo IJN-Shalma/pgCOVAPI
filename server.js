@@ -44,6 +44,6 @@ app.listen(port, () =>
 );
 
 //Job Scheduler per aggiornare i dati del database ogni ora 
-const regioniJob = scheduler.scheduleJob('00 00 * * * *',  scripts.updateRegioni);
-const nazioniJob = scheduler.scheduleJob('00 00 * * * *',  scripts.updateNazioni);
-const provinceJob = scheduler.scheduleJob('00 00 * * * *', scripts.updateProvince);
+const regioniJob = scheduler.scheduleJob('00 06 * * * *',  scripts.updateRegioni);
+const nazioniJob = scheduler.scheduleJob('00 06 * * * *',  scripts.updateNazioni);
+const provinceJob = scheduler.scheduleJob('00 06 * * * *', scripts.updateProvince);
