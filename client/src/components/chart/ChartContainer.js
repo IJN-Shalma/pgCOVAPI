@@ -134,7 +134,7 @@ export const ChartContainer = () => {
                 {hasLoaded && (<Chart data={chartData} labelY={field}/>)}
             </Grid>
 
-            <ChartForm className="form-container" time={time} setTime={setTime} setField={setField} setSelectedRegions={setSelectedRegions} selectedRegions={selectedRegions} selectedChart={selectedChart}/>
+            <ChartForm className="form-container" setTime={setTime} setField={setField} setSelectedRegions={setSelectedRegions} selectedRegions={selectedRegions} selectedChart={selectedChart}/>
             
         </Grid>
     )

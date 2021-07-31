@@ -26,7 +26,7 @@ export const Banner = () => {
                 </div>
             </div>
 
-            <div className='down-button' href="#main">
+            <div className='down-button' id="main">
                 <Link to="#main"><i className="fas fa-angle-double-down" ></i></Link>
             </div>
         </div>

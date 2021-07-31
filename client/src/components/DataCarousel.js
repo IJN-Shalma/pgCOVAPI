@@ -40,7 +40,7 @@ export const DataCarousel = () => {
     return (
         <>
         {dataOk.current && 
-            <div className='carousel-container' id="main">
+            <div className='carousel-container'>
                 <div className='carousel-wrapper'>
                     <p className='today-date'>{formatDate(responseAPI.data)}</p>
                     <Carousel showArrows={false} showThumbs={false} autoPlay infiniteLoop swipeable centerMode showStatus={false} stopOnHover={false}>

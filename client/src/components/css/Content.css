@@ -1,0 +1,186 @@
+:root {
+    --main-color: #00A8A8;
+    --solid-main-color: #00A8A8;
+}
+
+* {
+    font-family: 'Lato', sans-serif;
+}
+
+.img-placeholder {
+    width: 250px;
+    height: 250px;
+    background-color: red;
+}
+
+.left,
+.right {
+    width: 50%;
+    text-align: center;
+    padding: 10px;
+}
+
+.left *,
+.right * {
+    margin: auto;
+    text-align: center;
+}
+
+.a-logo {
+    width: 250px;
+    height: 250px;
+}
+
+.sub-div {
+    width: 60%;
+    display: flex;
+    margin: 50px;
+    padding: 30px;
+    color: black;
+}
+
+.tit {
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 2rem;
+    color: #00A8A8;
+    text-shadow: 0px 0px 2px black;
+    margin: 15px;
+}
+
+/*DIV GENERALE DELLE CARTE*/
+.cardsBlock {
+    height: auto;
+    width: auto;
+    text-align: center;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*Importante separatore dall'alto*/
+}
+
+/*DIV CONTENENTE LA DISPOSIZIONE A GRIGLIA*/
+.cardsContainer {
+    height: auto;
+    display: grid;
+    grid-template-columns: 20% 20% 20%;
+    grid-template-areas:
+        'c1 c2 c3'
+        'c4 c5 c6';
+    width: 600px;
+    justify-content: center;
+    /*Minore, più vengono strette le carte*/
+}
+
+/*CELLA DEL GRID*/
+.cardBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*CARTA RUOTATA*/
+.card {
+    background-color: white;
+    min-height: 120px !important;
+    min-width: 120px !important;
+    max-height: 120px !important;
+    max-width: 120px !important;
+    border-radius: 10px;
+    border: 10px solid var(--solid-main-color);
+    padding: 5px;
+    transform: rotate(45deg);
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.1) rotate(45deg);
+}
+
+/*Div INTERNO CON TESTO*/
+.card div {
+    background-color: var(--solid-main-color);
+    min-height: 90px !important;
+    min-width: 90px !important;
+    max-height: 90px !important;
+    max-width: 90px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: inherit
+}
+
+.c1 {
+    grid-area: c1
+}
+
+.c2 {
+    grid-area: c2
+}
+
+.c3 {
+    grid-area: c3
+}
+
+.c4 {
+    grid-area: c4
+}
+
+.c5 {
+    grid-area: c5
+}
+
+.content-wrapper {
+    height: 91vh;
+    width: 100vw;
+    background-color: rgb(191, 243, 252);
+}
+
+.card-base{
+    width: 40vw;
+    height: 250px;
+    padding: .75rem;
+    padding-top: 0rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.project{
+    background-color: rgb(81, 196, 187);
+}
+
+.logo-img{
+    height: 250px;
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+@media screen and(max-width: 991) {
+    
+}
+
+@media screen and (max-width: 959px) {
+    .content-wrapper{
+        height: 180vh;
+    }
+
+    .card-base{
+        width: 90vw;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .cardsContainer{
+        width: 500px;
+    }
+}

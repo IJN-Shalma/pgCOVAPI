@@ -6,6 +6,7 @@ import { Footer } from './components/Footer';
 import { DataCarousel } from './components/DataCarousel';
 import { ChartContainer } from './components/chart/ChartContainer';
 import { Map } from './components/map/Map';
+import { Content } from './components/Content';
 
 import './App.css';
 
@@ -18,6 +19,7 @@ const App = () => {
           <Route path='/' exact>
             <Banner />
             <DataCarousel />
+            <Content />
           </Route>
           <Route path='/grafici'>
             <ChartContainer />

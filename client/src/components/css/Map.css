@@ -1,0 +1,10 @@
+.map {
+    top: 5vh;
+    height: 80vh;
+    color: black;
+}
+
+.map-container{
+    height: 92vh;
+    background-color: var(--color-background);
+}

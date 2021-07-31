@@ -1,5 +1,6 @@
 import React from 'react';
 import {Grid,Button} from '@material-ui/core';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
 
 export const ChartSelect = ({onClick}) => {
     /**
@@ -10,8 +11,8 @@ export const ChartSelect = ({onClick}) => {
     return (
         <>
             <Grid container item xs={12} justify="center" alignItems="center" className="chart-select">
-                <Button variant="contained" style={{margin:".5rem .5rem"}} color="primary" onClick={() => onClick("nazione")}>Grafico Andamento Nazionale</Button>
-                <Button variant="contained" style={{margin:".5rem .5rem"}} color="primary" onClick={() => onClick("regioni")}>Grafico Andamento Regionale</Button>
+                <Button variant="contained" style={{margin:".5rem .5rem",color:"white"}} color="primary" onClick={() => onClick("nazione")} endIcon={<ShowChartIcon/>}>Grafico Andamento Nazionale</Button>
+                <Button variant="contained" style={{margin:".5rem .5rem",color:"white"}} color="primary" onClick={() => onClick("regioni")} endIcon={<ShowChartIcon/>}>Grafico Andamento Regionale</Button>
             </Grid>
         </>
     )

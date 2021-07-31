@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Grid, Select, FormControl, InputLabel, MenuItem, Slider, Tooltip} from '@material-ui/core';
 
 // Possibili regioni selezionabili all'interno del form
-export const ChartForm = ({field, className, setField, setSelectedRegions, selectedRegions, addedRegion, selectedChart, setTime, time}) => {
+export const ChartForm = ({field, className, setField, setSelectedRegions, selectedRegions, selectedChart, setTime}) => {
     const regionNames = [    
         "Abruzzo",
         "Basilicata",
@@ -78,7 +78,7 @@ export const ChartForm = ({field, className, setField, setSelectedRegions, selec
                         <Select 
                             multiple
                             id="region-selector"
-                            style={{width:"10rem"}}
+                            style={{width:"10rem",marginBottom:"1rem"}}
                             value={selectedRegions}
                             onChange={(event) => {
                                 setSelectedRegions(() =>  event.target.value);
@@ -97,27 +97,27 @@ export const ChartForm = ({field, className, setField, setSelectedRegions, selec
                         Intervallo di Tempo
                     </InputLabel>
                     <Slider
-                    value={timeInDays}
-                    onChange={ (event, newValue) => setTimeInDays(newValue)}
-                    onChangeCommitted={(event, newValue)=>{
-                        setTime(()=>{
-                        let endDate = new Date();
-                        let startDate = new Date();
+                        value={timeInDays}
+                        onChange={ (event, newValue) => setTimeInDays(newValue)}
+                        onChangeCommitted={(event, newValue)=>{
+                            setTime(()=>{
+                            let endDate = new Date();
+                            let startDate = new Date();
 
-                        endDate.setDate(endDate.getDate()+timeInDays[1]);
-                        startDate.setDate(startDate.getDate()+timeInDays[0]);
-                        return {
-                            'date-start': formatDate(startDate),
-                            'date-end': formatDate(endDate)
+                            endDate.setDate(endDate.getDate()+timeInDays[1]);
+                            startDate.setDate(startDate.getDate()+timeInDays[0]);
+                            return {
+                                'date-start': formatDate(startDate),
+                                'date-end': formatDate(endDate)
+                                }
                             }
-                        }
-                    )}}
-                    valueLabelDisplay="auto"
-                    aria-labelledby="range-slider"
-                    valueLabelFormat={valueText}
-                    ValueLabelComponent={ValueLabelComponent}
-                    max={0}
-                    min={diffDays}
+                        )}}
+                        valueLabelDisplay="auto"
+                        aria-labelledby="range-slider"
+                        valueLabelFormat={valueText}
+                        ValueLabelComponent={ValueLabelComponent}
+                        max={0}
+                        min={diffDays}
                     />
 
                 <FormControl>

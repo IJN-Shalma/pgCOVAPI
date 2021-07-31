@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import './Map.css';
+import '../css/Map.css';
 import data from './data/limits_IT_provinces.json'
  
 mapboxgl.accessToken = 'pk.eyJ1Ijoic3BhY2VyY3Jvd25kIiwiYSI6ImNrb21rbGpnNzBpNGkyd3BuYmRkbmRyMncifQ.CqPZGVTjV3AEX2bfZ9wgUQ';
@@ -180,9 +180,9 @@ export const Map = () => {
     });
     
     return (
-    <>
-        <div ref={mapContainer} className="map-container" />
-    </>
+        <div className="map-container">
+            <div ref={mapContainer} className="map" />
+        </div>
     );
 }
 

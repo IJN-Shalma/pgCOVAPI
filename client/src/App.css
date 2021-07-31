@@ -26,6 +26,7 @@ body {
     color: white;
     font-family: 'Lato', sans-serif;
     background-color: var(--color-background-light);
+    overflow-x: hidden;
 }
 
 h1 {

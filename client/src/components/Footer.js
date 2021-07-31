@@ -17,7 +17,7 @@ export const Footer = () => {
             </div>
 
             <div className="credits">
-                <h3>Extra</h3>
+                <h3>Info</h3>
                 <p>Progetto Maturità 2021</p>
                 <p>5^C Informatica IIS A. Avogadro Torino</p>
                 <p>&nbsp;</p>
