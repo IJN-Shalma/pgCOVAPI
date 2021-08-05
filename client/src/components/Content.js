@@ -6,30 +6,30 @@ import './css/Content.css';
 export const Content = () => {
     return (
         <>
-            <Grid container className="content-wrapper" spacing={3} direction="row" justify="center">
-                <Grid className="project" container justify="center" alignItems="center" direction="row-reverse" spacing={3} align = "center">
+            <Grid container className="content-wrapper" direction="row" justify="center">
+                <Grid className="project" container justify="center" alignItems="center" direction="row-reverse" align = "center">
                     <Grid item xs={12} md={6} lg={6} xl={6}>
                         <img className="logo-img" src="https://i.imgur.com/ihpo3UU.gif" alt="Logo"></img>
                     </Grid>
                     {/** xs, sm, md, lg, and xl **/}
                     <Grid item xs={12} md={6} lg={6} xl={6}>
                         <Paper elevation={4} className="card-base">
-                            <p>
+                            <span>
                                 <p className="tit">IL PROGETTO <span style={{color:"#009246"}}>pg</span><span style={{color: "white"}}>COV</span><span style={{color:"#CE2B37"}}>API</span></p>
                                 Il progetto pgCOVAPI punta a creare un servizio API gratuito che permette a sviluppatori accedere ai dati COVID-19 in Italia nelle proprie applicazioni.
                                 L'idea è nata come progetto da presentare alla maturità 2021.
-                            </p>
+                            </span>
                         </Paper>
                     </Grid>
                 </Grid>
 
-                <Grid container justify="center" alignItems="center" direction="row-reverse" spacing={3}>
+                <Grid container justify="center" alignItems="center" direction="row-reverse" align="center">
                     <Grid item>
                         <Paper elevation={4} className="card-base">
-                            <p>
-                                <p class="tit">IL TEAM DI PROGETTO</p>
+                            <span>
+                                <p className="tit">IL TEAM DI PROGETTO</p>
                                 Siamo tre ex-alunni della classe 5^C informatica all'istituto ITIS Amedeo Avogadro di Torino.
-                            </p>
+                            </span>
                         </Paper>
                     </Grid>
 

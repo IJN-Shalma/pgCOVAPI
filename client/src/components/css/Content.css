@@ -139,7 +139,7 @@ a {
 
 .content-wrapper {
     height: 91vh;
-    width: 100vw;
+    width: 100% !important;
     background-color: rgb(191, 243, 252);
 }
 
@@ -175,7 +175,7 @@ a {
     }
 
     .card-base{
-        width: 90vw;
+        width: 90%;
     }
 }
 
