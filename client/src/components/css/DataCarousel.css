@@ -9,6 +9,7 @@
 }
 
 .carousel{
+    min-height: 150px;
     height: 17vh;
 }
 

@@ -7,7 +7,7 @@ export const Content = () => {
     return (
         <>
             <Grid container className="content-wrapper" direction="row" justify="center">
-                <Grid className="project" container justify="center" alignItems="center" direction="row-reverse" align = "center">
+                <Grid className="content project" container justify="center" alignItems="center" direction="row-reverse" align = "center">
                     <Grid item xs={12} md={6} lg={6} xl={6}>
                         <img className="logo-img" src="https://i.imgur.com/ihpo3UU.gif" alt="Logo"></img>
                     </Grid>
@@ -23,7 +23,7 @@ export const Content = () => {
                     </Grid>
                 </Grid>
 
-                <Grid container justify="center" alignItems="center" direction="row-reverse" align="center">
+                <Grid className="content" container justify="center" alignItems="center" direction="row-reverse" align="center">
                     <Grid item>
                         <Paper elevation={4} className="card-base">
                             <span>

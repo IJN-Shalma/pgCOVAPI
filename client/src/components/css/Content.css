@@ -139,6 +139,7 @@ a {
 
 .content-wrapper {
     height: 91vh;
+    min-height: 1200px;
     width: 100% !important;
     background-color: rgb(191, 243, 252);
 }
@@ -165,11 +166,30 @@ a {
     background-color: rgba(0, 0, 0, 0);
 }
 
+.content{
+    padding-bottom: 2rem;
+    padding-top:2rem;
+}
+
 @media screen and(max-width: 991) {
     
 }
 
 @media screen and (max-width: 959px) {
+    .card {
+        min-height: 100px !important;
+        min-width: 100px !important;
+        max-height: 100px !important;
+        max-width: 100px !important;
+    }
+
+    .card div {
+        min-height: 70px !important;
+        min-width: 70px !important;
+        max-height: 70px !important;
+        max-width: 70px !important;
+    }
+
     .content-wrapper{
         height: 180vh;
     }
@@ -177,10 +197,14 @@ a {
     .card-base{
         width: 90%;
     }
+
+    .cardsContainer{
+        width: 100vw;
+    }
 }
 
 @media screen and (max-width: 400px) {
     .cardsContainer{
-        width: 500px;
+        width: 100vw;
     }
 }
