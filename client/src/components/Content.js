@@ -16,8 +16,7 @@ export const Content = () => {
                         <Paper elevation={4} className="card-base">
                             <span>
                                 <p className="tit">IL PROGETTO <span style={{color:"#009246"}}>pg</span><span style={{color: "white"}}>COV</span><span style={{color:"#CE2B37"}}>API</span></p>
-                                Il progetto pgCOVAPI punta a creare un servizio API gratuito che permette a sviluppatori accedere ai dati COVID-19 in Italia nelle proprie applicazioni.
-                                L'idea è nata come progetto da presentare alla maturità 2021.
+                                Il progetto pgCOVAPI è nato con l'intenzione di realizzare un servizio <b>WEB API pubblico</b> per permettere a sviluppatori di accedere agli open-data COVID-19 in Italia forniti dal <b>Dipartimento di Protezione Civile</b>. Il servizio offre la possibilità di strutturare le richieste con parametri che filtrino la grande quantità di dati.<br></br> Il progetto è stato presentato all'esame di Maturità 2021.
                             </span>
                         </Paper>
                     </Grid>
@@ -28,7 +27,7 @@ export const Content = () => {
                         <Paper elevation={4} className="card-base">
                             <span>
                                 <p className="tit">IL TEAM DI PROGETTO</p>
-                                Siamo tre ex-alunni della classe 5^C informatica all'istituto ITIS Amedeo Avogadro di Torino.
+                                Siamo tre ex-studenti della classe 5^C Informatica all'istituto IIS Amedeo Avogadro di Torino nell'anno scolastico 2020/2021.
                             </span>
                         </Paper>
                     </Grid>
