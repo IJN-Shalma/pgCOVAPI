@@ -25,10 +25,12 @@ export const Map = () => {
     function createSource(curr, prev){
         data.features.forEach(feature => {
            /* console.log(json)
-           console.log(feature) */
+           console.log(feature) 
+           console.log(curr);*/
            let propertiesCurr = curr.filter((obj) => obj.codice_provincia === feature.properties.prov_istat_code_num);
            let propertiesPrev = prev.filter((obj) => obj.codice_provincia === feature.properties.prov_istat_code_num);
            feature.properties.totale_casi = propertiesCurr[0].totale_casi - propertiesPrev[0].totale_casi;
+           feature.properties.data = curr[0].data;
         });
 
         map.current.fire("loaded");
@@ -110,7 +112,8 @@ export const Map = () => {
 
                     var coordinates = e.lngLat;
                     var description = e.features[0].properties.totale_casi;
-                    popup.setLngLat(coordinates).setHTML(`<h4>${e.features[0].properties.prov_name}</h4><br/>Nuovi Casi: ${description}`).addTo(map.current);
+                    var region = e.features[0].properties.reg_name;
+                    popup.setLngLat(coordinates).setHTML(`<h4>${e.features[0].properties.prov_name}</h4><br/><b>Regione:</b> ${region}<br/><b>Data:</b> ${e.features[0].properties.data}<br/><b>Nuovi Casi:</b> ${description}`).addTo(map.current);
 
                     hoveredStateId = e.features[0].id;
                     map.current.setFeatureState(
