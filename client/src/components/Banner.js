@@ -18,7 +18,7 @@ export const Banner = () => {
         <div className='banner-container'>
             <div className='banner-wrapper'>
                 <div className="banner-content">
-                    <h2 className='title'>pgCOVAPI</h2>
+                    <h2 className='title'><span style={{color:"#009246"}}>pg</span><span style={{color: "white"}}>COV</span><span style={{color:"#CE2B37"}}>API</span></h2>
                     <h2 className='title'>Open Data Covid-19 in Italia</h2>
                     <p>Accedi ai dati COVID19 tramite una API ad accesso libero facile da utilizzare.<br/> Visualizza o implementa in altre applicazioni. Dati forniti dal <a href="https://github.com/pcm-dpc/COVID-19">Dipartimento di Protezione Civile</a></p>
                     <Button href="https://github.com/IJN-Shalma/pgCOVAPI" endIcon={<GitHubIcon/>} target="_blank" variant="contained" style={{margin:"1rem 1rem"}} color="primary">GitHub</Button>

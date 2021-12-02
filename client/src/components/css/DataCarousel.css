@@ -40,3 +40,21 @@
 
 .c5{color: #bdb2ff}
 
+
+@media screen and (max-width: 425px) {
+
+    .carousel{
+        min-height: 50px;
+        height: 15vh;
+    }
+
+    .datainfo{
+        font-size: 20px;
+    }
+
+    .data{
+        font-size: 40px;
+        font-weight: bold;
+    }
+}
+
