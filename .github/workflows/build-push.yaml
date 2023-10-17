@@ -1,0 +1,78 @@
+
+name: "Build and push to gcr"
+
+      
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend/
+
+    env:
+      PROJECT_ID: "pgcovapi"
+      REPOSITORY: "pgcovapi"
+      
+    steps:  
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "__ATLAS_URI__"
+          replace: "${{ secrets.ATLAS_URI }}"
+          regex: false
+
+      - name: Build image
+        run: docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/pgcovapi-backend:latest .
+
+      - name: Authenticate to Google Cloud
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCR_SA_CREDENTIALS }}'
+
+      - name: Authenticate to GCR
+        run: gcloud auth configure-docker europe-west12-docker.pkg.dev
+
+      - name: Push image
+        run: docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/pgcovapi-backend:latest
+
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client/
+
+    env:
+      PROJECT_ID: "pgcovapi"
+      REPOSITORY: "pgcovapi"
+      
+    steps:  
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/pgcovapi-frontend:latest
+        
+      - name: Authenticate to Google Cloud
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCR_SA_CREDENTIALS }}'
+
+      - name: Authenticate to GCR
+        run: gcloud auth configure-docker europe-west12-docker.pkg.dev
+
+      - name: Push image
+        run: docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/pgcovapi-frontend:latest
+    

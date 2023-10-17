@@ -1,0 +1,11 @@
+FROM node:slim
+
+COPY . .
+
+RUN npm install
+
+EXPOSE 5000:5000
+
+ENV ATLAS_URI=__ATLAS_URI__
+
+CMD ["npm", "start"]
