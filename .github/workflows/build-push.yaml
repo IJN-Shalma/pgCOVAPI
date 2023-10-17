@@ -34,7 +34,7 @@ jobs:
           regex: false
 
       - name: Build image
-        run: docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/pgcovapi-backend:latest .
+        run: docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/pgcovapi-backend:latest -f Dockerfile.backend .
 
       - name: Authenticate to Google Cloud
         uses: 'google-github-actions/auth@v1'
@@ -63,7 +63,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build image
-        run: docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/pgcovapi-frontend:latest
+        run: docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/pgcovapi-frontend:latest  -f Dockerfile.frontend .
         
       - name: Authenticate to Google Cloud
         uses: 'google-github-actions/auth@v1'
