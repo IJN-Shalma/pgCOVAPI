@@ -19,7 +19,6 @@ var limiter = new RateLimit({
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('client/build'));
 app.use(limiter);
 
 //DB connection

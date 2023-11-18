@@ -55,14 +55,11 @@ router.route('/').get((req, res) => {
     if (param) {
         param = loadBasicParams(param);
     }
-    
-    console.log(query);
 
     Nazione.find(query)
         .sort({ "data": 1 })
         .select(param)
         .then(nazione =>{
-            console.log(nazione) 
             return res.json(nazione)
         })
         .catch(err => res.status(400).json('Error: ') + err);

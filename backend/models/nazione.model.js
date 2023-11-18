@@ -1,31 +1,30 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const nazioneSchema = new Schema({
-    data: { type: String },
-    stato: { type: String },
-    ricoverati_con_sintomi: { type: Number },
-    terapia_intensiva: { type: Number },
-    totale_ospedalizzati: { type: Number },
-    isolamento_domiciliare: { type: Number },
-    totale_positivi: { type: Number },
-    variazione_totale_positivi: { type: Number },
-    nuovi_positivi: { type: Number },
-    dimessi_guariti: { type: Number },
-    deceduti: { type: Number },
-    casi_da_sospetto_diagnostico: { type: Number },
-    casi_da_screening: { type: Number },
-    totale_casi: { type: Number },
-    tamponi: { type: Number },
-    casi_testati: { type: Number },
-    note: { type: String },
-    ingressi_terapia_intensiva: { type: Number },
-    note_test: { type: String },
-    note_casi: { type: String },
-    totale_positivi_test_molecolare: { type: Number },
-    totale_positivi_test_antigenico_rapido: { type: Number },
-    tamponi_test_molecolare: { type: Number },
-    tamponi_test_antigenico_rapido: { type: Number }
+const nazioneSchema = new mongoose.Schema({
+    data: String,
+    stato: String,
+    ricoverati_con_sintomi: Number,
+    terapia_intensiva: Number,
+    totale_ospedalizzati: Number,
+    isolamento_domiciliare: Number,
+    totale_positivi: Number,
+    variazione_totale_positivi: Number,
+    nuovi_positivi: Number,
+    dimessi_guariti: Number,
+    deceduti: Number,
+    casi_da_sospetto_diagnostico: Number,
+    casi_da_screening: Number,
+    totale_casi: Number,
+    tamponi: Number,
+    casi_testati: Number,
+    note: String,
+    ingressi_terapia_intensiva: Number,
+    note_test: String,
+    note_casi: String,
+    totale_positivi_test_molecolare: Number,
+    totale_positivi_test_antigenico_rapido: Number,
+    tamponi_test_molecolare: Number,
+    tamponi_test_antigenico_rapido: Number
 });
 
 const Nazione = mongoose.model("Nazione", nazioneSchema, "report_nazione");
