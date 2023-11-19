@@ -93,7 +93,7 @@ async function updateProvince() {
             .sort({ "data": -1 })
             .limit(1)
             .select("data")
-            .then(nazione => { resolve(nazione[0].data) })
+            .then(provincia => { resolve(provincia[0].data) })
     })
 
     const lastDate = await lastDatePromise;

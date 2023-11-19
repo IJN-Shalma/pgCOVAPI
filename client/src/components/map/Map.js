@@ -4,6 +4,7 @@ import '../css/Map.css';
 import data from './data/limits_IT_provinces.json'
  
 mapboxgl.accessToken = 'pk.eyJ1Ijoic3BhY2VyY3Jvd25kIiwiYSI6ImNrb21rbGpnNzBpNGkyd3BuYmRkbmRyMncifQ.CqPZGVTjV3AEX2bfZ9wgUQ';
+const APP_URL = process.env.APP_URL || "http://backend:5000";
 
 export const Map = () => {
     const mapContainer = useRef(null);
@@ -137,12 +138,11 @@ export const Map = () => {
             });
         });
 
-        fetch("https://pgcovapi.herokuapp.com/api/province/?giorni=2")
+        fetch(`${APP_URL}/api/province/?giorni=2`)
         .then(response => {
             return response.json();
         })
         .then(data => {
-            //console.log(data)
             let temp1 = new Date(data[data.length - 1].data + "Z");
             let temp2 = new Date();
             temp1.setDate(temp1.getDate())
@@ -157,12 +157,12 @@ export const Map = () => {
             let dataInizioAltroIeri = formatDate(temp1);
             let dataFineAltroIeri = formatDate(temp2);
             
-            fetch(`https://pgcovapi.herokuapp.com/api/province/?dataInizio=${dataInizioIeri}&dataFine=${dataFineIeri}`)
+            fetch(`${APP_URL}/api/province/?dataInizio=${dataInizioIeri}&dataFine=${dataFineIeri}`)
             .then(response =>{
                 return response.json();
             })
             .then(curr =>{
-                fetch(`https://pgcovapi.herokuapp.com/api/province/?dataInizio=${dataInizioAltroIeri}&dataFine=${dataFineAltroIeri}`)
+                fetch(`${APP_URL}/api/province/?dataInizio=${dataInizioAltroIeri}&dataFine=${dataFineAltroIeri}`)
                 .then(response =>{
                     return response.json();
                 })

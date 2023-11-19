@@ -5,8 +5,10 @@ import {Chart} from './Chart';
 import {Loading} from './Loading';
 import {ChartForm} from './ChartForm';
 import {ChartSelect} from './ChartSelect';
-
 import '../css/ChartContainer.css';
+
+
+const APP_URL = process.env.APP_URL || "http://backend:5000";
 
 export const ChartContainer = () => {
     const [time, setTime] = useState({});
@@ -14,7 +16,6 @@ export const ChartContainer = () => {
     const [selectedChart, setSelectedChart] = useState("nazione"); // selected chart (nazione / regioni)
     const [selectedRegions, setSelectedRegions] = useState([]); // list of selected Regions
     const [chartData, setChartData] = useState([]); // chart Data
-    
     const [hasLoaded, setHasLoaded] = useState(false);
     
     useEffect(() => {
@@ -93,7 +94,7 @@ export const ChartContainer = () => {
 
         if(selectedChart === 'nazione'){
             // eslint-disable-next-line
-            url = `https://pgCOVAPI.herokuapp.com/api/${selectedChart}/`;
+            url = `${APP_URL}/api/${selectedChart}/`;
             url = url.concat(`/?campo=${field}`);
             if(time && time['date-start'] < time['date-end']){
                 url = url.concat(`&dataInizio=${time['date-start']}&dataFine=${time['date-end']}`);
@@ -102,7 +103,7 @@ export const ChartContainer = () => {
         }else if(selectedChart === 'regioni'){
             if(selectedRegions.length > 0){
                 selectedRegions.forEach(r => {
-                    url = `https://pgCOVAPI.herokuapp.com/api/${selectedChart}/`;
+                    url = `${APP_URL}/api/${selectedChart}/`;
                     url = url.concat(r);
                     url = url.concat(`/?campo=${field}`);
                     if(time && time['date-start'] < time['date-end']){

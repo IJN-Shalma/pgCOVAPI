@@ -8,4 +8,6 @@ EXPOSE 5000:5000
 
 ENV ATLAS_URI=__ATLAS_URI__
 
+RUN echo "ATLAS_URI=$ATLAS_URI">.env
+
 CMD ["npm", "start"]

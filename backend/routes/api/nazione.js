@@ -12,7 +12,7 @@ let Nazione = require("../../models/nazione.model");
  * @access Public
  */
 
-router.route('/').get((req, res) => {
+router.route('/').get(async(req, res) => {
     const pMese = req.query.mese || null;
     let param = req.query.campo || null;
     let days = req.query.giorni || null;
@@ -25,7 +25,14 @@ router.route('/').get((req, res) => {
     }
     else {
         if (days) {
-            let date = new Date();
+            const lastDatePromise = new Promise((resolve, reject) => {
+                Nazione.find()
+                    .sort({ "data": -1 })
+                    .limit(1)
+                    .select("data")
+                    .then(nazione => { resolve(nazione[0].data) })
+            })
+            let date = new Date(await lastDatePromise);
             date.setDate(date.getDate() - days);
             query.data = { $gte: date.toISOString() };
 
@@ -57,7 +64,7 @@ router.route('/').get((req, res) => {
     }
 
     Nazione.find(query)
-        .sort({ "data": 1 })
+        .sort({ "data": -1 })
         .select(param)
         .then(nazione =>{
             return res.json(nazione)
