@@ -6,10 +6,10 @@ COPY package.json /app/
 
 WORKDIR /app
 
-ENV APP_URL=__APP_URL__
+ENV BE_URL=__BE_URL__
 ENV MAP_BOXGL=__MAP_BOXGL__
 
-RUN echo "APP_URL=$APP_URL">.env
+RUN echo "BE_URL=$BE_URL">.env
 RUN echo "MAP_BOXGL=$MAP_BOXGL">>.env
 
 

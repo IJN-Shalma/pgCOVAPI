@@ -8,7 +8,7 @@ import {ChartSelect} from './ChartSelect';
 import '../css/ChartContainer.css';
 
 
-const APP_URL = process.env.APP_URL || "http://backend:5000";
+const BE_URL = process.env.BE_URL || "http://backend:5000";
 
 export const ChartContainer = () => {
     const [time, setTime] = useState({});
@@ -94,7 +94,7 @@ export const ChartContainer = () => {
 
         if(selectedChart === 'nazione'){
             // eslint-disable-next-line
-            url = `${APP_URL}/api/${selectedChart}/`;
+            url = `${BE_URL}/api/${selectedChart}/`;
             url = url.concat(`/?campo=${field}`);
             if(time && time['date-start'] < time['date-end']){
                 url = url.concat(`&dataInizio=${time['date-start']}&dataFine=${time['date-end']}`);
@@ -103,7 +103,7 @@ export const ChartContainer = () => {
         }else if(selectedChart === 'regioni'){
             if(selectedRegions.length > 0){
                 selectedRegions.forEach(r => {
-                    url = `${APP_URL}/api/${selectedChart}/`;
+                    url = `${BE_URL}/api/${selectedChart}/`;
                     url = url.concat(r);
                     url = url.concat(`/?campo=${field}`);
                     if(time && time['date-start'] < time['date-end']){

@@ -30,6 +30,8 @@ connection.once('open', () => {
     console.log(chalk.green(`Connected to MongoDB`));
 });
 
+const fe_url = process.env.FE_URL || 'http://frontend:3000';
+
 //Routes Setup
 const regioniRouter = require('./routes/api/regione');
 const nazioneRouter = require('./routes/api/nazione');
@@ -41,7 +43,7 @@ app.use('/api/nazione', nazioneRouter);
 app.use('/api/province', provinceRouter)
 app.use('/api/', rootRouter);
 app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.redirect(fe_url);
 });
 
 //Open port

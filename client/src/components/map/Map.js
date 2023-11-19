@@ -4,7 +4,7 @@ import '../css/Map.css';
 import data from './data/limits_IT_provinces.json'
  
 mapboxgl.accessToken = process.env.MAP_BOXGL;
-const APP_URL = process.env.APP_URL || "http://backend:5000";
+const BE_URL = process.env.BE_URL || "http://backend:5000";
 
 export const Map = () => {
     const mapContainer = useRef(null);
@@ -138,7 +138,7 @@ export const Map = () => {
             });
         });
 
-        fetch(`${APP_URL}/api/province/?giorni=2`)
+        fetch(`${BE_URL}/api/province/?giorni=2`)
         .then(response => {
             return response.json();
         })
@@ -157,12 +157,12 @@ export const Map = () => {
             let dataInizioAltroIeri = formatDate(temp1);
             let dataFineAltroIeri = formatDate(temp2);
             
-            fetch(`${APP_URL}/api/province/?dataInizio=${dataInizioIeri}&dataFine=${dataFineIeri}`)
+            fetch(`${BE_URL}/api/province/?dataInizio=${dataInizioIeri}&dataFine=${dataFineIeri}`)
             .then(response =>{
                 return response.json();
             })
             .then(curr =>{
-                fetch(`${APP_URL}/api/province/?dataInizio=${dataInizioAltroIeri}&dataFine=${dataFineAltroIeri}`)
+                fetch(`${BE_URL}/api/province/?dataInizio=${dataInizioAltroIeri}&dataFine=${dataFineAltroIeri}`)
                 .then(response =>{
                     return response.json();
                 })

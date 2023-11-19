@@ -3,7 +3,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import './css/DataCarousel.css'
 
-const APP_URL = process.env.APP_URL || "http://backend:5000";
+const BE_URL = process.env.BE_URL || "http://backend:5000";
 
 export const DataCarousel = () => {
 
@@ -12,7 +12,7 @@ export const DataCarousel = () => {
 
     useEffect(() => {
 
-        const url = `${APP_URL}/api/nazione/?giorni=2`;
+        const url = `${BE_URL}/api/nazione/?giorni=2`;
 
         fetch(url)
             .then(response => {

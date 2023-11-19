@@ -7,7 +7,9 @@ RUN npm install
 EXPOSE 5000:5000
 
 ENV ATLAS_URI=__ATLAS_URI__
+ENV FE_URL=__FE_URL__
 
 RUN echo "ATLAS_URI=$ATLAS_URI">.env
+RUN echo "FE_URL=$FE_URL">>.env
 
 CMD ["npm", "start"]

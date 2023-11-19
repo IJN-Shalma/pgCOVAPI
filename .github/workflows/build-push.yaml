@@ -33,6 +33,13 @@ jobs:
           replace: "${{ secrets.ATLAS_URI }}"
           regex: false
 
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "__FE_URL__"
+          replace: "${{ secrets.FE_URL }}"
+          regex: false
+
       - name: Build image
         run: docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/pgcovapi-backend:latest -f Dockerfile.backend .
 
@@ -65,8 +72,8 @@ jobs:
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@v3
         with:
-          find: "__APP_URL__"
-          replace: "${{ secrets.APP_URL }}"
+          find: "__BE_URL__"
+          replace: "${{ secrets.BE_URL }}"
           regex: false
 
       - name: Find and Replace
