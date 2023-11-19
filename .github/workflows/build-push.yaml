@@ -62,6 +62,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "__APP_URL__"
+          replace: "${{ secrets.APP_URL }}"
+          regex: false
+
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "__MAP_BOXGL__"
+          replace: "${{ secrets.MAP_BOXGL }}"
+          regex: false
+
       - name: Build image
         run: docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/pgcovapi-frontend:latest -f Dockerfile.frontend .
         

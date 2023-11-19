@@ -3,7 +3,7 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 import '../css/Map.css';
 import data from './data/limits_IT_provinces.json'
  
-mapboxgl.accessToken = 'pk.eyJ1Ijoic3BhY2VyY3Jvd25kIiwiYSI6ImNrb21rbGpnNzBpNGkyd3BuYmRkbmRyMncifQ.CqPZGVTjV3AEX2bfZ9wgUQ';
+mapboxgl.accessToken = process.env.MAP_BOXGL;
 const APP_URL = process.env.APP_URL || "http://backend:5000";
 
 export const Map = () => {
