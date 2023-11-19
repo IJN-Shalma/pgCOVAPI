@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const nazioneSchema = new mongoose.Schema({
+const nazioneSchema = new Schema({
     data: String,
     stato: String,
     ricoverati_con_sintomi: Number,
