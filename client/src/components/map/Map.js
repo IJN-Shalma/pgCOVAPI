@@ -3,8 +3,8 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 import '../css/Map.css';
 import data from './data/limits_IT_provinces.json'
  
-mapboxgl.accessToken = process.env.MAP_BOXGL;
-const BE_URL = process.env.BE_URL || "http://backend:5000";
+mapboxgl.accessToken = 'pk.eyJ1Ijoic3BhY2VyY3Jvd25kIiwiYSI6ImNrb21rbGpnNzBpNGkyd3BuYmRkbmRyMncifQ.CqPZGVTjV3AEX2bfZ9wgUQ';
+const BE_URL = process.env.BE_URL || "http://www.pgcovapi.com";
 
 export const Map = () => {
     const mapContainer = useRef(null);

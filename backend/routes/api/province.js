@@ -32,7 +32,7 @@ router.route('/').get(async (req, res) => {
                     .then(provincia => { resolve(provincia[0].data) })
             })
             let date = new Date(await lastDatePromise);
-            date.setDate(date.getDate() - days);
+            date.setDate(date.getDate() - (days-1));
             query.data = { $gte: date.toISOString() };
 
             if (days <= 0) {

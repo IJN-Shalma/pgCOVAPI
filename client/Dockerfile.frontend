@@ -9,8 +9,8 @@ WORKDIR /app
 ENV BE_URL=__BE_URL__
 ENV MAP_BOXGL=__MAP_BOXGL__
 
-RUN echo "BE_URL=$BE_URL">.env
-RUN echo "MAP_BOXGL=$MAP_BOXGL">>.env
+RUN echo "BE_URL=$BE_URL">./src/.env
+RUN echo "MAP_BOXGL=$MAP_BOXGL">>./src/.env
 
 
 RUN npm install
