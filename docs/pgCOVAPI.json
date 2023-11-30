@@ -16,7 +16,7 @@
   },
   "servers": [
     {
-      "url": "https://pgcovapi.herokuapp.com/api/"
+      "url": "https://pgcovapi.net/api/"
     }
   ],
   "tags": [
