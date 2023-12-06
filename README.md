@@ -4,12 +4,12 @@
 
 
 ## Applicazione pgCOVAPI
-### Sito Web - https://pgcovapi.herokuapp.com
+### Sito Web - https://pgcovapi.net
 Il sito web è raggiungibile da chiunque. Il suo scopo è solamente mostrare le informazioni elaborate in forma grafica (attualmente disponibili Grafici e Mappa).
 
 ![front-end-website](https://i.imgur.com/nDfON2N.png)
 
-### Servizio API - https://pgcovapi.herokuapp.com/api/
+### Servizio API - https://pgcovapi.net/api/
 Il servizio API è anche esso pubblico. Ricava i dati dal database MongoDB Atlas e li restituisce al richiedente in formato JSON. Tutti i percorsi e i filtri applicabili sono descritti nella documentazione API.
 ### Documentazione API - https://ijn-shalma.github.io/pgCOVAPI
 La documentazione API, realizzata con SwaggerUI, descrive i diversi percorsi  del servizio e ne elenca tutti i parametri disponibili. Dalla pagina è possibile costruire e provare il funzionamento dell'API.
