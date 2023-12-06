@@ -8,7 +8,7 @@ import {ChartSelect} from './ChartSelect';
 import '../css/ChartContainer.css';
 
 
-const BE_URL = process.env.BE_URL || "http://www.pgcovapi.com";
+const BE_URL = process.env.BE_URL || "https://pgcovapi.net";
 
 export const ChartContainer = () => {
     const [time, setTime] = useState({});

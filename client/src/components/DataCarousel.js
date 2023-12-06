@@ -3,7 +3,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import './css/DataCarousel.css'
 
-const BE_URL = process.env.BE_URL || "http://www.pgcovapi.com";
+const BE_URL = process.env.BE_URL || "https://pgcovapi.net";
 
 export const DataCarousel = () => {
 
