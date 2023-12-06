@@ -52,7 +52,7 @@ jobs:
         run: gcloud auth configure-docker europe-west12-docker.pkg.dev
 
       - name: Push image
-        run: docker push europe-west12-docker.pkg.dev//${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/backend:latest
+        run: docker push europe-west12-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/backend:latest
 
 
   build-frontend:
