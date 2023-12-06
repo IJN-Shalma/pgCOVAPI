@@ -11,7 +11,7 @@ let Regione = require("../../models/regione.model")
  * @desc Get Informazioni Covid per tutte le regioni
  * @access Public
  **/
-router.route('/').get((req, res) => {
+router.route('/').get(async (req, res) => {
     const pMese = req.query.mese || null;
     let param = req.query.campo || null;
     let days = req.query.giorni || null;
@@ -25,8 +25,15 @@ router.route('/').get((req, res) => {
     }
     else {
         if (days) {
-            let date = new Date();
-            date.setDate(date.getDate() - days);
+            const lastDatePromise = new Promise((resolve, reject) => {
+                Regione.find()
+                    .sort({ "data": -1 })
+                    .limit(1)
+                    .select("data")
+                    .then(regione => { resolve(regione[0].data) })
+            })
+            let date = new Date(await lastDatePromise);
+            date.setDate(date.getDate() - (days-1));
             query.data = { $gte: date.toISOString() };
 
             if (days <= 0) {
@@ -57,7 +64,7 @@ router.route('/').get((req, res) => {
     }
 
     Regione.find(query)
-        .sort({ "data": 1, "denominazione_regione": 1 })
+        .sort({ "data": -1, "denominazione_regione": 1 })
         .select(param)
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ' + err));
@@ -73,7 +80,7 @@ router.route('/').get((req, res) => {
  * @desc Get Informazioni Covid per regione
  * @access Public
 */
-router.route('/:regione').get((req, res, next) => {
+router.route('/:regione').get(async (req, res, next) => {
     const pMese = req.query.mese || null;
     let param = req.query.campo || null;
     let days = req.query.giorni || null;
@@ -87,7 +94,14 @@ router.route('/:regione').get((req, res, next) => {
     }
     else {
         if (days) {
-            let date = new Date();
+            const lastDatePromise = new Promise((resolve, reject) => {
+                Regione.find()
+                    .sort({ "data": -1 })
+                    .limit(1)
+                    .select("data")
+                    .then(regione => { resolve(regione[0].data) })
+            })
+            let date = new Date(await lastDatePromise);
             date.setDate(date.getDate() - days);
             query.data = { $gte: date.toISOString() };
             
@@ -124,7 +138,6 @@ router.route('/:regione').get((req, res, next) => {
         .then(regione => res.json(regione))
         .catch(err => res.status(400).json('Error: ') + err);
 });
-
 
 function loadBasicParams(param) {
     return Array.isArray(param) ? param.concat(["data", "stato", "codice_regione", "denominazione_regione"]).join(" ") : [param, "data", "stato", "codice_regione", "denominazione_regione"].join(" ");

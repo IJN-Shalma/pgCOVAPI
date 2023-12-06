@@ -25,9 +25,9 @@
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "engines": {
-    "node": "12.x",
-    "npm": "6.12.1"
-  },
+    "node": "v21.2.0'",
+    "npm": "10.2.3"
+  },  
   "author": "Caprara Silvio, Chiartano Pietro, Zhou Yun Qing",
   "license": "ISC"
 }

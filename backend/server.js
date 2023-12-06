@@ -19,7 +19,6 @@ var limiter = new RateLimit({
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('client/build'));
 app.use(limiter);
 
 //DB connection
@@ -30,6 +29,8 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log(chalk.green(`Connected to MongoDB`));
 });
+
+const fe_url = process.env.FE_URL || 'http://frontend:3000';
 
 //Routes Setup
 const regioniRouter = require('./routes/api/regione');
@@ -42,7 +43,7 @@ app.use('/api/nazione', nazioneRouter);
 app.use('/api/province', provinceRouter)
 app.use('/api/', rootRouter);
 app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.redirect(fe_url);
 });
 
 //Open port

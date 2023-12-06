@@ -12,7 +12,7 @@ let Provincia = require("../../models/provincia.model");
  * @access Public
  **/
 
-router.route('/').get((req, res) => {
+router.route('/').get(async (req, res) => {
     const pMese = req.query.mese || null;
     let days = req.query.giorni || null;
     let startDate = req.query.dataInizio || null
@@ -24,8 +24,15 @@ router.route('/').get((req, res) => {
     }
     else {
         if (days) {
-            let date = new Date();
-            date.setDate(date.getDate() - days);
+            const lastDatePromise = new Promise((resolve, reject) => {
+                Provincia.find()
+                    .sort({ "data": -1 })
+                    .limit(1)
+                    .select("data")
+                    .then(provincia => { resolve(provincia[0].data) })
+            })
+            let date = new Date(await lastDatePromise);
+            date.setDate(date.getDate() - (days-1));
             query.data = { $gte: date.toISOString() };
 
             if (days <= 0) {
@@ -52,13 +59,13 @@ router.route('/').get((req, res) => {
     }
 
     Provincia.find(query)
-        .sort({ "data": 1, "denominazione_regione": 1, "denominazione_provincia": 1 })
+        .sort({ "data": -1, "denominazione_regione": 1, "denominazione_provincia": 1 })
         .then(provincia => res.json(provincia))
         .catch(err => res.status(400).json('Error: ') + err);
 });
 
 
-router.route('/:provincia').get((req, res, next) => {
+router.route('/:provincia').get(async (req, res, next) => {
     const pMese = req.query.mese || null;
     let days = req.query.giorni || null;
     let startDate = req.query.dataInizio || null
@@ -71,7 +78,14 @@ router.route('/:provincia').get((req, res, next) => {
     }
     else {
         if (days) {
-            let date = new Date();
+            const lastDatePromise = new Promise((resolve, reject) => {
+                Provincia.find()
+                    .sort({ "data": -1 })
+                    .limit(1)
+                    .select("data")
+                    .then(provincia => { resolve(provincia[0].data) })
+            })
+            let date = new Date(await lastDatePromise);
             date.setDate(date.getDate() - days);
             query.data = { $gte: date.toISOString() };
 

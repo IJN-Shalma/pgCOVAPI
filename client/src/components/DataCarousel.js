@@ -3,6 +3,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import './css/DataCarousel.css'
 
+const BE_URL = process.env.BE_URL || "https://pgcovapi.net";
+
 export const DataCarousel = () => {
 
     const [responseAPI, setResponseAPI] = useState({})
@@ -10,7 +12,7 @@ export const DataCarousel = () => {
 
     useEffect(() => {
 
-        const url = "https://pgcovapi.herokuapp.com/api/nazione/?giorni=2";
+        const url = `${BE_URL}/api/nazione/?giorni=2`;
 
         fetch(url)
             .then(response => {
