@@ -62,7 +62,7 @@ jobs:
         working-directory: client/
 
     env:
-      PROJECT_ID: "pgcovapi"
+      PROJECT_ID: "pgcovpai"
       REPOSITORY: "pgcovapi"
       
     steps:  
